@@ -1,0 +1,78 @@
+- name: Create postgres group
+  ansible.builtin.group:
+    name: postgres
+    system: true
+  register: patroni_postgres_group
+- name: Create postgres user
+  ansible.builtin.user:
+    name: postgres
+    group: postgres
+    home: '{{ patroni_postgres_data_dir }}'
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: patroni_postgres_user
+
+- name: Generate patroni configuration directory
+  ansible.builtin.file:
+    path: '{{ patroni_config_dir }}'
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: '0o755'
+- name: Generate patroni cert directory
+  ansible.builtin.file:
+    path: '{{ patroni_config_dir }}/ssl'
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: '0o700'
+- name: Copy etcd ca cert for patroni
+  ansible.builtin.copy:
+    remote_src: true
+    src: '{{ etcd_config_dir }}/ssl/ca.crt'
+    dest: '{{ patroni_config_dir }}/ssl/ca.crt'
+    owner: postgres
+    group: postgres
+    mode: '0o644'
+- name: Copy etcd client cert for patroni
+  ansible.builtin.copy:
+    remote_src: true
+    src: '{{ etcd_config_dir }}/ssl/client.crt'
+    dest: '{{ patroni_config_dir }}/ssl/client.crt'
+    owner: postgres
+    group: postgres
+    mode: '0o644'
+- name: Copy etcd client key for patroni
+  ansible.builtin.copy:
+    remote_src: true
+    src: '{{ etcd_config_dir }}/ssl/client.key'
+    dest: '{{ patroni_config_dir }}/ssl/client.key'
+    owner: postgres
+    group: postgres
+    mode: '0o600'
+
+- name: Generate postgres data directory
+  ansible.builtin.file:
+    path: '{{ patroni_postgres_data_dir }}'
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: '0o700'
+
+- name: Copy patroni configuration
+  ansible.builtin.template:
+    src: templates/patroni-config.yaml.j2
+    dest: '{{ patroni_config_dir }}/patroni.yaml'
+    owner: postgres
+    group: postgres
+    mode: '0o600'
+  register: patroni_config
+
+- name: Copy patroni pod manifest
+  ansible.builtin.template:
+    src: templates/patroni-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/patroni.yaml
+    owner: root
+    group: root
+    mode: '0o644'

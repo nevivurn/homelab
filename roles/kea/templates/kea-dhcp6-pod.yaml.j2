@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kea-dhcp6
+  annotations:
+    checksum/config: {{ kea_dhcp6_config.checksum }}
+spec:
+  hostNetwork: true
+  containers:
+    - name: kea-dhcp6
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          add:
+            - NET_BIND_SERVICE
+        readOnlyRootFilesystem: true
+        runAsUser: {{ kea_user.uid }}
+        runAsGroup: {{ kea_group.gid }}
+        runAsNonRoot: true
+      image: "{{ kea_dhcp6_image }}:{{ kea_version }}"
+      volumeMounts:
+        - name: config
+          mountPath: /etc/kea
+        - name: data
+          mountPath: /var/lib/kea
+        - name: run
+          mountPath: /var/run/kea
+  volumes:
+    - name: config
+      hostPath:
+        type: Directory
+        path: {{ kea_config_dir }}
+    - name: data
+      hostPath:
+        type: Directory
+        path: {{ kea_data_dir }}
+    - name: run
+      emptyDir: {}

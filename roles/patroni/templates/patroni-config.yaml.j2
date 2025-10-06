@@ -1,0 +1,56 @@
+scope: {{ patroni_scope }}
+name: {{ inventory_hostname }}
+
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: {{ ip }}:8008
+
+etcd3:
+  hosts:
+    {%- for host in groups.etcd +%}
+    - {{ hostvars[host].ip }}:2379
+    {%- endfor +%}
+  protocol: https
+  cacert: /etc/patroni/ssl/ca.crt
+  cert: /etc/patroni/ssl/client.crt
+  key: /etc/patroni/ssl/client.key
+
+bootstrap:
+  dcs:
+    postgresql:
+      use_pg_rewind: true
+      pg_hba:
+        - local all all trust
+        - host all all 127.0.0.1/32 scram-sha-256
+        - host replication replicator 127.0.0.1/32 scram-sha-256
+        {%- for host in groups.patroni +%}
+        - host all all {{ hostvars[host].ip }}/32 scram-sha-256
+        - host replication replicator {{ hostvars[host].ip }}/32 scram-sha-256
+        {%- endfor +%}
+  initdb:
+    - encoding: UTF8
+    - data-checksums
+
+postgresql:
+  listen: 0.0.0.0:5432
+  connect_address: {{ ip }}:5432
+  data_dir: {{ patroni_postgres_data_dir }}
+  pgpass: {{ patroni_config_dir }}/pgpass
+  authentication:
+    superuser:
+      password: {{ patroni_superuser_password | quote }}
+      username: postgres
+    replication:
+      password: {{ patroni_replication_password | quote }}
+      username: replicator
+    rewind:
+      password: {{ patroni_rewind_password | quote }}
+      username: rewind_user
+  pg_hba:
+    - local all all trust
+    - host all all 127.0.0.1/32 scram-sha-256
+    - host replication replicator 127.0.0.1/32 scram-sha-256
+    {%- for host in groups.patroni +%}
+    - host all all {{ hostvars[host].ip }}/32 scram-sha-256
+    - host replication replicator {{ hostvars[host].ip }}/32 scram-sha-256
+    {%- endfor +%}

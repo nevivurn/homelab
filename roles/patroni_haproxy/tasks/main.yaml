@@ -1,0 +1,38 @@
+- name: Create haproxy group
+  ansible.builtin.group:
+    name: haproxy
+    system: true
+  register: patroni_haproxy_group
+- name: Create haproxy user
+  ansible.builtin.user:
+    name: haproxy
+    group: haproxy
+    home: '{{ patroni_haproxy_config_dir }}'
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: patroni_haproxy_user
+
+- name: Generate patroni HAProxy configuration directory
+  ansible.builtin.file:
+    path: '{{ patroni_haproxy_config_dir }}'
+    state: directory
+    owner: haproxy
+    group: haproxy
+    mode: '0o755'
+- name: Copy patroni HAProxy configuration
+  ansible.builtin.template:
+    src: templates/haproxy.cfg.j2
+    dest: '{{ patroni_haproxy_config_dir }}/haproxy.cfg'
+    owner: haproxy
+    group: haproxy
+    mode: '0o644'
+  register: patroni_haproxy_config
+
+- name: Copy patroni HAProxy pod manifest
+  ansible.builtin.template:
+    src: templates/haproxy-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/haproxy.yaml
+    owner: root
+    group: root
+    mode: '0o644'

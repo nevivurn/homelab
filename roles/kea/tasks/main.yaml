@@ -1,0 +1,63 @@
+- name: Create Kea group
+  ansible.builtin.group:
+    name: kea
+    system: true
+  register: kea_group
+- name: Create Kea user
+  ansible.builtin.user:
+    name: kea
+    group: kea
+    home: '{{ kea_config_dir }}'
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: kea_user
+
+- name: Generate Kea configuration directory
+  ansible.builtin.file:
+    path: '{{ kea_config_dir }}'
+    state: directory
+    owner: kea
+    group: kea
+    mode: '0o755'
+
+- name: Generate Kea data directory
+  ansible.builtin.file:
+    path: '{{ kea_data_dir }}'
+    state: directory
+    owner: kea
+    group: kea
+    mode: '0o755'
+
+- name: Copy Kea DHCPv4 configuration
+  ansible.builtin.copy:
+    content: '{{ lookup("template", "kea-dhcp4.conf.j2") | from_yaml | to_nice_json }}'
+    dest: '{{ kea_config_dir }}/kea-dhcp4.conf'
+    owner: kea
+    group: kea
+    mode: '0o644'
+  register: kea_dhcp4_config
+- name: Copy Kea DHCPv6 configuration
+  ansible.builtin.copy:
+    content: '{{ lookup("template", "kea-dhcp6.conf.j2") | from_yaml | to_nice_json }}'
+    dest: '{{ kea_config_dir }}/kea-dhcp6.conf'
+    owner: kea
+    group: kea
+    mode: '0o644'
+  register: kea_dhcp6_config
+
+- name: Copy Kea DHCPv4 pod manifest
+  ansible.builtin.template:
+    src: templates/kea-dhcp4-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/kea-dhcp4.yaml
+    owner: root
+    group: root
+    mode: '0o644'
+
+- name: Copy Kea DHCPv6 pod manifest
+  ansible.builtin.template:
+    src: templates/kea-dhcp6-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/kea-dhcp6.yaml
+    owner: root
+    group: root
+    mode: '0o644'

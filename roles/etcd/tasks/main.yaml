@@ -1,0 +1,46 @@
+- name: Create etcd group
+  ansible.builtin.group:
+    name: etcd
+    system: true
+  register: etcd_group
+- name: Create etcd user
+  ansible.builtin.user:
+    name: etcd
+    group: etcd
+    home: '{{ etcd_data_dir }}'
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: etcd_user
+
+- name: Generate etcd configuration directory
+  ansible.builtin.file:
+    path: '{{ etcd_config_dir }}'
+    state: directory
+    owner: etcd
+    group: etcd
+    mode: '0o755'
+- name: Generate etcd data directory
+  ansible.builtin.file:
+    path: '{{ etcd_data_dir }}'
+    state: directory
+    owner: etcd
+    group: etcd
+    mode: '0o700'
+
+- name: Copy etcd configuration
+  ansible.builtin.template:
+    src: templates/etcd-config.yaml.j2
+    dest: '{{ etcd_config_dir }}/etcd.yaml'
+    owner: etcd
+    group: etcd
+    mode: '0o644'
+  register: etcd_config
+
+- name: Copy etcd pod manifest
+  ansible.builtin.template:
+    src: templates/etcd-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/etcd.yaml
+    owner: root
+    group: root
+    mode: '0o644'

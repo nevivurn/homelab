@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kea-dhcp4
+  annotations:
+    checksum/config: {{ kea_dhcp4_config.checksum }}
+spec:
+  hostNetwork: true
+  containers:
+    - name: kea-dhcp4
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          add:
+            - NET_BIND_SERVICE
+            - NET_RAW
+        readOnlyRootFilesystem: true
+        runAsUser: {{ kea_user.uid }}
+        runAsGroup: {{ kea_group.gid }}
+        runAsNonRoot: true
+      image: "{{ kea_dhcp4_image }}:{{ kea_version }}"
+      volumeMounts:
+        - name: config
+          mountPath: /etc/kea
+        - name: run
+          mountPath: /var/run/kea
+  volumes:
+    - name: config
+      hostPath:
+        type: Directory
+        path: {{ kea_config_dir }}
+    - name: run
+      emptyDir: {}

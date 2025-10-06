@@ -1,0 +1,72 @@
+- name: Add Kubernetes repository
+  ansible.builtin.deb822_repository:
+    name: kubernetes
+    uris: https://pkgs.k8s.io/core:/stable:/{{ kubelet_kubernetes_version }}/deb/
+    suites: /
+    signed_by: https://pkgs.k8s.io/core:/stable:/{{ kubelet_kubernetes_version }}/deb/Release.key
+  register: kubelet_repo_kubernetes
+- name: Add CRI-O repository
+  ansible.builtin.deb822_repository:
+    name: cri-o
+    uris: https://download.opensuse.org/repositories/isv:/cri-o:/stable:/{{ kubelet_kubernetes_version }}/deb/
+    suites: /
+    signed_by: https://download.opensuse.org/repositories/isv:/cri-o:/stable:/{{ kubelet_kubernetes_version }}/deb/Release.key
+  register: kubelet_repo_crio
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+  when: kubelet_repo_kubernetes.changed or kubelet_repo_crio.changed
+
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - cri-o
+      - cri-tools
+      - kubelet
+    state: present
+
+- name: Configure CRI-O cgroup driver
+  ansible.builtin.copy:
+    src: crio-cgroupfs.conf
+    dest: /etc/crio/crio.conf.d/20-crio-cgroupfs.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Configure kubelet
+  ansible.builtin.copy:
+    src: kubelet.yaml
+    dest: /etc/kubernetes/kubelet.yaml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Create kubelet service drop-in directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/kubelet.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+- name: Configure kubelet service drop-in override
+  ansible.builtin.copy:
+    src: kubelet-override.service
+    dest: /etc/systemd/system/kubelet.service.d/override.conf
+    owner: root
+    group: root
+    mode: '0644'
+  register: kubelet_service_kubelet
+- name: Reload systemd
+  ansible.builtin.systemd_service:
+
+- name: Start services
+  ansible.builtin.systemd_service:
+    name: '{{ item }}'
+    state: started
+    enabled: true
+    daemon_reload: '{{ index == 0 and kubelet_service_kubelet.changed }}'
+  loop:
+    - crio
+    - kubelet
+  loop_control:
+    index_var: index

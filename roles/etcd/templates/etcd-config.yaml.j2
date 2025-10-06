@@ -1,0 +1,30 @@
+name: {{ inventory_hostname }}
+
+data-dir: {{ etcd_data_dir }}
+
+listen-client-urls: https://0.0.0.0:2379
+listen-peer-urls: https://0.0.0.0:2380
+listen-metrics-urls: http://127.0.0.1:8080
+
+advertise-client-urls: https://{{ ip }}:2379
+initial-advertise-peer-urls: https://{{ ip }}:2380
+
+initial-cluster:
+  {% for host in groups.etcd -%}
+    {{ host }}=https://{{ hostvars[host].ip }}:2380
+    {%- if not loop.last %},{% endif %}
+  {%- endfor %}
+
+initial-cluster-state: {{ etcd_cluster_state | default("new") }}
+
+client-transport-security:
+  cert-file: {{ etcd_cert_basedir }}/server.crt
+  key-file: {{ etcd_cert_basedir }}/server.key
+  client-cert-auth: true
+  trusted-ca-file: {{ etcd_cert_basedir }}/ca.crt
+
+peer-transport-security:
+  cert-file: {{ etcd_cert_basedir }}/server.crt
+  key-file: {{ etcd_cert_basedir }}/server.key
+  client-cert-auth: true
+  trusted-ca-file: {{ etcd_cert_basedir }}/ca.crt

@@ -1,0 +1,47 @@
+Dhcp6:
+  interfaces-config:
+    interfaces: [eth0]
+  lease-database:
+    type: postgresql
+    host: localhost
+    port: 5000
+    name: {{ kea_postgres_db | quote }}
+    user: {{ kea_postgres_user | quote }}
+    password: {{ kea_postgres_pass | quote }}
+  hosts-database:
+    type: postgresql
+    host: localhost
+    port: 5000
+    name: {{ kea_postgres_db | quote }}
+    user: {{ kea_postgres_user | quote }}
+    password: {{ kea_postgres_pass | quote }}
+  subnet6:
+    {%- for id, subnet in kea_subnets.items() +%}
+    - id: {{ id }}
+      subnet: {{ subnet.subnet_v6 }}
+      {%- if subnet.local_v6 | default(false) +%}
+      interface: eth0
+      {%- endif +%}
+      pools:
+        - pool: {{ subnet.pool_v6 }}
+      option-data:
+        - name: domain-search
+          data: {{ subnet.domain }}
+    {%- endfor +%}
+  option-data:
+    - name: dns-servers
+      data:
+        {% for host in groups.pdns -%}
+          {{ hostvars[host].ip6 }}
+          {%- if not loop.last %}, {% endif %}
+        {%- endfor +%}
+    - name: ntp-server
+    - name: ntp-server-address
+      space: v6-ntp-server-suboptions
+      data:
+        {% for host in groups.chrony -%}
+          {{ hostvars[host].ip6 }}
+          {%- if not loop.last %}, {% endif %}
+        {%- endfor +%}
+  hooks-libraries:
+    - library: libdhcp_pgsql.so

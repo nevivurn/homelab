@@ -1,0 +1,49 @@
+- name: Install standalone kubelet
+  hosts: kubelet
+  roles:
+    - role: kubelet
+      tags: kubelet
+
+- name: Generate etcd CA
+  hosts: etcd_ca
+  roles:
+    - role: etcd_ca
+      tags: etcd
+
+- name: Install etcd
+  hosts: etcd
+  roles:
+    - role: etcd_certs
+      tags: etcd
+    - role: etcd
+      tags: etcd
+
+- name: Install patroni
+  hosts: patroni
+  vars_files:
+    - secrets/patroni.yaml
+  roles:
+    - role: etcd_client
+      tags: patroni
+    - role: patroni
+      tags: patroni
+
+- name: Install patroni-haproxy
+  hosts: patroni_haproxy
+  roles:
+    - role: patroni_haproxy
+      tags: patroni_haproxy
+
+- name: Install kea
+  hosts: kea
+  vars_files:
+    - secrets/kea.yaml
+  roles:
+    - role: kea
+      tags: kea
+
+# - name: Install pdns
+#   hosts: pdns
+#   roles:
+#     - role: pdns
+#       tags: pdns

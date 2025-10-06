@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: haproxy
+  annotations:
+    checksum/config: {{ patroni_haproxy_config.checksum }}
+spec:
+  hostNetwork: true
+  containers:
+    - name: haproxy
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+        readOnlyRootFilesystem: true
+        runAsUser: {{ patroni_haproxy_user.uid }}
+        runAsGroup: {{ patroni_haproxy_group.gid }}
+        runAsNonRoot: true
+      image: "{{ patroni_haproxy_image }}:{{ patroni_haproxy_version }}"
+      ports:
+        - name: postgres
+          containerPort: 5000
+      volumeMounts:
+        - name: config
+          mountPath: /usr/local/etc/haproxy/haproxy.cfg
+  volumes:
+    - name: config
+      hostPath:
+        type: File
+        path: {{ patroni_haproxy_config_dir }}/haproxy.cfg

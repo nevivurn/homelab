@@ -1,0 +1,44 @@
+Dhcp4:
+  interfaces-config:
+    interfaces: [eth0]
+  lease-database:
+    type: postgresql
+    host: localhost
+    port: 5000
+    name: {{ kea_postgres_db | quote }}
+    user: {{ kea_postgres_user | quote }}
+    password: {{ kea_postgres_pass | quote }}
+  hosts-database:
+    type: postgresql
+    host: localhost
+    port: 5000
+    name: {{ kea_postgres_db | quote }}
+    user: {{ kea_postgres_user | quote }}
+    password: {{ kea_postgres_pass | quote }}
+  subnet4:
+    {%- for id, subnet in kea_subnets.items() +%}
+    - id: {{ id }}
+      subnet: {{ subnet.subnet_v4 }}
+      pools:
+        - pool: {{ subnet.pool_v4 }}
+      option-data:
+        - name: routers
+          data: {{ subnet.router_v4 }}
+        - name: domain-name
+          data: {{ subnet.domain }}
+    {%- endfor +%}
+  option-data:
+    - name: domain-name-servers
+      data:
+        {% for host in groups.pdns -%}
+          {{ hostvars[host].ip }}
+          {%- if not loop.last %}, {% endif %}
+        {%- endfor +%}
+    - name: ntp-servers
+      data:
+        {% for host in groups.chrony -%}
+          {{ hostvars[host].ip }}
+          {%- if not loop.last %}, {% endif %}
+        {%- endfor +%}
+  hooks-libraries:
+    - library: libdhcp_pgsql.so
