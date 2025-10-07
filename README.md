@@ -75,10 +75,11 @@ Address | Host    | Notes
 - https://gitlab.isc.org/isc-projects/kea-docker/-/tree/master/kea-compose?ref_type=heads
 - https://kb.isc.org/docs/experimenting-with-postgresql-high-availability#summary-of-results
 - https://www.postgresql.org/message-id/flat/17760-b6c61e752ec07060%40postgresql.org
+- https://www.vanwerkhoven.org/blog/2024/vyos-from-scratch-with-vlan-and-zone-based-firewall/
 
 ## TODOS
 
-- firewalls on netbox
-- dns
 - router firewall
 - router iac
+- ddns
+- dhcp relays

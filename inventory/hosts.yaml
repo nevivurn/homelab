@@ -8,21 +8,17 @@ all:
       ansible_connection: local
 
     pve01.mgmt.nevi.network:
-      ansible_host: 192.168.2.11
       ansible_user: root
 
     net01.inf.nevi.network:
-      ansible_host: net01.nevi.network
       ansible_user: root
       ip: 10.64.20.4
       ip6: fdbc:ba6a:38de:20::4
     net02.inf.nevi.network:
-      ansible_host: net02.nevi.network
       ansible_user: root
       ip: 10.64.20.5
       ip6: fdbc:ba6a:38de:20::5
     net03.inf.nevi.network:
-      ansible_host: net03.nevi.network
       ansible_user: root
       ip: 10.64.20.6
       ip6: fdbc:ba6a:38de:20::6
