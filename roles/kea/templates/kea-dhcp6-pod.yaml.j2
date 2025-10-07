@@ -35,4 +35,5 @@ spec:
         type: Directory
         path: {{ kea_data_dir }}
     - name: run
-      emptyDir: {}
+      emptyDir:
+        medium: Memory
