@@ -54,6 +54,8 @@ spec:
         type: Directory
         path: {{ patroni_postgres_data_dir }}
     - name: tmp
-      emptyDir: {}
+      emptyDir:
+        medium: Memory
     - name: run
-      emptyDir: {}
+      emptyDir:
+        medium: Memory

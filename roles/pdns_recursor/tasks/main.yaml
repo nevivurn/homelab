@@ -1,0 +1,46 @@
+- name: Create pdns group
+  ansible.builtin.group:
+    name: pdns
+    system: true
+  register: pdns_recursor_group
+- name: Create pdns user
+  ansible.builtin.user:
+    name: pdns
+    group: pdns
+    home: '{{ pdns_config_dir }}'
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: pdns_recursor_user
+
+- name: Generate PowerDNS configuration directory
+  ansible.builtin.file:
+    path: '{{ pdns_config_dir }}'
+    state: directory
+    owner: pdns
+    group: pdns
+    mode: '0o755'
+- name: Generate PowerDNS Recursor configuration directory
+  ansible.builtin.file:
+    path: '{{ pdns_config_dir }}/recursor.d'
+    state: directory
+    owner: pdns
+    group: pdns
+    mode: '0o755'
+
+- name: Copy PowerDNS Recursor configuration
+  ansible.builtin.copy:
+    src: recursor.yml
+    dest: '{{ pdns_config_dir }}/recursor.d/recursor.yml'
+    owner: pdns
+    group: pdns
+    mode: '0o644'
+  register: pdns_recursor_config
+
+- name: Copy PowerDNS Recursor pod manifest
+  ansible.builtin.template:
+    src: templates/pdns-recursor-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/pdns-recursor.yaml
+    owner: root
+    group: root
+    mode: '0o644'

@@ -37,6 +37,10 @@ all:
     kea_dhcp6_image: docker.cloudsmith.io/isc/docker/kea-dhcp6
     kea_version: 3.0.1
 
+    pdns_config_dir: /etc/powerdns
+    pdns_recursor_image: docker.io/powerdns/pdns-recursor-53
+    pdns_recursor_version: 5.3.0
+
   hosts:
     localhost:
       ansible_connection: local

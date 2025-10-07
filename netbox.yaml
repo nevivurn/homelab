@@ -42,8 +42,8 @@
     - role: kea
       tags: kea
 
-# - name: Install pdns
-#   hosts: pdns
-#   roles:
-#     - role: pdns
-#       tags: pdns
+- name: Install pdns-recursor
+  hosts: pdns
+  roles:
+    - role: pdns_recursor
+      tags: pdns
