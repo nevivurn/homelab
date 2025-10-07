@@ -13,45 +13,6 @@
     system: true
   register: patroni_postgres_user
 
-- name: Generate patroni configuration directory
-  ansible.builtin.file:
-    path: '{{ patroni_config_dir }}'
-    state: directory
-    owner: postgres
-    group: postgres
-    mode: '0o755'
-- name: Generate patroni cert directory
-  ansible.builtin.file:
-    path: '{{ patroni_config_dir }}/ssl'
-    state: directory
-    owner: postgres
-    group: postgres
-    mode: '0o700'
-- name: Copy etcd ca cert for patroni
-  ansible.builtin.copy:
-    remote_src: true
-    src: '{{ etcd_config_dir }}/ssl/ca.crt'
-    dest: '{{ patroni_config_dir }}/ssl/ca.crt'
-    owner: postgres
-    group: postgres
-    mode: '0o644'
-- name: Copy etcd client cert for patroni
-  ansible.builtin.copy:
-    remote_src: true
-    src: '{{ etcd_config_dir }}/ssl/client.crt'
-    dest: '{{ patroni_config_dir }}/ssl/client.crt'
-    owner: postgres
-    group: postgres
-    mode: '0o644'
-- name: Copy etcd client key for patroni
-  ansible.builtin.copy:
-    remote_src: true
-    src: '{{ etcd_config_dir }}/ssl/client.key'
-    dest: '{{ patroni_config_dir }}/ssl/client.key'
-    owner: postgres
-    group: postgres
-    mode: '0o600'
-
 - name: Generate postgres data directory
   ansible.builtin.file:
     path: '{{ patroni_postgres_data_dir }}'
@@ -59,6 +20,57 @@
     owner: postgres
     group: postgres
     mode: '0o700'
+- name: Generate patroni configuration directory
+  ansible.builtin.file:
+    path: '{{ patroni_config_dir }}'
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: '0o755'
+
+- name: Generate etcd client certs
+  ansible.builtin.import_role:
+    name: pki_certs
+  vars:
+    pki_user: postgres
+    pki_group: postgres
+    pki_dir: '{{ patroni_config_dir }}/ssl'
+    pki_cert_id: etcd-client
+    pki_cert_ca_prefix: etcd-
+    pki_ekus:
+      - clientAuth
+    pki_ca_host: '{{ etcd_ca_host }}'
+    pki_ca_basedir: '{{ etcd_ca_basedir }}'
+
+- name: Generate patroni server certs
+  ansible.builtin.import_role:
+    name: pki_certs
+  vars:
+    pki_user: postgres
+    pki_group: postgres
+    pki_dir: '{{ patroni_config_dir }}/ssl'
+    pki_cert_id: patroni-server
+    pki_cert_ca_prefix: patroni-
+    pki_ekus:
+      - serverAuth
+      - clientAuth
+    pki_ca_host: '{{ patroni_ca_host }}'
+    pki_ca_basedir: '{{ patroni_ca_basedir }}'
+
+- name: Generate patroni postgres certs
+  ansible.builtin.import_role:
+    name: pki_certs
+  vars:
+    pki_user: postgres
+    pki_group: postgres
+    pki_dir: '{{ patroni_config_dir }}/ssl'
+    pki_cert_id: postgres-server
+    pki_cert_ca_prefix: postgres-
+    pki_ekus:
+      - serverAuth
+    pki_ca_host: '{{ patroni_postgres_ca_host }}'
+    pki_ca_basedir: '{{ patroni_postgres_ca_basedir }}'
+    pki_algo: RSA # NOTE(nevivurn): my psql libraries don't seem to support EC certs
 
 - name: Copy patroni configuration
   ansible.builtin.template:

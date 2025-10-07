@@ -1,35 +1,6 @@
-- name: Generate CA base directory
-  ansible.builtin.file:
-    path: '{{ etcd_ca_basedir }}'
-    state: directory
-    mode: '0o700'
-
-- name: Generate CA private key
-  community.crypto.openssl_privatekey:
-    path: '{{ etcd_ca_basedir }}/ca.key'
-    type: Ed25519
-- name: Generate CA CSR
-  community.crypto.openssl_csr:
-    path: '{{ etcd_ca_basedir }}/ca.csr'
-    privatekey_path: '{{ etcd_ca_basedir }}/ca.key'
-    common_name: '{{ etcd_ca_cn }}'
-    use_common_name_for_san: false
-    basic_constraints: 'CA:TRUE'
-    basic_constraints_critical: true
-    key_usage:
-      - keyCertSign
-      - cRLSign
-    key_usage_critical: true
-- name: Generate CA certificate
-  community.crypto.x509_certificate:
-    path: '{{ etcd_ca_basedir }}/ca.crt'
-    csr_path: '{{ etcd_ca_basedir }}/ca.csr'
-    privatekey_path: '{{ etcd_ca_basedir }}/ca.key'
-    provider: selfsigned
-    return_content: true
-
-- name: Generate CA certs directory
-  ansible.builtin.file:
-    path: '{{ etcd_ca_basedir }}/certs'
-    state: directory
-    mode: '0o755'
+- name: Generate etcd CA
+  ansible.builtin.import_role:
+    name: pki_ca
+  vars:
+    pki_ca_basedir: '{{ etcd_ca_basedir }}'
+    pki_ca_cn: '{{ etcd_ca_cn }}'

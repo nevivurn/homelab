@@ -5,6 +5,7 @@ all:
 
     kubelet_kubernetes_version: v1.34
 
+    etcd_ca_host: localhost
     etcd_ca_basedir: pki/etcd
     etcd_ca_cn: etcd-ca
     etcd_cert_basedir: /etc/etcd/ssl
@@ -12,6 +13,13 @@ all:
     etcd_config_dir: /etc/etcd
     etcd_image: gcr.io/etcd-development/etcd
     etcd_version: v3.6.5
+
+    patroni_ca_host: localhost
+    patroni_ca_basedir: pki/patroni
+    patroni_ca_cn: patroni-ca
+    patroni_postgres_ca_host: localhost
+    patroni_postgres_ca_basedir: pki/patroni-postgres
+    patroni_postgres_ca_cn: patroni-postgres-ca
 
     patroni_scope: netbox
     patroni_config_dir: /etc/patroni
@@ -54,6 +62,9 @@ all:
       ip6: fdbc:ba6a:38de:20::6
 
 etcd_ca:
+  hosts:
+    localhost:
+patroni_ca:
   hosts:
     localhost:
 

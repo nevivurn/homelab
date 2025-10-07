@@ -13,13 +13,6 @@
     system: true
   register: etcd_user
 
-- name: Generate etcd configuration directory
-  ansible.builtin.file:
-    path: '{{ etcd_config_dir }}'
-    state: directory
-    owner: etcd
-    group: etcd
-    mode: '0o755'
 - name: Generate etcd data directory
   ansible.builtin.file:
     path: '{{ etcd_data_dir }}'
@@ -27,6 +20,27 @@
     owner: etcd
     group: etcd
     mode: '0o700'
+- name: Generate etcd configuration directory
+  ansible.builtin.file:
+    path: '{{ etcd_config_dir }}'
+    state: directory
+    owner: etcd
+    group: etcd
+    mode: '0o755'
+
+- name: Generate etcd certs
+  ansible.builtin.import_role:
+    name: pki_certs
+  vars:
+    pki_user: etcd
+    pki_group: etcd
+    pki_dir: '{{ etcd_config_dir }}/ssl'
+    pki_cert_id: server
+    pki_ekus:
+      - clientAuth
+      - serverAuth
+    pki_ca_host: '{{ etcd_ca_host }}'
+    pki_ca_basedir: '{{ etcd_ca_basedir }}'
 
 - name: Copy etcd configuration
   ansible.builtin.template:

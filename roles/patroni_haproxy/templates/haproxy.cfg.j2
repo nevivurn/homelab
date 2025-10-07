@@ -1,5 +1,6 @@
 global
 	maxconn 100
+	ssl-server-verify none
 
 defaults
 	mode tcp
@@ -12,6 +13,8 @@ defaults
 listen postgres
 	bind :5000
 	option httpchk
+	http-check connect ssl
+	http-check send
 	http-check expect status 200
 	default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
 	{%- for host in groups.patroni +%}

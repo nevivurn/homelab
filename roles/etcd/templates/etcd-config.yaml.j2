@@ -1,6 +1,6 @@
 name: {{ inventory_hostname }}
 
-data-dir: {{ etcd_data_dir }}
+data-dir: /var/lib/etcd
 
 listen-client-urls: https://0.0.0.0:2379
 listen-peer-urls: https://0.0.0.0:2380
@@ -18,13 +18,13 @@ initial-cluster:
 initial-cluster-state: {{ etcd_cluster_state | default("new") }}
 
 client-transport-security:
-  cert-file: {{ etcd_cert_basedir }}/server.crt
-  key-file: {{ etcd_cert_basedir }}/server.key
+  cert-file: /etc/etcd/ssl/server.crt
+  key-file: /etc/etcd/ssl/server.key
   client-cert-auth: true
-  trusted-ca-file: {{ etcd_cert_basedir }}/ca.crt
+  trusted-ca-file: /etc/etcd/ssl/ca.crt
 
 peer-transport-security:
-  cert-file: {{ etcd_cert_basedir }}/server.crt
-  key-file: {{ etcd_cert_basedir }}/server.key
+  cert-file: /etc/etcd/ssl/server.crt
+  key-file: /etc/etcd/ssl/server.key
   client-cert-auth: true
-  trusted-ca-file: {{ etcd_cert_basedir }}/ca.crt
+  trusted-ca-file: /etc/etcd/ssl/ca.crt

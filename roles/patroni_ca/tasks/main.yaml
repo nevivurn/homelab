@@ -1,0 +1,13 @@
+- name: Generate patroni CA
+  ansible.builtin.import_role:
+    name: pki_ca
+  vars:
+    pki_ca_basedir: '{{ patroni_ca_basedir }}'
+    pki_ca_cn: '{{ patroni_ca_cn }}'
+- name: Generate postgres CA
+  ansible.builtin.import_role:
+    name: pki_ca
+  vars:
+    pki_ca_basedir: '{{ patroni_postgres_ca_basedir }}'
+    pki_ca_cn: '{{ patroni_postgres_ca_cn }}'
+    pki_algo: RSA # NOTE(nevivurn): my psql libraries don't seem to support EC certs

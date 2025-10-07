@@ -1,0 +1,35 @@
+- name: Generate CA base directory
+  ansible.builtin.file:
+    path: '{{ pki_ca_basedir }}'
+    state: directory
+    mode: '0o700'
+
+- name: Generate CA private key
+  community.crypto.openssl_privatekey:
+    path: '{{ pki_ca_basedir }}/ca.key'
+    type: '{{ pki_algo | default("Ed25519") }}'
+- name: Generate CA CSR
+  community.crypto.openssl_csr:
+    path: '{{ pki_ca_basedir }}/ca.csr'
+    privatekey_path: '{{ pki_ca_basedir }}/ca.key'
+    common_name: '{{ pki_ca_cn }}'
+    use_common_name_for_san: false
+    basic_constraints: 'CA:TRUE'
+    basic_constraints_critical: true
+    key_usage:
+      - keyCertSign
+      - cRLSign
+    key_usage_critical: true
+- name: Generate CA certificate
+  community.crypto.x509_certificate:
+    path: '{{ pki_ca_basedir }}/ca.crt'
+    csr_path: '{{ pki_ca_basedir }}/ca.csr'
+    privatekey_path: '{{ pki_ca_basedir }}/ca.key'
+    provider: selfsigned
+    return_content: true
+
+- name: Generate CA certs directory
+  ansible.builtin.file:
+    path: '{{ pki_ca_basedir }}/certs'
+    state: directory
+    mode: '0o755'

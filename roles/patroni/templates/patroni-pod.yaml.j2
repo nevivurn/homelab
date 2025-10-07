@@ -21,17 +21,19 @@ spec:
         - /usr/bin/patroni
         - /etc/patroni/patroni.yaml
       ports:
-        - name: http
+        - name: https
           containerPort: 8008
         - name: postgres
           containerPort: 5432
       livenessProbe:
         httpGet:
-          port: http
+          scheme: HTTPS
+          port: https
           path: /liveness
       readinessProbe:
         httpGet:
-          port: http
+          scheme: HTTPS
+          port: https
           path: /readiness
       volumeMounts:
         - name: config

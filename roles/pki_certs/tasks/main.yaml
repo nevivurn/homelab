@@ -1,0 +1,67 @@
+- name: Generate cert base directory
+  ansible.builtin.file:
+    path: '{{ pki_dir }}'
+    state: directory
+    owner: '{{ pki_user }}'
+    group: '{{ pki_group }}'
+    mode: '0o700'
+
+- name: Install cryptography dependencies
+  ansible.builtin.apt:
+    name: python3-cryptography
+    state: present
+
+- name: Generate private key
+  community.crypto.openssl_privatekey:
+    path: '{{ pki_dir }}/{{ pki_cert_id }}.key'
+    type: '{{ pki_algo | default("Ed25519") }}'
+    owner: '{{ pki_user }}'
+    group: '{{ pki_group }}'
+- name: Generate CSR
+  community.crypto.openssl_csr:
+    path: '{{ pki_dir }}/{{ pki_cert_id }}.csr'
+    privatekey_path: '{{ pki_dir }}/{{ pki_cert_id }}.key'
+    subject_alt_name:
+      - DNS:{{ inventory_hostname }}
+      - IP:{{ ip }}
+      - IP:127.0.0.1
+    subject_alt_name_critical: true
+    key_usage:
+      - digitalSignature
+      - keyEncipherment
+    extended_key_usage: '{{ pki_ekus }}'
+    owner: '{{ pki_user }}'
+    group: '{{ pki_group }}'
+    return_content: true
+  register: pki_certs_csr
+- name: Sign CSR
+  delegate_to: '{{ pki_ca_host }}'
+  community.crypto.x509_certificate:
+    path: '{{ pki_ca_basedir }}/certs/{{ inventory_hostname }}-{{ pki_cert_id }}.crt'
+    csr_content: '{{ pki_certs_csr.csr }}'
+    provider: ownca
+    ownca_path: '{{ pki_ca_basedir }}/ca.crt'
+    ownca_privatekey_path: '{{ pki_ca_basedir }}/ca.key'
+    return_content: true
+  register: pki_certs_crt
+
+- name: Read CA certificate
+  delegate_to: '{{ pki_ca_host }}'
+  ansible.builtin.slurp:
+    src: '{{ pki_ca_basedir }}/ca.crt'
+  register: pki_certs_ca_crt
+- name: Copy CA certificate
+  ansible.builtin.copy:
+    dest: '{{ pki_dir }}/{{ pki_cert_ca_prefix | default("") }}ca.crt'
+    content: '{{ pki_certs_ca_crt.content | b64decode }}'
+    owner: '{{ pki_user }}'
+    group: '{{ pki_group }}'
+    mode: '0o644'
+
+- name: Copy certificate
+  ansible.builtin.copy:
+    dest: '{{ pki_dir }}/{{ pki_cert_id }}.crt'
+    content: '{{ pki_certs_crt.certificate }}'
+    owner: '{{ pki_user }}'
+    group: '{{ pki_group }}'
+    mode: '0o644'

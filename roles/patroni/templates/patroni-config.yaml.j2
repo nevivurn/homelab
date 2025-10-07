@@ -4,6 +4,15 @@ name: {{ inventory_hostname }}
 restapi:
   listen: 0.0.0.0:8008
   connect_address: {{ ip }}:8008
+  cafile: /etc/patroni/ssl/patroni-ca.crt
+  certfile: /etc/patroni/ssl/patroni-server.crt
+  keyfile: /etc/patroni/ssl/patroni-server.key
+  verify_client: optional
+
+ctl:
+  cafile: /etc/patroni/ssl/patroni-ca.crt
+  certfile: /etc/patroni/ssl/patroni-server.crt
+  keyfile: /etc/patroni/ssl/patroni-server.key
 
 etcd3:
   hosts:
@@ -11,22 +20,19 @@ etcd3:
     - {{ hostvars[host].ip }}:2379
     {%- endfor +%}
   protocol: https
-  cacert: /etc/patroni/ssl/ca.crt
-  cert: /etc/patroni/ssl/client.crt
-  key: /etc/patroni/ssl/client.key
+  cacert: /etc/patroni/ssl/etcd-ca.crt
+  cert: /etc/patroni/ssl/etcd-client.crt
+  key: /etc/patroni/ssl/etcd-client.key
 
 bootstrap:
   dcs:
     postgresql:
       use_pg_rewind: true
-      pg_hba:
-        - local all all trust
-        - host all all 127.0.0.1/32 scram-sha-256
-        - host replication replicator 127.0.0.1/32 scram-sha-256
-        {%- for host in groups.patroni +%}
-        - host all all {{ hostvars[host].ip }}/32 scram-sha-256
-        - host replication replicator {{ hostvars[host].ip }}/32 scram-sha-256
-        {%- endfor +%}
+      parameters:
+        ssl: true
+        ssl_ca_file: /etc/patroni/ssl/postgres-ca.crt
+        ssl_cert_file: /etc/patroni/ssl/postgres-server.crt
+        ssl_key_file: /etc/patroni/ssl/postgres-server.key
   initdb:
     - encoding: UTF8
     - data-checksums
@@ -40,17 +46,23 @@ postgresql:
     superuser:
       password: {{ patroni_superuser_password | quote }}
       username: postgres
+      sslrootcert: /etc/patroni/ssl/postgres-ca.crt
+      sslmode: verify-ca
     replication:
       password: {{ patroni_replication_password | quote }}
       username: replicator
+      sslrootcert: /etc/patroni/ssl/postgres-ca.crt
+      sslmode: verify-ca
     rewind:
       password: {{ patroni_rewind_password | quote }}
       username: rewind_user
+      sslrootcert: /etc/patroni/ssl/postgres-ca.crt
+      sslmode: verify-ca
   pg_hba:
     - local all all trust
-    - host all all 127.0.0.1/32 scram-sha-256
-    - host replication replicator 127.0.0.1/32 scram-sha-256
-    {%- for host in groups.patroni +%}
-    - host all all {{ hostvars[host].ip }}/32 scram-sha-256
-    - host replication replicator {{ hostvars[host].ip }}/32 scram-sha-256
+    - hostssl all all 127.0.0.1/32 scram-sha-256
+    - hostssl replication replicator 127.0.0.1/32 scram-sha-256
+    {%- for host in (groups.patroni + groups.patroni_haproxy) | unique +%}
+    - hostssl all all {{ hostvars[host].ip }}/32 scram-sha-256
+    - hostssl replication replicator {{ hostvars[host].ip }}/32 scram-sha-256
     {%- endfor +%}

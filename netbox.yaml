@@ -9,22 +9,22 @@
   roles:
     - role: etcd_ca
       tags: etcd
-
 - name: Install etcd
   hosts: etcd
   roles:
-    - role: etcd_certs
-      tags: etcd
     - role: etcd
       tags: etcd
 
+- name: Generate patroni CA
+  hosts: patroni_ca
+  roles:
+    - role: patroni_ca
+      tags: patroni
 - name: Install patroni
   hosts: patroni
   vars_files:
     - secrets/patroni.yaml
   roles:
-    - role: etcd_client
-      tags: patroni
     - role: patroni
       tags: patroni
 
