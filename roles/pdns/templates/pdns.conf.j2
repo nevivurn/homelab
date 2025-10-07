@@ -1,0 +1,11 @@
+launch=gpgsql
+local-port=5301
+guardian=on
+gpgsql-host=localhost
+gpgsql-port=5000
+gpgsql-dbname={{ pdns_postgres_db }}
+gpgsql-user={{ pdns_postgres_user }}
+gpgsql-password={{ pdns_postgres_pass }}
+gpgsql-extra-connection-parameters=sslmode=require
+gpgsql-dnssec=on
+webserver=on

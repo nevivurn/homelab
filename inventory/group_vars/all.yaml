@@ -1,3 +1,37 @@
+kubelet_kubernetes_version: v1.34
+
+etcd_ca_host: localhost
+etcd_ca_basedir: pki/etcd
+etcd_ca_cn: etcd-ca
+etcd_cert_basedir: /etc/etcd/ssl
+etcd_data_dir: /var/lib/etcd
+etcd_config_dir: /etc/etcd
+etcd_image: gcr.io/etcd-development/etcd
+etcd_version: v3.6.5
+
+patroni_ca_host: localhost
+patroni_ca_basedir: pki/patroni
+patroni_ca_cn: patroni-ca
+patroni_postgres_ca_host: localhost
+patroni_postgres_ca_basedir: pki/patroni-postgres
+patroni_postgres_ca_cn: patroni-postgres-ca
+
+patroni_scope: netbox
+patroni_config_dir: /etc/patroni
+patroni_postgres_data_dir: /var/lib/postgresql
+patroni_image: ghcr.io/nevivurn/patroni
+patroni_version: latest
+
+patroni_haproxy_config_dir: /etc/haproxy
+patroni_haproxy_image: docker.io/library/haproxy
+patroni_haproxy_version: '3.2'
+
+kea_config_dir: /etc/kea
+kea_data_dir: /var/lib/kea
+kea_dhcp4_image: docker.cloudsmith.io/isc/docker/kea-dhcp4
+kea_dhcp6_image: docker.cloudsmith.io/isc/docker/kea-dhcp6
+kea_version: 3.0.1
+
 kea_subnets:
   10:
     domain: home.nevi.network
@@ -28,3 +62,14 @@ kea_subnets:
     pool_v4: "10.64.30.100 - 10.64.30.200"
     subnet_v6: fdbc:ba6a:38de:30::/64
     pool_v6: fdbc:ba6a:38de:30:d6d6::/80
+
+pdns_config_dir: /etc/powerdns
+pdns_recursor_image: docker.io/powerdns/pdns-recursor-53
+pdns_recursor_version: 5.3.0
+pdns_server_image: docker.io/powerdns/pdns-auth-50
+pdns_server_version: 5.0.0
+pdns_recursor_forwards:
+  nevi.network:
+    - 127.0.0.1:5301
+pdns_recursor_trustanchors:
+  nevi.network: ['9819 13 2 db61b21c17f615477425ac2a92edec9f55b78cb6159960a484ceca2a6e9790e5']

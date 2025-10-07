@@ -1,0 +1,21 @@
+incoming:
+  listen: !override
+    - 0.0.0.0:53
+    - '[::]:53'
+webservice:
+  webserver: true
+
+recursor:
+  forward_zones:
+    {%- for name, fwds in pdns_recursor_forwards.items() +%}
+    - zone: {{ name }}
+      forwarders: {{ fwds | to_yaml }}
+    {%- endfor +%}
+dnssec:
+  validation: validate
+  log_bogus: true
+  trustanchors:
+    {%- for name, tas in pdns_recursor_trustanchors.items() +%}
+    - name: {{ name }}
+      dsrecords: {{ tas | to_yaml }}
+    {%- endfor +%}

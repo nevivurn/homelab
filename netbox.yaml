@@ -44,6 +44,8 @@
 
 - name: Install pdns-recursor
   hosts: pdns
+  vars_files:
+    - secrets/pdns.yaml
   roles:
-    - role: pdns_recursor
+    - role: pdns
       tags: pdns

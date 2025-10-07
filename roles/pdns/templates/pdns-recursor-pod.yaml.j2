@@ -14,8 +14,8 @@ spec:
           drop: [ALL]
           add: [NET_BIND_SERVICE]
         readOnlyRootFilesystem: true
-        runAsUser: {{ pdns_recursor_user.uid }}
-        runAsGroup: {{ pdns_recursor_group.gid }}
+        runAsUser: {{ pdns_user.uid }}
+        runAsGroup: {{ pdns_group.gid }}
         runAsNonRoot: true
       image: "{{ pdns_recursor_image }}:{{ pdns_recursor_version }}"
       ports:

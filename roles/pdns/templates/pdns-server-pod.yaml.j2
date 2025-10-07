@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pdns-server
+  annotations:
+    checksum/config: {{ pdns_server_config.checksum }}
+spec:
+  hostNetwork: true
+  containers:
+    - name: pdns-server
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+        readOnlyRootFilesystem: true
+        runAsUser: {{ pdns_user.uid }}
+        runAsGroup: {{ pdns_group.gid }}
+        runAsNonRoot: true
+      image: "{{ pdns_server_image }}:{{ pdns_server_version }}"
+      ports:
+        - name: dns
+          containerPort: 5301
+          protocol: UDP
+        - name: dns-tcp
+          containerPort: 5301
+          protocol: TCP
+        - name: metrics
+          containerPort: 8081
+      livenessProbe:
+        httpGet:
+          port: metrics
+      readinessProbe:
+        httpGet:
+          port: metrics
+      volumeMounts:
+        - name: config
+          mountPath: /etc/powerdns/pdns.conf
+        - name: run
+          mountPath: /var/run/pdns
+  volumes:
+    - name: config
+      hostPath:
+        type: File
+        path: {{ pdns_config_dir }}/pdns.conf
+    - name: run
+      emptyDir:
+        medium: Memory
