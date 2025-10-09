@@ -64,6 +64,17 @@
     sysctl_file: /etc/sysctl.d/20-unprivileged-port.conf
     name: net.ipv4.ip_unprivileged_port_start
     value: '0'
+# PVE fails to correctly configure link MTU & RA gets ignored, configure manually
+- name: Configure link MTU
+  ansible.builtin.lineinfile:
+    path: /etc/network/interfaces
+    line: "\tmtu 9000"
+    insertafter: 'inet6'
+  register: kubelet_interface_mtu
+- name: Set link MTU
+  ansible.builtin.command:
+    cmd: ip link set eth0 mtu 9000
+  when: kubelet_interface_mtu.changed
 
 - name: Start services
   ansible.builtin.systemd_service:
