@@ -53,10 +53,8 @@ kubelet:
           hosts:
             net01.inf.nevi.network:
             net02.inf.nevi.network:
-            net03.inf.nevi.network:
 
     chrony:
       hosts:
         net01.inf.nevi.network:
         net02.inf.nevi.network:
-        net03.inf.nevi.network:

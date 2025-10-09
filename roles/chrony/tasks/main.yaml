@@ -1,0 +1,39 @@
+- name: Create chrony group
+  ansible.builtin.group:
+    name: chrony
+    system: true
+  register: chrony_group
+- name: Create chrony user
+  ansible.builtin.user:
+    name: chrony
+    group: chrony
+    home: '{{ chrony_config_dir }}'
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: chrony_user
+
+- name: Generate chrony configuration directory
+  ansible.builtin.file:
+    path: '{{ chrony_config_dir }}'
+    state: directory
+    owner: chrony
+    group: chrony
+    mode: '0o755'
+
+- name: Copy chrony configuration
+  ansible.builtin.template:
+    src: templates/chrony.conf.j2
+    dest: '{{ chrony_config_dir }}/chrony.conf'
+    owner: chrony
+    group: chrony
+    mode: '0o644'
+  register: chrony_config
+
+- name: Copy chrony pod manifest
+  ansible.builtin.template:
+    src: templates/chrony-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/chrony.yaml
+    owner: root
+    group: root
+    mode: '0o644'

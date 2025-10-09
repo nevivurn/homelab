@@ -40,5 +40,9 @@ Dhcp4:
           {{ hostvars[host].ip }}
           {%- if not loop.last %}, {% endif %}
         {%- endfor +%}
+  control-sockets:
+    - socket-type: http
+      socket-port: 8001
   hooks-libraries:
     - library: libdhcp_pgsql.so
+    - library: libdhcp_host_cmds.so

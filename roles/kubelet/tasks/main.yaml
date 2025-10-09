@@ -61,6 +61,7 @@
 
 - name: Set ip_unprivileged_port_start sysctl
   ansible.posix.sysctl:
+    sysctl_file: /etc/sysctl.d/20-unprivileged-port.conf
     name: net.ipv4.ip_unprivileged_port_start
     value: '0'
 

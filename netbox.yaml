@@ -49,3 +49,9 @@
   roles:
     - role: pdns
       tags: pdns
+
+- name: Install chrony
+  hosts: chrony
+  roles:
+    - role: chrony
+      tags: chrony

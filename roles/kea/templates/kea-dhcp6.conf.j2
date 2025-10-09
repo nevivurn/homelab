@@ -35,13 +35,15 @@ Dhcp6:
           {{ hostvars[host].ip6 }}
           {%- if not loop.last %}, {% endif %}
         {%- endfor +%}
-    - name: ntp-server
-    - name: ntp-server-address
-      space: v6-ntp-server-suboptions
+    - name: sntp-servers
       data:
         {% for host in groups.chrony -%}
           {{ hostvars[host].ip6 }}
           {%- if not loop.last %}, {% endif %}
         {%- endfor +%}
+  control-sockets:
+    - socket-type: http
+      socket-port: 8002
   hooks-libraries:
     - library: libdhcp_pgsql.so
+    - library: libdhcp_host_cmds.so

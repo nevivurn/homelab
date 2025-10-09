@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: chrony
+  annotations:
+    checksum/config: {{ chrony_config.checksum }}
+spec:
+  hostNetwork: true
+  containers:
+    - name: chrony
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+        readOnlyRootFilesystem: true
+        runAsUser: {{ chrony_user.uid }}
+        runAsGroup: {{ chrony_group.gid }}
+        runAsNonRoot: true
+      image: "{{ chrony_image }}:{{ chrony_version }}"
+      ports:
+        - name: ntp
+          containerPort: 123
+          protocol: UDP
+      volumeMounts:
+        - name: config
+          mountPath: /etc/chrony
+        - name: run
+          mountPath: /run/chrony
+  volumes:
+    - name: config
+      hostPath:
+        type: Directory
+        path: {{ chrony_config_dir }}
+    - name: run
+      emptyDir:
+        medium: Memory

@@ -14,7 +14,7 @@ VLAN | Name                     | DNS                | IPv4           | IPv6
 30   | Kubernetes loadbalancers | ---                | 10.64.31.0/24  | fdbc:ba6a:38de:31::/64
 30   | Kubernetes pods          | ---                | 172.29.0.0/16  | fdbc:ba6a:38de:32::/64
 ---  | ClusterIPs               | svc.cluster.local  | 172.30.0.0/16  | fdbc:ba6a:38de:33::/64
-200  | ROUTER                   |                    | 10.64.200.0/24 |
+200  | ROUTER                   |                    | 10.64.200.0/24 | fdbc:ba6a:38de:200::/64
 
 DHCP ranges are
 - IPv4: `.100 ~ .200`
@@ -46,6 +46,7 @@ net01..net03 running
 - Patroni / PostgreSQL / HAProxy
 - Kea DHCP
 - PowerDNS
+- chrony
 
 ### Infra subnet
 
@@ -56,7 +57,8 @@ Address | Host    | Notes
 .3      | rtr02   |
 .4      | net01   | DHCP, DNS, NTP
 .5      | net02   | DHCP, DNS, NTP
-.6      | net03   | quorum for net01, net02
+.6      | net03   | quorum
+.10     | kuma    | switch management interface
 .11     | pve01   |
 
 ### Other subnets
@@ -76,6 +78,8 @@ Address | Host    | Notes
 - https://kb.isc.org/docs/experimenting-with-postgresql-high-availability#summary-of-results
 - https://www.postgresql.org/message-id/flat/17760-b6c61e752ec07060%40postgresql.org
 - https://www.vanwerkhoven.org/blog/2024/vyos-from-scratch-with-vlan-and-zone-based-firewall/
+- https://troopers.de/wp-content/uploads/2013/11/TROOPERS14-HA_Strategies_in_IPv6_Networks-Ivan_Pepelnjak.pdf
+- https://github.com/vyos/vyos-1x/pull/2638 - flowtables in named tables for zone-based firewall
 
 ## TODOS
 
