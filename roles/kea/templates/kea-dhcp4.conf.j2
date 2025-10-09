@@ -15,6 +15,7 @@ Dhcp4:
     name: {{ kea_postgres_db | quote }}
     user: {{ kea_postgres_user | quote }}
     password: {{ kea_postgres_pass | quote }}
+  allocator: random
   subnet4:
     {%- for id, subnet in kea_subnets.items() +%}
     - id: {{ id }}
@@ -40,6 +41,8 @@ Dhcp4:
           {{ hostvars[host].ip }}
           {%- if not loop.last %}, {% endif %}
         {%- endfor +%}
+    - name: interface-mtu
+      data: '9000'
   control-sockets:
     - socket-type: http
       socket-port: 8001

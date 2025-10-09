@@ -15,6 +15,7 @@ Dhcp6:
     name: {{ kea_postgres_db | quote }}
     user: {{ kea_postgres_user | quote }}
     password: {{ kea_postgres_pass | quote }}
+  allocator: random
   subnet6:
     {%- for id, subnet in kea_subnets.items() +%}
     - id: {{ id }}
