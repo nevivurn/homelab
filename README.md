@@ -80,6 +80,7 @@ Address | Host    | Notes
 - https://www.vanwerkhoven.org/blog/2024/vyos-from-scratch-with-vlan-and-zone-based-firewall/
 - https://troopers.de/wp-content/uploads/2013/11/TROOPERS14-HA_Strategies_in_IPv6_Networks-Ivan_Pepelnjak.pdf
 - https://github.com/vyos/vyos-1x/pull/2638 - flowtables in named tables for zone-based firewall
+- https://serverfault.com/questions/1033682/dhclient-is-sending-host-name-for-ipv4-but-not-ipv6
 
 ## TODOS
 
@@ -87,4 +88,6 @@ Address | Host    | Notes
   - remember to clamp MSS
 - router iac
 - ddns
+  - dhclient, used by ifupdown, does not send hostname on ipv6 on the default
+    configuration. experiment with other network configuration tooling (dhcp)
 - dhcp relays

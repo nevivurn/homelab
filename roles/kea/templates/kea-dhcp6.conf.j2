@@ -28,6 +28,7 @@ Dhcp6:
       option-data:
         - name: domain-search
           data: {{ subnet.domain }}
+      ddns-qualifying-suffix: {{ subnet.domain }}
     {%- endfor +%}
   option-data:
     - name: dns-servers
