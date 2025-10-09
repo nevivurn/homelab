@@ -84,6 +84,7 @@ Address | Host    | Notes
 ## TODOS
 
 - router firewall
+  - remember to clamp MSS
 - router iac
 - ddns
 - dhcp relays
