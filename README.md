@@ -84,10 +84,7 @@ Address | Host    | Notes
 
 ## TODOS
 
-- router firewall
-  - remember to clamp MSS
 - router iac
 - ddns
   - dhclient, used by ifupdown, does not send hostname on ipv6 on the default
     configuration. experiment with other network configuration tooling (dhcp)
-- dhcp relays
