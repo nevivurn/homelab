@@ -80,3 +80,6 @@ chrony_version: latest
 chrony_config: |
   pool time.cloudflare.com nts iburst
   pool nts.netnod.se nts iburst
+
+dhcrelay_image: ghcr.io/nevivurn/dhcrelay
+dhcrelay_version: latest

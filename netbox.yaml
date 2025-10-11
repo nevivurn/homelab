@@ -55,3 +55,9 @@
   roles:
     - role: chrony
       tags: chrony
+
+- name: Install dhcrelay
+  hosts: dhcrelay
+  roles:
+    - role: dhcrelay
+      tags: dhcrelay

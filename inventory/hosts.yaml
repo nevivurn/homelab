@@ -2,26 +2,37 @@ all:
   vars:
     ansible_python_interpreter: python3
     ansible_pipelining: true
+    ansible_user: root
 
   hosts:
     localhost:
       ansible_connection: local
 
     pve01.mgmt.nevi.network:
-      ansible_user: root
 
     net01.inf.nevi.network:
-      ansible_user: root
       ip: 10.64.20.4
       ip6: fdbc:ba6a:38de:20::4
     net02.inf.nevi.network:
-      ansible_user: root
       ip: 10.64.20.5
       ip6: fdbc:ba6a:38de:20::5
     net03.inf.nevi.network:
-      ansible_user: root
       ip: 10.64.20.6
       ip6: fdbc:ba6a:38de:20::6
+
+    relay01.home.nevi.network:
+      ip: 10.64.10.4
+      ip6: fdbc:ba6a:38de:10::4
+    relay02.home.nevi.network:
+      ip: 10.64.10.5
+      ip6: fdbc:ba6a:38de:10::5
+
+    relay01.guest.nevi.network:
+      ip: 10.64.11.4
+      ip6: fdbc:ba6a:38de:11::4
+    relay02.guest.nevi.network:
+      ip: 10.64.11.5
+      ip6: fdbc:ba6a:38de:11::5
 
 etcd_ca:
   hosts:
@@ -58,3 +69,18 @@ kubelet:
       hosts:
         net01.inf.nevi.network:
         net02.inf.nevi.network:
+
+    dhcrelay:
+      hosts:
+        relay01.home.nevi.network:
+          dhcrelay_v4: 10.64.20.4
+          dhcrelay_v6: fdbc:ba6a:38de:20::4
+        relay02.home.nevi.network:
+          dhcrelay_v4: 10.64.20.5
+          dhcrelay_v6: fdbc:ba6a:38de:20::5
+        relay01.guest.nevi.network:
+          dhcrelay_v4: 10.64.20.4
+          dhcrelay_v6: fdbc:ba6a:38de:20::4
+        relay02.guest.nevi.network:
+          dhcrelay_v4: 10.64.20.5
+          dhcrelay_v6: fdbc:ba6a:38de:20::5

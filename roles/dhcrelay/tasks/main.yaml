@@ -1,0 +1,29 @@
+- name: Create dhcrelay group
+  ansible.builtin.group:
+    name: dhcrelay
+    system: true
+  register: dhcrelay_group
+- name: Create dhcrelay user
+  ansible.builtin.user:
+    name: dhcrelay
+    group: dhcrelay
+    home: /var/empty
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: dhcrelay_user
+
+- name: Copy dhcrelay4 pod manifest
+  ansible.builtin.template:
+    src: templates/dhcrelay4-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/dhcrelay4.yaml
+    owner: root
+    group: root
+    mode: '0o644'
+- name: Copy dhcrelay6 pod manifest
+  ansible.builtin.template:
+    src: templates/dhcrelay6-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/dhcrelay6.yaml
+    owner: root
+    group: root
+    mode: '0o644'

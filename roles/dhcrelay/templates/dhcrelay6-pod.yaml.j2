@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dhcrelay6
+spec:
+  hostNetwork: true
+  containers:
+    - name: dhcrelay6
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+          add:
+            - NET_BIND_SERVICE
+        readOnlyRootFilesystem: true
+        runAsUser: {{ dhcrelay_user.uid }}
+        runAsGroup: {{ dhcrelay_group.gid }}
+        runAsNonRoot: true
+      image: "{{ dhcrelay_image }}:{{ dhcrelay_version }}"
+      command:
+        - /usr/sbin/dhcrelay
+        - -d
+        - '-6'
+        - -l
+        - eth0
+        - -u
+        - {{ dhcrelay_v6 }}%eth0

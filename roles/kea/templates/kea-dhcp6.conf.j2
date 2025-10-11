@@ -1,6 +1,8 @@
 Dhcp6:
   interfaces-config:
-    interfaces: [eth0]
+    interfaces:
+      - eth0
+      - eth0/{{ ip6 }}
   lease-database:
     type: postgresql
     host: localhost
