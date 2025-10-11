@@ -4,6 +4,7 @@ metadata:
   name: pdns-recursor
   annotations:
     checksum/config: {{ pdns_recursor_config.checksum }}
+    checksum/config-rpz: {{ pdns_recursor_rpz_config.checksum }}
 spec:
   hostNetwork: true
   containers:

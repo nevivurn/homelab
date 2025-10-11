@@ -11,6 +11,12 @@ recursor:
     - zone: {{ name }}
       forwarders: {{ fwds | to_yaml }}
     {%- endfor +%}
+  rpzs:
+    - name: /etc/powerdns/recursor.d/hosts.zone
+      defpol: Custom
+      defcontent: null.nevi.network
+      policyName: hosts
+
 dnssec:
   validation: validate
   log_bogus: true

@@ -16,6 +16,9 @@
         inherit (pkgs) callPackage;
       in
       {
+        packages = {
+          hosts = callPackage ./pkgs/hosts { };
+        };
         devShells.default = callPackage ./shell.nix { };
       }
     );

@@ -73,6 +73,7 @@ pdns_recursor_forwards:
     - 127.0.0.1:5301
 pdns_recursor_trustanchors:
   nevi.network: ['9819 13 2 db61b21c17f615477425ac2a92edec9f55b78cb6159960a484ceca2a6e9790e5']
+pdns_recursor_rpz_zone: hosts.zone
 
 chrony_config_dir: /etc/chrony
 chrony_image: ghcr.io/nevivurn/chrony

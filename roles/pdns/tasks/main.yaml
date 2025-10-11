@@ -45,6 +45,15 @@
     mode: '0o644'
   register: pdns_recursor_config
 
+- name: Copy RPZ zone
+  ansible.builtin.copy:
+    src: '{{ pdns_recursor_rpz_zone }}'
+    dest: '{{ pdns_config_dir }}/recursor.d/hosts.zone'
+    owner: pdns
+    group: pdns
+    mode: '0o644'
+  register: pdns_recursor_rpz_config
+
 - name: Copy PowerDNS pod manifest
   ansible.builtin.template:
     src: templates/pdns-server-pod.yaml.j2
