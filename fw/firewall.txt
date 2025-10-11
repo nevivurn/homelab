@@ -1,0 +1,213 @@
+set firewall global-options source-validation strict
+set firewall global-options state-policy established action accept
+set firewall global-options state-policy invalid action drop
+set firewall global-options state-policy related action accept
+set firewall group address-group INFRA-addr4 address 10.64.20.4-10.64.20.5
+set firewall group ipv6-address-group INFRA-addr6 address fdbc:ba6a:38de:20::4-fdbc:ba6a:38de:20::5
+set firewall group port-group INFRA-port port 53
+set firewall group port-group INFRA-port port 123
+set firewall group address-group DHCP4-RELAY address 10.64.10.4-10.64.10.5
+set firewall group address-group DHCP4-RELAY address 10.64.11.4-10.64.11.5
+set firewall group ipv6-address-group DHCP6-RELAY address fdbc:ba6a:38de:10::4-fdbc:ba6a:38de:10::5
+set firewall group ipv6-address-group DHCP6-RELAY address fdbc:ba6a:38de:11::4-fdbc:ba6a:38de:11::5
+set firewall group address-group ROUTER-addr4 address 10.64.10.1-10.64.10.3
+set firewall group address-group ROUTER-addr4 address 10.64.11.1-10.64.11.3
+set firewall group address-group ROUTER-addr4 address 10.64.20.1-10.64.20.3
+set firewall group address-group ROUTER-addr4 address 10.64.200.1-10.64.200.2
+set firewall group address-group ROUTER-addr4 address 10.64.200.4
+set firewall zone WAN member interface eth0.99
+set firewall zone WAN intra-zone-filtering action drop
+set firewall zone WAN from HOME firewall name EGRESS-WAN
+set firewall zone WAN from HOME firewall ipv6-name EGRESS-WAN
+set firewall zone WAN from GUEST firewall name EGRESS-WAN
+set firewall zone WAN from GUEST firewall ipv6-name EGRESS-WAN
+set firewall zone WAN from INFRA firewall name EGRESS-WAN
+set firewall zone WAN from INFRA firewall ipv6-name EGRESS-WAN
+set firewall zone WAN from LOCAL firewall name EGRESS-WAN
+set firewall zone WAN from LOCAL firewall ipv6-name EGRESS-WAN
+set firewall ipv4 name EGRESS-WAN default-action accept
+set firewall ipv6 name EGRESS-WAN default-action accept
+set firewall ipv4 name EGRESS-WAN rule 10 protocol tcp
+set firewall ipv6 name EGRESS-WAN rule 10 protocol tcp
+set firewall ipv4 name EGRESS-WAN rule 10 tcp flags syn
+set firewall ipv6 name EGRESS-WAN rule 10 tcp flags syn
+set firewall ipv4 name EGRESS-WAN rule 10 set tcp-mss 1460
+set firewall ipv6 name EGRESS-WAN rule 10 set tcp-mss 1460
+set firewall ipv4 name EGRESS-WAN rule 10 action continue
+set firewall ipv6 name EGRESS-WAN rule 10 action continue
+set firewall zone LOCAL local-zone
+set firewall zone LOCAL default-log
+set firewall zone LOCAL from HOME firewall name INGRESS-LAN
+set firewall zone LOCAL from HOME firewall ipv6-name INGRESS-LAN
+set firewall zone LOCAL from INFRA firewall name INGRESS-LAN
+set firewall zone LOCAL from INFRA firewall ipv6-name INGRESS-LAN
+set firewall zone LOCAL from ROUTER firewall name INGRESS-LAN
+set firewall zone LOCAL from ROUTER firewall ipv6-name INGRESS-LAN
+set firewall ipv4 name INGRESS-LAN default-log
+set firewall ipv6 name INGRESS-LAN default-log
+set firewall ipv4 name INGRESS-LAN rule 10 icmp type-name echo-request
+set firewall ipv6 name INGRESS-LAN rule 10 protocol ipv6-icmp
+set firewall ipv4 name INGRESS-LAN rule 10 action accept
+set firewall ipv6 name INGRESS-LAN rule 10 action accept
+set firewall ipv4 name INGRESS-LAN rule 100 source group address-group ROUTER-addr4
+set firewall ipv4 name INGRESS-LAN rule 100 protocol vrrp
+set firewall ipv4 name INGRESS-LAN rule 100 action accept
+set firewall ipv4 name INGRESS-LAN rule 101 source group address-group ROUTER-addr4
+set firewall ipv4 name INGRESS-LAN rule 101 protocol udp
+set firewall ipv4 name INGRESS-LAN rule 101 destination port 3780
+set firewall ipv4 name INGRESS-LAN rule 101 action accept
+set firewall ipv4 name INGRESS-LAN rule 110 protocol tcp
+set firewall ipv6 name INGRESS-LAN rule 110 protocol tcp
+set firewall ipv4 name INGRESS-LAN rule 110 destination port 22
+set firewall ipv6 name INGRESS-LAN rule 110 destination port 22
+set firewall ipv4 name INGRESS-LAN rule 110 action accept
+set firewall ipv6 name INGRESS-LAN rule 110 action accept
+set firewall zone LOCAL from GUEST firewall name INGRESS-GUEST
+set firewall zone LOCAL from GUEST firewall ipv6-name INGRESS-GUEST
+set firewall ipv4 name INGRESS-GUEST default-log
+set firewall ipv6 name INGRESS-GUEST default-log
+set firewall ipv4 name INGRESS-GUEST rule 10 icmp type-name echo-request
+set firewall ipv6 name INGRESS-GUEST rule 10 protocol ipv6-icmp
+set firewall ipv4 name INGRESS-GUEST rule 10 action accept
+set firewall ipv6 name INGRESS-GUEST rule 10 action accept
+set firewall ipv4 name INGRESS-GUEST rule 100 source group address-group ROUTER-addr4
+set firewall ipv4 name INGRESS-GUEST rule 100 protocol vrrp
+set firewall ipv4 name INGRESS-GUEST rule 100 action accept
+set firewall zone LOCAL from WAN firewall name INGRESS-WAN
+set firewall zone LOCAL from WAN firewall ipv6-name INGRESS-WAN
+set firewall ipv4 name INGRESS-WAN rule 10 icmp type-name echo-request
+set firewall ipv6 name INGRESS-WAN rule 10 protocol ipv6-icmp
+set firewall ipv4 name INGRESS-WAN rule 10 action accept
+set firewall ipv6 name INGRESS-WAN rule 10 action accept
+set firewall zone ROUTER member interface eth0.200
+set firewall zone ROUTER default-log
+set firewall zone ROUTER from LOCAL firewall name EGRESS-ROUTER
+set firewall zone ROUTER from LOCAL firewall ipv6-name EGRESS-ROUTER
+set firewall ipv4 name EGRESS-ROUTER default-action accept
+set firewall ipv6 name EGRESS-ROUTER default-action accept
+set firewall zone ROUTER from HOME firewall name LAN-ROUTER
+set firewall zone ROUTER from HOME firewall ipv6-name LAN-ROUTER
+set firewall zone ROUTER from INFRA firewall name LAN-ROUTER
+set firewall zone ROUTER from INFRA firewall ipv6-name LAN-ROUTER
+set firewall ipv4 name LAN-ROUTER default-action accept
+set firewall ipv6 name LAN-ROUTER default-action accept
+set firewall zone INFRA member interface eth0.20
+set firewall zone INFRA default-log
+set firewall zone INFRA from LOCAL firewall name EGRESS-INFRA
+set firewall zone INFRA from LOCAL firewall ipv6-name EGRESS-INFRA
+set firewall ipv4 name EGRESS-INFRA default-action accept
+set firewall ipv6 name EGRESS-INFRA default-action accept
+set firewall zone INFRA from GUEST firewall name GUEST-INFRA
+set firewall zone INFRA from GUEST firewall ipv6-name GUEST-INFRA
+set firewall ipv4 name GUEST-INFRA default-log
+set firewall ipv6 name GUEST-INFRA default-log
+set firewall ipv4 name GUEST-INFRA rule 10 icmp type-name echo-request
+set firewall ipv4 name GUEST-INFRA rule 10 destination group address-group INFRA-addr4
+set firewall ipv6 name GUEST-INFRA rule 10 icmpv6 type-name echo-request
+set firewall ipv6 name GUEST-INFRA rule 10 destination group address-group INFRA-addr6
+set firewall ipv4 name GUEST-INFRA rule 10 action accept
+set firewall ipv6 name GUEST-INFRA rule 10 action accept
+set firewall ipv4 name GUEST-INFRA rule 110 protocol udp
+set firewall ipv6 name GUEST-INFRA rule 110 protocol udp
+set firewall ipv4 name GUEST-INFRA rule 110 source group address-group DHCP4-RELAY
+set firewall ipv4 name GUEST-INFRA rule 110 destination group address-group INFRA-addr4
+set firewall ipv4 name GUEST-INFRA rule 110 destination port 67
+set firewall ipv6 name GUEST-INFRA rule 110 source group address-group DHCP6-RELAY
+set firewall ipv6 name GUEST-INFRA rule 110 destination group address-group INFRA-addr6
+set firewall ipv6 name GUEST-INFRA rule 110 destination port 547
+set firewall ipv4 name GUEST-INFRA rule 110 action accept
+set firewall ipv6 name GUEST-INFRA rule 110 action accept
+set firewall ipv4 name GUEST-INFRA rule 120 destination group address-group INFRA-addr4
+set firewall ipv6 name GUEST-INFRA rule 120 destination group address-group INFRA-addr6
+set firewall ipv4 name GUEST-INFRA rule 120 protocol tcp_udp
+set firewall ipv6 name GUEST-INFRA rule 120 protocol tcp_udp
+set firewall ipv4 name GUEST-INFRA rule 120 destination group port-group INFRA-port
+set firewall ipv6 name GUEST-INFRA rule 120 destination group port-group INFRA-port
+set firewall ipv4 name GUEST-INFRA rule 120 action accept
+set firewall ipv6 name GUEST-INFRA rule 120 action accept
+set firewall zone INFRA from HOME firewall name LAN-INFRA
+set firewall zone INFRA from HOME firewall ipv6-name LAN-INFRA
+set firewall zone INFRA from ROUTER firewall name LAN-INFRA
+set firewall zone INFRA from ROUTER firewall ipv6-name LAN-INFRA
+set firewall ipv4 name LAN-INFRA default-log
+set firewall ipv6 name LAN-INFRA default-log
+set firewall ipv4 name LAN-INFRA rule 10 icmp type-name echo-request
+set firewall ipv6 name LAN-INFRA rule 10 icmpv6 type-name echo-request
+set firewall ipv4 name LAN-INFRA rule 10 action accept
+set firewall ipv6 name LAN-INFRA rule 10 action accept
+set firewall ipv4 name LAN-INFRA rule 110 protocol udp
+set firewall ipv6 name LAN-INFRA rule 110 protocol udp
+set firewall ipv4 name LAN-INFRA rule 110 source group address-group DHCP4-RELAY
+set firewall ipv4 name LAN-INFRA rule 110 destination group address-group INFRA-addr4
+set firewall ipv4 name LAN-INFRA rule 110 destination port 67
+set firewall ipv6 name LAN-INFRA rule 110 source group address-group DHCP6-RELAY
+set firewall ipv6 name LAN-INFRA rule 110 destination group address-group INFRA-addr6
+set firewall ipv6 name LAN-INFRA rule 110 destination port 547
+set firewall ipv4 name LAN-INFRA rule 110 action accept
+set firewall ipv6 name LAN-INFRA rule 110 action accept
+set firewall ipv4 name LAN-INFRA rule 120 destination group address-group INFRA-addr4
+set firewall ipv6 name LAN-INFRA rule 120 destination group address-group INFRA-addr6
+set firewall ipv4 name LAN-INFRA rule 120 protocol tcp_udp
+set firewall ipv6 name LAN-INFRA rule 120 protocol tcp_udp
+set firewall ipv4 name LAN-INFRA rule 120 destination group port-group INFRA-port
+set firewall ipv6 name LAN-INFRA rule 120 destination group port-group INFRA-port
+set firewall ipv4 name LAN-INFRA rule 120 action accept
+set firewall ipv6 name LAN-INFRA rule 120 action accept
+set firewall ipv4 name LAN-INFRA rule 200 protocol tcp
+set firewall ipv6 name LAN-INFRA rule 200 protocol tcp
+set firewall ipv4 name LAN-INFRA rule 200 destination port 22
+set firewall ipv6 name LAN-INFRA rule 200 destination port 22
+set firewall ipv4 name LAN-INFRA rule 200 action accept
+set firewall ipv6 name LAN-INFRA rule 200 action accept
+set firewall ipv4 name LAN-INFRA rule 210 protocol tcp
+set firewall ipv6 name LAN-INFRA rule 210 protocol tcp
+set firewall ipv4 name LAN-INFRA rule 210 destination port 8006
+set firewall ipv6 name LAN-INFRA rule 210 destination port 8006
+set firewall ipv4 name LAN-INFRA rule 210 action accept
+set firewall ipv6 name LAN-INFRA rule 210 action accept
+set firewall zone HOME member interface eth0.10
+set firewall zone HOME default-log
+set firewall zone HOME from LOCAL firewall name EGRESS-HOME
+set firewall zone HOME from LOCAL firewall ipv6-name EGRESS-HOME
+set firewall ipv4 name EGRESS-HOME default-action accept
+set firewall ipv6 name EGRESS-HOME default-action accept
+set firewall zone HOME from ROUTER firewall name LAN-HOME
+set firewall zone HOME from ROUTER firewall ipv6-name LAN-HOME
+set firewall zone HOME from INFRA firewall name LAN-HOME
+set firewall zone HOME from INFRA firewall ipv6-name LAN-HOME
+set firewall ipv4 name LAN-HOME default-log
+set firewall ipv6 name LAN-HOME default-log
+set firewall ipv4 name LAN-HOME rule 10 icmp type-name echo-request
+set firewall ipv6 name LAN-HOME rule 10 icmpv6 type-name echo-request
+set firewall ipv4 name LAN-HOME rule 10 action accept
+set firewall ipv6 name LAN-HOME rule 10 action accept
+set firewall ipv4 name LAN-HOME rule 200 protocol tcp
+set firewall ipv6 name LAN-HOME rule 200 protocol tcp
+set firewall ipv4 name LAN-HOME rule 200 destination port 22
+set firewall ipv6 name LAN-HOME rule 200 destination port 22
+set firewall ipv4 name LAN-HOME rule 200 action accept
+set firewall ipv6 name LAN-HOME rule 200 action accept
+set firewall zone GUEST member interface eth0.11
+set firewall zone GUEST default-log
+set firewall zone GUEST from LOCAL firewall name EGRESS-GUEST
+set firewall zone GUEST from LOCAL firewall ipv6-name EGRESS-GUEST
+set firewall ipv4 name EGRESS-GUEST default-action accept
+set firewall ipv6 name EGRESS-GUEST default-action accept
+set firewall zone GUEST from ROUTER firewall name LAN-GUEST
+set firewall zone GUEST from ROUTER firewall ipv6-name LAN-GUEST
+set firewall zone GUEST from INFRA firewall name LAN-GUEST
+set firewall zone GUEST from INFRA firewall ipv6-name LAN-GUEST
+set firewall zone GUEST from HOME firewall name LAN-GUEST
+set firewall zone GUEST from HOME firewall ipv6-name LAN-GUEST
+set firewall ipv4 name LAN-GUEST default-log
+set firewall ipv6 name LAN-GUEST default-log
+set firewall ipv4 name LAN-GUEST rule 10 icmp type-name echo-request
+set firewall ipv6 name LAN-GUEST rule 10 icmpv6 type-name echo-request
+set firewall ipv4 name LAN-GUEST rule 10 action accept
+set firewall ipv6 name LAN-GUEST rule 10 action accept
+set firewall ipv4 name LAN-GUEST rule 200 protocol tcp
+set firewall ipv6 name LAN-GUEST rule 200 protocol tcp
+set firewall ipv4 name LAN-GUEST rule 200 destination port 22
+set firewall ipv6 name LAN-GUEST rule 200 destination port 22
+set firewall ipv4 name LAN-GUEST rule 200 action accept
+set firewall ipv6 name LAN-GUEST rule 200 action accept
