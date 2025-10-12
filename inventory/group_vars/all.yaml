@@ -30,6 +30,7 @@ kea_config_dir: /etc/kea
 kea_data_dir: /var/lib/kea
 kea_dhcp4_image: docker.cloudsmith.io/isc/docker/kea-dhcp4
 kea_dhcp6_image: docker.cloudsmith.io/isc/docker/kea-dhcp6
+kea_ddns_image: docker.cloudsmith.io/isc/docker/kea-dhcp-ddns
 kea_version: 3.0.1
 
 kea_subnets:
@@ -62,6 +63,18 @@ kea_subnets:
     pool_v4: "10.64.30.100 - 10.64.30.200"
     subnet_v6: fdbc:ba6a:38de:30::/64
     pool_v6: fdbc:ba6a:38de:30:d6d6::/80
+kea_ddns_zones:
+  forward:
+    - nevi.network
+  reverse:
+    - 10.64.10.in-addr.arpa
+    - 11.64.10.in-addr.arpa
+    - 20.64.10.in-addr.arpa
+    - 30.64.10.in-addr.arpa
+    - 0.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa
+    - 1.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa
+    - 0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa
+    - 0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa
 
 pdns_config_dir: /etc/powerdns
 pdns_recursor_image: docker.io/powerdns/pdns-recursor-53
@@ -71,8 +84,32 @@ pdns_server_version: 5.0.0
 pdns_recursor_forwards:
   nevi.network:
     - 127.0.0.1:5301
+  10.64.10.in-addr.arpa:
+    - 127.0.0.1:5301
+  20.64.10.in-addr.arpa:
+    - 127.0.0.1:5301
+  30.64.10.in-addr.arpa:
+    - 127.0.0.1:5301
+  11.64.10.in-addr.arpa:
+    - 127.0.0.1:5301
+  0.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
+    - 127.0.0.1:5301
+  1.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
+    - 127.0.0.1:5301
+  0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
+    - 127.0.0.1:5301
+  0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
+    - 127.0.0.1:5301
 pdns_recursor_trustanchors:
   nevi.network: ['9819 13 2 db61b21c17f615477425ac2a92edec9f55b78cb6159960a484ceca2a6e9790e5']
+  10.64.10.in-addr.arpa: ['505 13 2 33e454bbc1ce7df984cf9b6708be203b21f886d8edb8880b8ee7f40f556dff84']
+  20.64.10.in-addr.arpa: ['1579 13 2 5fb26c7f2e6ac0b18645680fef5d6dacdbacaa2c47fbbd7329f6b30f5df1e8f9']
+  30.64.10.in-addr.arpa: ['6889 13 2 5efbf2faf80a0adfe9dd75f32a73eaab7757cbdce44db9703adc0e48d17d973b']
+  11.64.10.in-addr.arpa: ['45503 13 2 23038a8d6526c2b8b0111f09d1b4846fb26aa5ea0c4a3b36c23905bd17b6118d']
+  0.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa: ['15959 13 2 05900d30eba051c737bf523475a3f0ce0edc79c626492878d21fbd7d6dc29bd4']
+  1.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa: ['14131 13 2 543d25244b4b5b07312e38f9e0b2b6607f50f481c47a8b608087307555a155f5']
+  0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa: ['22599 13 2 39f2df14ac0ae24fb1095085a18b4514842a6f5f68cb1a225848dd917cfc0897']
+  0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa: ['46907 13 2 a46b0554db3c26d94ed93ab78e2a4e3c80bc017631ef6dc68e5ebdb5c314832f']
 pdns_recursor_rpz_zone: hosts.zone
 
 chrony_config_dir: /etc/chrony

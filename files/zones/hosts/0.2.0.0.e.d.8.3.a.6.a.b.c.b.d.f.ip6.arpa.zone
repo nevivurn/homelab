@@ -1,0 +1,11 @@
+$ORIGIN 0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa
+$TTL 60
+@ SOA net01.inf.nevi.network. nevivurn.nevi.network. 0 86400 7200 3600000 60
+@ NS net01.inf.nevi.network.
+@ NS net02.inf.nevi.network.
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR rtr01.inf.nevi.network.
+3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR rtr02.inf.nevi.network.
+4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR net01.inf.nevi.network.
+5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR net02.inf.nevi.network.
+6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR net03.inf.nevi.network.
+1.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR pve01.inf.nevi.network.

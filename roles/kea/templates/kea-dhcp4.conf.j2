@@ -27,6 +27,7 @@ Dhcp4:
           data: {{ subnet.router_v4 }}
         - name: domain-name
           data: {{ subnet.domain }}
+      ddns-qualifying-suffix: {{ subnet.domain }}
     {%- endfor +%}
   option-data:
     - name: domain-name-servers
@@ -43,6 +44,10 @@ Dhcp4:
         {%- endfor +%}
     - name: interface-mtu
       data: '9000'
+  ddns-replace-client-name: always
+  ddns-generated-prefix: dyn
+  dhcp-ddns:
+    enable-updates: true
   control-sockets:
     - socket-type: http
       socket-port: 8001

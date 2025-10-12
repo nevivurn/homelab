@@ -35,7 +35,7 @@
     dest: '{{ kea_config_dir }}/kea-dhcp4.conf'
     owner: kea
     group: kea
-    mode: '0o644'
+    mode: '0o600'
   register: kea_dhcp4_config
 - name: Copy Kea DHCPv6 configuration
   ansible.builtin.copy:
@@ -43,8 +43,16 @@
     dest: '{{ kea_config_dir }}/kea-dhcp6.conf'
     owner: kea
     group: kea
-    mode: '0o644'
+    mode: '0o600'
   register: kea_dhcp6_config
+- name: Copy Kea DDNS configuration
+  ansible.builtin.copy:
+    content: '{{ lookup("template", "kea-dhcp-ddns.conf.j2") | from_yaml | to_nice_json }}'
+    dest: '{{ kea_config_dir }}/kea-dhcp-ddns.conf'
+    owner: kea
+    group: kea
+    mode: '0o600'
+  register: kea_ddns_config
 
 - name: Copy Kea DHCPv4 pod manifest
   ansible.builtin.template:
@@ -57,6 +65,13 @@
   ansible.builtin.template:
     src: templates/kea-dhcp6-pod.yaml.j2
     dest: /etc/kubernetes/manifests/kea-dhcp6.yaml
+    owner: root
+    group: root
+    mode: '0o644'
+- name: Copy Kea DDNS pod manifest
+  ansible.builtin.template:
+    src: templates/kea-ddns-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/kea-ddns.yaml
     owner: root
     group: root
     mode: '0o644'
