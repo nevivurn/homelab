@@ -56,6 +56,10 @@ set firewall ipv4 name INGRESS-LAN rule 101 source group address-group ROUTER-ad
 set firewall ipv4 name INGRESS-LAN rule 101 protocol udp
 set firewall ipv4 name INGRESS-LAN rule 101 destination port 3780
 set firewall ipv4 name INGRESS-LAN rule 101 action accept
+set firewall ipv4 name INGRESS-LAN rule 102 source group address-group ROUTER-addr4
+set firewall ipv4 name INGRESS-LAN rule 102 protocol tcp
+set firewall ipv4 name INGRESS-LAN rule 102 destination port 179
+set firewall ipv4 name INGRESS-LAN rule 102 action accept
 set firewall ipv4 name INGRESS-LAN rule 110 protocol tcp
 set firewall ipv6 name INGRESS-LAN rule 110 protocol tcp
 set firewall ipv4 name INGRESS-LAN rule 110 destination port 22

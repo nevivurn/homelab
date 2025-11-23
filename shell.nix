@@ -3,6 +3,7 @@
   ansible,
   ansible-lint,
   python3,
+  talosctl,
 }:
 
 mkShell {
@@ -18,5 +19,6 @@ mkShell {
         types-pyyaml
       ]
     ))
+    talosctl
   ];
 }

@@ -11,6 +11,9 @@ recursor:
     - zone: {{ name }}
       forwarders: {{ fwds | to_yaml }}
     {%- endfor +%}
+    - zone: internal.bacchus.io
+      forwarders:
+        - 10.89.0.1
   rpzs:
     - name: /etc/powerdns/recursor.d/hosts.zone
       defpol: Custom
@@ -25,3 +28,6 @@ dnssec:
     - name: {{ name }}
       dsrecords: {{ tas | to_yaml }}
     {%- endfor +%}
+  negative_trustanchors:
+    - name: internal.bacchus.io
+      reason: bacchus internal

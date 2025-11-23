@@ -119,5 +119,5 @@ chrony_config: |
   pool time.cloudflare.com nts iburst
   pool nts.netnod.se nts iburst
 
-dhcrelay_image: ghcr.io/nevivurn/dhcrelay
-dhcrelay_version: latest
+dhcrelay_image: ghcr.io/nevivurn/isc-dhcp-dhcrelay
+dhcrelay_version: 4.4.3

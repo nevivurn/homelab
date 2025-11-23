@@ -17,8 +17,7 @@ spec:
         runAsGroup: {{ dhcrelay_group.gid }}
         runAsNonRoot: true
       image: "{{ dhcrelay_image }}:{{ dhcrelay_version }}"
-      command:
-        - /usr/sbin/dhcrelay
+      args:
         - -d
         - '-6'
         - -l

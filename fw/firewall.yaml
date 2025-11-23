@@ -81,6 +81,11 @@ zones:
             - ipv4: protocol udp
             - ipv4: destination port 3780
             - ipv4: action accept
+          102: # allow BGP
+            - ipv4: source group address-group ROUTER-addr4
+            - ipv4: protocol tcp
+            - ipv4: destination port 179
+            - ipv4: action accept
           110: # allow SSH
             - protocol tcp
             - destination port 22

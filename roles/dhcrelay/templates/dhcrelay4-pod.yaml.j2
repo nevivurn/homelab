@@ -15,8 +15,7 @@ spec:
             - NET_RAW
         readOnlyRootFilesystem: true
       image: "{{ dhcrelay_image }}:{{ dhcrelay_version }}"
-      command:
-        - /usr/sbin/dhcrelay
+      args:
         - -d
         - '-4'
         - {{ dhcrelay_v4 }}

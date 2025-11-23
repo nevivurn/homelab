@@ -12,7 +12,7 @@ VLAN | Name                     | DNS                | IPv4           | IPv6
 20   | INFRA                    | inf.nevi.network   | 10.64.20.0/24  | fdbc:ba6a:38de:20::/64
 30   | Kubernetes nodes         | k8s.nevi.network   | 10.64.30.0/24  | fdbc:ba6a:38de:30::/64
 30   | Kubernetes loadbalancers | ---                | 10.64.31.0/24  | fdbc:ba6a:38de:31::/64
-30   | Kubernetes pods          | ---                | 172.29.0.0/16  | fdbc:ba6a:38de:32::/64
+30   | Kubernetes pods          | ---                | 10.64.128.0/20 | fdbc:ba6a:38de:32::/64
 ---  | ClusterIPs               | svc.cluster.local  | 172.30.0.0/16  | fdbc:ba6a:38de:33::/64
 200  | ROUTER                   |                    | 10.64.200.0/24 | fdbc:ba6a:38de:200::/64
 
@@ -71,7 +71,16 @@ Address | Host    | Notes
 .4      | relay01 | DHCP relay to net01
 .5      | relay02 | DHCP relay to net02
 
-## Network Services
+### Kubernetes
+
+Address | Host    | Notes
+---     | ---     | ---
+.1      | gateway | VRRP
+.2      | rtr01   |
+.3      | rtr02   |
+.4      | relay01 | DHCP relay to net01
+.5      | relay02 | DHCP relay to net02
+.20     |         | control plane VIP
 
 # Resources
 - https://gitlab.isc.org/isc-projects/kea-docker/-/tree/master/kea-compose?ref_type=heads
