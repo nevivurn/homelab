@@ -12,35 +12,15 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ self.overlays.default ];
-        };
+        pkgs = nixpkgs.legacyPackages.${system};
         inherit (pkgs) callPackage;
       in
       {
+        formatter = pkgs.nixfmt-tree;
         packages = {
           hosts = callPackage ./pkgs/hosts { };
-          isc-dhcp-image = pkgs.isc-dhcp.passthru.image;
-          chrony-image = pkgs.chrony.passthru.image;
-          patroni-image = pkgs.patroni.passthru.image;
         };
         devShells.default = callPackage ./shell.nix { };
       }
-    )
-    // {
-      overlays.default = final: prev: {
-        isc-dhcp = final.callPackage ./pkgs/isc-dhcp { };
-        chrony = prev.chrony.overrideAttrs (prevAttrs: {
-          passthru = prevAttrs.passthru // {
-            image = final.callPackage ./pkgs/chrony/image.nix { };
-          };
-        });
-        patroni = prev.patroni.overrideAttrs (prevAttrs: {
-          passthru = prevAttrs.passthru // {
-            image = final.callPackage ./pkgs/patroni/image.nix { };
-          };
-        });
-      };
-    };
+    );
 }
