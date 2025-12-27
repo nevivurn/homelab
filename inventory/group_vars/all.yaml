@@ -19,8 +19,8 @@ patroni_postgres_ca_cn: patroni-postgres-ca
 patroni_scope: netbox
 patroni_config_dir: /etc/patroni
 patroni_postgres_data_dir: /var/lib/postgresql
-patroni_image: ghcr.io/nevivurn/patroni
-patroni_version: latest
+patroni_image: ghcr.io/nevivurn/homelab-images/patroni
+patroni_version: 4.1.0-869a0a9
 
 patroni_haproxy_config_dir: /etc/haproxy
 patroni_haproxy_image: docker.io/library/haproxy
@@ -140,11 +140,11 @@ pdns_recursor_trustanchors:
 pdns_recursor_rpz_zone: hosts.zone
 
 chrony_config_dir: /etc/chrony
-chrony_image: ghcr.io/nevivurn/chrony
-chrony_version: latest
+chrony_image: ghcr.io/nevivurn/homelab-images/chrony
+chrony_version: 4.8-869a0a9
 chrony_config: |
   pool time.cloudflare.com nts iburst
   pool nts.netnod.se nts iburst
 
-dhcrelay_image: ghcr.io/nevivurn/isc-dhcp-dhcrelay
-dhcrelay_version: 4.4.3
+dhcrelay_image: ghcr.io/nevivurn/homelab-images/isc-dhcp-dhcrelay
+dhcrelay_version: 4.4.3-869a0a9

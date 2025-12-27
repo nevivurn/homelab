@@ -17,8 +17,7 @@ spec:
         runAsGroup: {{ patroni_postgres_group.gid }}
         runAsNonRoot: true
       image: "{{ patroni_image }}:{{ patroni_version }}"
-      command:
-        - /usr/bin/patroni
+      args:
         - /etc/patroni/patroni.yaml
       ports:
         - name: https
@@ -41,7 +40,7 @@ spec:
         - name: data
           mountPath: /var/lib/postgresql
         - name: run
-          mountPath: /var/run/postgresql
+          mountPath: /run/postgresql
         - name: tmp
           mountPath: /tmp
   volumes:
