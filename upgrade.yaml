@@ -1,0 +1,8 @@
+- name: Upgrade tasks
+  hosts: all:!localhost
+  become: true
+  tasks:
+    - name: Upgrade
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
