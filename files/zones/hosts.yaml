@@ -9,9 +9,9 @@ forward-zones:
   nevi.network:
     hosts:
       # misc.
-      'null':
+      "null":
         ipv4: 0.0.0.0
-        ipv6: '::'
+        ipv6: "::"
       # legacy
       alrakis.proxy:
         ipv4: 10.42.43.2
@@ -61,6 +61,13 @@ forward-zones:
       relay02.k8s:
         ipv4: 10.64.30.5
         ipv6: fdbc:ba6a:38de:30::5
+      # hardware management interfaces
+      kuma.inf:
+        ipv4: 10.64.20.91
+        ipv6: fdbc:ba6a:38de:20::91
+      thuban.inf:
+        ipv4: 10.64.20.92
+        ipv6: fdbc:ba6a:38de:20::92
 
 reverse-zones:
   ipv4:

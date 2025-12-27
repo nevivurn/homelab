@@ -9,3 +9,5 @@ $TTL 60
 5.20.64.10.in-addr.arpa. PTR net02.inf.nevi.network.
 6.20.64.10.in-addr.arpa. PTR net03.inf.nevi.network.
 11.20.64.10.in-addr.arpa. PTR pve01.inf.nevi.network.
+91.20.64.10.in-addr.arpa. PTR kuma.inf.nevi.network.
+92.20.64.10.in-addr.arpa. PTR thuban.inf.nevi.network.

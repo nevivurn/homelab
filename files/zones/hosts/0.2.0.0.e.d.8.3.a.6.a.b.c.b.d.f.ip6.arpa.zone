@@ -9,3 +9,5 @@ $TTL 60
 5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR net02.inf.nevi.network.
 6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR net03.inf.nevi.network.
 1.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR pve01.inf.nevi.network.
+1.9.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR kuma.inf.nevi.network.
+2.9.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa. PTR thuban.inf.nevi.network.

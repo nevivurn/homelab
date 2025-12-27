@@ -44,10 +44,6 @@ Dhcp4:
         {%- endfor +%}
     - name: interface-mtu
       data: '9000'
-  ddns-replace-client-name: always
-  ddns-generated-prefix: dyn
-  dhcp-ddns:
-    enable-updates: true
   control-sockets:
     - socket-type: http
       socket-port: 8001

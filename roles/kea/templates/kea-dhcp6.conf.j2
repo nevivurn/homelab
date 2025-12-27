@@ -45,10 +45,6 @@ Dhcp6:
           {{ hostvars[host].ip6 }}
           {%- if not loop.last %}, {% endif %}
         {%- endfor +%}
-  ddns-replace-client-name: always
-  ddns-generated-prefix: dyn
-  dhcp-ddns:
-    enable-updates: true
   control-sockets:
     - socket-type: http
       socket-port: 8002

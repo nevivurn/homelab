@@ -50,16 +50,16 @@ net01..net03 running
 
 ### Infra subnet
 
-Address | Host    | Notes
----     | ---     | ---
-.1      | gateway | VRRP
-.2      | rtr01   |
-.3      | rtr02   |
-.4      | net01   | DHCP, DNS, NTP
-.5      | net02   | DHCP, DNS, NTP
-.6      | net03   | quorum
-.10     | kuma    | switch management interface
-.11     | pve01   |
+Address  | Host    | Notes
+---      | ---     | ---
+.1       | gateway | VRRP
+.2       | rtr01   |
+.3       | rtr02   |
+.4       | net01   | DHCP, DNS, NTP
+.5       | net02   | DHCP, DNS, NTP
+.6       | net03   | quorum
+.11      | pve01   |
+.90~.100 | HW      | various hardware management interfaces
 
 ### Other subnets
 

@@ -180,3 +180,4 @@ pyrightconfig.json
 
 pki/
 secrets/
+.ansible/

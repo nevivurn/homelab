@@ -1,4 +1,5 @@
 launch=gpgsql
+local-address=127.0.0.1, [::1]
 local-port=5301
 guardian=on
 gpgsql-host=localhost
@@ -9,5 +10,3 @@ gpgsql-password={{ pdns_postgres_pass }}
 gpgsql-extra-connection-parameters=sslmode=require
 gpgsql-dnssec=on
 webserver=on
-dnsupdate=on
-dnsupdate-require-tsig=on
