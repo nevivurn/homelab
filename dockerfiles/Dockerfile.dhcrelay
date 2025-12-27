@@ -1,6 +1,0 @@
-FROM docker.io/library/debian:trixie-slim
-
-RUN set -eux \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends isc-dhcp-relay \
-	&& rm -rf /var/lib/apt/lists/*

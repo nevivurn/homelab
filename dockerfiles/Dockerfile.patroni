@@ -1,8 +1,0 @@
-FROM docker.io/library/postgres:18.0
-
-RUN set -eux \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends patroni python3-etcd \
-	&& rm -rf /var/lib/apt/lists/*
-
-ENTRYPOINT ["/usr/bin/patroni"]

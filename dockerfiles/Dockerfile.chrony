@@ -1,8 +1,0 @@
-FROM docker.io/library/debian:trixie-slim
-
-RUN set -eux \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends ca-certificates chrony \
-	&& rm -rf /var/lib/apt/lists/*
-
-ENTRYPOINT ["/usr/sbin/chronyd", "-U", "-d", "-x"]
