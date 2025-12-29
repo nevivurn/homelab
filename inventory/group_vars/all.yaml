@@ -129,9 +129,9 @@ pdns_recursor_rpz_zone: hosts.zone
 chrony_config_dir: /etc/chrony
 chrony_image: ghcr.io/nevivurn/homelab-images/chrony
 chrony_version: 4.8-8ebb4af
+# rely on pve01 for now, until we get better clocks
 chrony_config: |
-  pool time.cloudflare.com nts iburst
-  pool nts.netnod.se nts iburst
+  server 10.64.20.11 iburst
 
 dhcrelay_image: ghcr.io/nevivurn/homelab-images/isc-dhcp-dhcrelay
 dhcrelay_version: 4.4.3-8ebb4af
