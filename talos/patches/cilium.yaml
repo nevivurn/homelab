@@ -1,0 +1,19 @@
+machine:
+  features:
+    hostDNS:
+      forwardKubeDNSToHost: false
+cluster:
+  network:
+    cni:
+      name: none
+    podSubnets:
+      - 10.64.128.0/20
+      - fdbc:ba6a:38de:32::/64
+    serviceSubnets:
+      - 172.30.0.0/16
+      - fdbc:ba6a:38de:33::/64
+  controllerManager:
+    extraArgs:
+      node-cidr-mask-size-ipv6: "80"
+  proxy:
+    disabled: true
