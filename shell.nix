@@ -25,4 +25,9 @@ mkShell {
       ]
     ))
   ];
+
+  shellHook = ''
+    export KUBECONFIG=$(pwd)/talos/_out/kubeconfig
+    export TALOSCONFIG=$(pwd)/talos/_out/talosconfig
+  '';
 }

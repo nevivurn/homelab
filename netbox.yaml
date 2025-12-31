@@ -61,3 +61,14 @@
   roles:
     - role: dhcrelay
       tags: dhcrelay
+
+- name: Generate caddy CA
+  hosts: caddy_ca
+  roles:
+    - role: caddy_ca
+      tags: caddy
+- name: Install caddy
+  hosts: caddy
+  roles:
+    - role: caddy
+      tags: caddy

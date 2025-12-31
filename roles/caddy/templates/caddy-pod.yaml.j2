@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: caddy
+  annotations:
+    checksum/config: {{ caddy_config.checksum }}
+spec:
+  hostNetwork: true
+  containers:
+    - name: caddy
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+          add:
+            - NET_ADMIN
+            - CAP_NET_BIND_SERVICE
+        readOnlyRootFilesystem: true
+        runAsUser: {{ caddy_user.uid }}
+        runAsGroup: {{ caddy_group.gid }}
+        runAsNonRoot: true
+      image: "{{ caddy_image }}:{{ caddy_version }}"
+      ports:
+        - name: https
+          containerPort: 443
+      volumeMounts:
+        - name: config
+          mountPath: /etc/caddy
+        - name: data
+          mountPath: /data
+        - name: config-cache
+          mountPath: /config
+  volumes:
+    - name: config
+      hostPath:
+        type: Directory
+        path: {{ caddy_config_dir }}
+    - name: data
+      emptyDir:
+        medium: Memory
+    - name: config-cache
+      emptyDir:
+        medium: Memory

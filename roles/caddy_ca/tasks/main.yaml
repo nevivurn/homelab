@@ -1,0 +1,6 @@
+- name: Generate caddy CA
+  ansible.builtin.import_role:
+    name: pki_ca
+  vars:
+    pki_ca_basedir: "{{ caddy_ca_basedir }}"
+    pki_ca_cn: "{{ caddy_ca_cn }}"

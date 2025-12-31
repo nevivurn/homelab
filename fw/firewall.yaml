@@ -19,6 +19,10 @@ config:
   - group ipv6-address-group DHCP6-RELAY address fdbc:ba6a:38de:11::4-fdbc:ba6a:38de:11::5 # GUEST
   - group ipv6-address-group DHCP6-RELAY address fdbc:ba6a:38de:30::4-fdbc:ba6a:38de:30::5 # K8S
 
+  # define hardware management addresses
+  - group address-group MGMT-addr4 address 10.64.20.90-10.64.20.100
+  - group ipv6-address-group MGMT-addr6 address fdbc:ba6a:38de:20::90-fdbc:ba6a:38de:20::100
+
   - group address-group ROUTER-addr4 address 10.64.10.1-10.64.10.3 # HOME
   - group address-group ROUTER-addr4 address 10.64.11.1-10.64.11.3 # GUEST
   - group address-group ROUTER-addr4 address 10.64.20.1-10.64.20.3 # INFRA
@@ -26,15 +30,16 @@ config:
   - group address-group ROUTER-addr4 address 10.64.200.1-10.64.200.2 # ROUTER
   - group address-group ROUTER-addr4 address 10.64.200.4 # ROUTER-VRRP
 
-  - group address-group K8S-VIP4 address 10.64.30.10
-  - group ipv6-address-group K8S-VIP6 address fdbc:ba6a:38de:30::10
-
+  - group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:30::-fdbc:ba6a:38de:30:ffff:ffff:ffff:ffff
   #- group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:10::1-fdbc:ba6a:38de:10::3 # HOME
   #- group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:11::1-fdbc:ba6a:38de:11::3 # GUEST
   #- group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:20::1-fdbc:ba6a:38de:20::3 # INFRA
   #- group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:30::1-fdbc:ba6a:38de:30::3 # K8S
   #- group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:200::1-fdbc:ba6a:38de:200::2 # ROUTER
   #- group ipv6-address-group ROUTER-addr6 address fdbc:ba6a:38de:200::4 # ROUTER-VRRP
+
+  - group address-group K8S-VIP4 address 10.64.30.10
+  - group ipv6-address-group K8S-VIP6 address fdbc:ba6a:38de:30::10
 
 zones:
   WAN:
@@ -87,9 +92,10 @@ zones:
             - ipv4: action accept
           102: # allow BGP
             - ipv4: source group address-group ROUTER-addr4
-            - ipv4: protocol tcp
-            - ipv4: destination port 179
-            - ipv4: action accept
+            - ipv6: source group address-group ROUTER-addr6
+            - protocol tcp
+            - destination port 179
+            - action accept
           110: # allow SSH
             - protocol tcp
             - destination port 22
@@ -185,6 +191,18 @@ zones:
           210: # allow proxmox
             - protocol tcp
             - destination port 8006
+            - action accept
+          220: # allow caddy (infra proxy)
+            - ipv4: destination group address-group INFRA-addr4
+            - ipv6: destination group address-group INFRA-addr6
+            - protocol tcp_udp
+            - destination port 443
+            - action accept
+          230: # allow mgmt
+            - ipv4: destination group address-group MGMT-addr4
+            - ipv6: destination group address-group MGMT-addr6
+            - protocol tcp
+            - destination port 443
             - action accept
 
   K8S:

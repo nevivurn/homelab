@@ -1,0 +1,19 @@
+https:// {
+	tls /etc/caddy/ssl/server.crt /etc/caddy/ssl/server.key {
+		client_auth {
+			mode require_and_verify
+			trust_pool file /etc/caddy/ssl/ca.crt
+		}
+	}
+	log
+
+	handle_path /pdns/* {
+		reverse_proxy localhost:8081
+	}
+	handle_path /kea/dhcp4/* {
+		reverse_proxy localhost:8001
+	}
+	handle_path /kea/dhcp6/* {
+		reverse_proxy localhost:8002
+	}
+}

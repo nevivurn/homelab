@@ -47,6 +47,9 @@ etcd_ca:
 patroni_ca:
   hosts:
     localhost:
+caddy_ca:
+  hosts:
+    localhost:
 
 kubelet:
   children:
@@ -97,3 +100,8 @@ kubelet:
         relay02.k8s.nevi.network:
           dhcrelay_v4: 10.64.20.5
           dhcrelay_v6: fdbc:ba6a:38de:20::5
+
+    caddy:
+      hosts:
+        net01.inf.nevi.network:
+        net02.inf.nevi.network:

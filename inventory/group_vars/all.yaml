@@ -3,7 +3,6 @@ kubelet_kubernetes_version: v1.35
 etcd_ca_host: localhost
 etcd_ca_basedir: pki/etcd
 etcd_ca_cn: etcd-ca
-etcd_cert_basedir: /etc/etcd/ssl
 etcd_data_dir: /var/lib/etcd
 etcd_config_dir: /etc/etcd
 etcd_image: gcr.io/etcd-development/etcd
@@ -135,3 +134,10 @@ chrony_config: |
 
 dhcrelay_image: ghcr.io/nevivurn/homelab-images/isc-dhcp-dhcrelay
 dhcrelay_version: 4.4.3-8ebb4af
+
+caddy_ca_host: localhost
+caddy_ca_basedir: pki/caddy
+caddy_ca_cn: caddy-ca
+caddy_config_dir: /etc/caddy
+caddy_image: docker.io/caddy
+caddy_version: 2.10.2

@@ -30,7 +30,6 @@ bpf:
     enabled: true
   mapDynamicSizeRatio: 0.08
   datapathMode: netkit
-  masquerade: true
 kubeProxyReplacement: true
 bpfClockProbe: true
 bandwidthManager:
@@ -41,9 +40,13 @@ ipv4:
   enabled: true
 ipv6:
   enabled: true
-ipv4NativeRoutingCIDR: 10.64.33.0/24
-ipv6NativeRoutingCIDR: fdbc:ba6a:38de:32::/64
 autoDirectNodeRoutes: true
 loadBalancer:
   mode: dsr
   dsrDispatch: opt
+
+bgpControlPlane:
+  enabled: true
+
+enableIPv4Masquerade: false
+enableIPv6Masquerade: false
