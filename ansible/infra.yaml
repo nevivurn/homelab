@@ -69,6 +69,9 @@
       tags: caddy
 - name: Install caddy
   hosts: caddy
+  vars_files:
+    # for the API key
+    - secrets/pdns.yaml
   roles:
     - role: caddy
       tags: caddy

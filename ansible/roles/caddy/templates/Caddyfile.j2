@@ -8,7 +8,9 @@ https:// {
 	log
 
 	handle_path /pdns/* {
-		reverse_proxy localhost:8081
+		reverse_proxy localhost:8081 {
+			header_up X-API-Key "{{ pdns_api_key }}"
+		}
 	}
 	handle_path /kea/dhcp4/* {
 		reverse_proxy localhost:8001
