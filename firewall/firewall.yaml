@@ -165,12 +165,6 @@ zones:
             - ipv6: destination group address-group INFRA-addr6
             - ipv6: destination port 547
             - action accept
-          120: # allow other infra services
-            - ipv4: destination group address-group INFRA-addr4
-            - ipv6: destination group address-group INFRA-addr6
-            - protocol tcp_udp
-            - destination group port-group INFRA-port
-            - action accept
       LAN-INFRA:
         zones:
           - HOME

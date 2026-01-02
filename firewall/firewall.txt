@@ -148,14 +148,6 @@ set firewall ipv6 name GUEST-INFRA rule 110 destination group address-group INFR
 set firewall ipv6 name GUEST-INFRA rule 110 destination port 547
 set firewall ipv4 name GUEST-INFRA rule 110 action accept
 set firewall ipv6 name GUEST-INFRA rule 110 action accept
-set firewall ipv4 name GUEST-INFRA rule 120 destination group address-group INFRA-addr4
-set firewall ipv6 name GUEST-INFRA rule 120 destination group address-group INFRA-addr6
-set firewall ipv4 name GUEST-INFRA rule 120 protocol tcp_udp
-set firewall ipv6 name GUEST-INFRA rule 120 protocol tcp_udp
-set firewall ipv4 name GUEST-INFRA rule 120 destination group port-group INFRA-port
-set firewall ipv6 name GUEST-INFRA rule 120 destination group port-group INFRA-port
-set firewall ipv4 name GUEST-INFRA rule 120 action accept
-set firewall ipv6 name GUEST-INFRA rule 120 action accept
 set firewall zone INFRA from HOME firewall name LAN-INFRA
 set firewall zone INFRA from HOME firewall ipv6-name LAN-INFRA
 set firewall zone INFRA from ROUTER firewall name LAN-INFRA
@@ -178,14 +170,6 @@ set firewall ipv6 name LAN-INFRA rule 110 destination group address-group INFRA-
 set firewall ipv6 name LAN-INFRA rule 110 destination port 547
 set firewall ipv4 name LAN-INFRA rule 110 action accept
 set firewall ipv6 name LAN-INFRA rule 110 action accept
-set firewall ipv4 name LAN-INFRA rule 120 destination group address-group INFRA-addr4
-set firewall ipv6 name LAN-INFRA rule 120 destination group address-group INFRA-addr6
-set firewall ipv4 name LAN-INFRA rule 120 protocol tcp_udp
-set firewall ipv6 name LAN-INFRA rule 120 protocol tcp_udp
-set firewall ipv4 name LAN-INFRA rule 120 destination group port-group INFRA-port
-set firewall ipv6 name LAN-INFRA rule 120 destination group port-group INFRA-port
-set firewall ipv4 name LAN-INFRA rule 120 action accept
-set firewall ipv6 name LAN-INFRA rule 120 action accept
 set firewall ipv4 name LAN-INFRA rule 200 protocol tcp
 set firewall ipv6 name LAN-INFRA rule 200 protocol tcp
 set firewall ipv4 name LAN-INFRA rule 200 destination port 22

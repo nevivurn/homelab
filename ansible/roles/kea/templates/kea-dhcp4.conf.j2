@@ -27,6 +27,9 @@ Dhcp4:
           data: {{ subnet.router_v4 }}
         - name: domain-name
           data: {{ subnet.domain }}
+        {%- if subnet.extra_options is defined +%}
+        {{ subnet.extra_options  | to_yaml | indent(8) }}
+        {%- endif +%}
       ddns-qualifying-suffix: {{ subnet.domain }}
     {%- endfor +%}
   option-data:
