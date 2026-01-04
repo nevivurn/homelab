@@ -12,6 +12,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
+        inherit (nixpkgs) lib;
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ self.overlays.default ];
@@ -22,8 +23,11 @@
         formatter = pkgs.nixfmt-tree;
         packages = {
           hosts = callPackage ./pkgs/hosts { };
+          terraform-provider-infra = pkgs.terraform-providers.infra;
         };
-        devShells.default = callPackage ./shell.nix { };
+        devShells.default = callPackage ./shell.nix {
+          customPackages = lib.attrValues self.packages.${system};
+        };
       }
     )
     // {
@@ -39,6 +43,11 @@
             hash = "sha256-u8/T01PWBGH3bJCNoC+FIzp8aH05ci4Kr3eHHWPDRkI=";
           };
           vendorHash = "sha256-LLtbdKq028EEs8lMt3uiwMo2KMJ6nJKf6xFyLJlg+oM=";
+        };
+
+        # custom packages
+        terraform-providers = prev.terraform-providers // {
+          infra = final.callPackage ./pkgs/terraform-provider-infra { };
         };
       };
     };
