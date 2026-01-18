@@ -20,7 +20,7 @@ type InfraDNSRecordDataSourceModel struct {
 	Name    types.String `tfsdk:"name"`
 	Type    types.String `tfsdk:"type"`
 	TTL     types.Int32  `tfsdk:"ttl"`
-	Records types.List   `tfsdk:"records"`
+	Records types.Set    `tfsdk:"records"`
 }
 
 var _ datasource.DataSourceWithConfigure = (*InfraDNSRecordDataSource)(nil)
@@ -35,7 +35,7 @@ func (d *InfraDNSRecordDataSource) Schema(ctx context.Context, req datasource.Sc
 		"name":    schema.StringAttribute{Required: true},
 		"type":    schema.StringAttribute{Required: true},
 		"ttl":     schema.Int32Attribute{Computed: true},
-		"records": schema.ListAttribute{Computed: true, ElementType: types.StringType},
+		"records": schema.SetAttribute{Computed: true, ElementType: types.StringType},
 	}
 }
 
@@ -77,7 +77,7 @@ func (d *InfraDNSRecordDataSource) Read(ctx context.Context, req datasource.Read
 	for i, v := range rrset.Records {
 		recordVals[i] = v.Content
 	}
-	records, diag := types.ListValueFrom(ctx, types.StringType, recordVals)
+	records, diag := types.SetValueFrom(ctx, types.StringType, recordVals)
 	resp.Diagnostics.Append(diag...)
 	data.Records = records
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

@@ -95,38 +95,17 @@ pdns_recursor_trustanchors:
   nevi.network:
     [
       "9819 13 2 db61b21c17f615477425ac2a92edec9f55b78cb6159960a484ceca2a6e9790e5",
+      "9819 13 4 d5c669c7a246174b50a604fa3d4bc6f7a6985409cc5b24781658f8fce37f0b00b318a365df4470f8e63e19b56f0a93c4",
     ]
-  10.64.10.in-addr.arpa:
+  64.10.in-addr.arpa:
     [
-      "505 13 2 33e454bbc1ce7df984cf9b6708be203b21f886d8edb8880b8ee7f40f556dff84",
+      "42821 13 2 661a815853af66d8f4d1833aa876166bd642a43807ea22ac2e6a20456a09e8e5",
+      "42821 13 4 c433924e18abcda7d4328d7fc710d9f1b8c6635fae014e4d19164d033eb5ef0d6f1e712f891b691161fd8e306e6de18a",
     ]
-  20.64.10.in-addr.arpa:
+  e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
     [
-      "1579 13 2 5fb26c7f2e6ac0b18645680fef5d6dacdbacaa2c47fbbd7329f6b30f5df1e8f9",
-    ]
-  30.64.10.in-addr.arpa:
-    [
-      "6889 13 2 5efbf2faf80a0adfe9dd75f32a73eaab7757cbdce44db9703adc0e48d17d973b",
-    ]
-  11.64.10.in-addr.arpa:
-    [
-      "45503 13 2 23038a8d6526c2b8b0111f09d1b4846fb26aa5ea0c4a3b36c23905bd17b6118d",
-    ]
-  0.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
-    [
-      "15959 13 2 05900d30eba051c737bf523475a3f0ce0edc79c626492878d21fbd7d6dc29bd4",
-    ]
-  1.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
-    [
-      "14131 13 2 543d25244b4b5b07312e38f9e0b2b6607f50f481c47a8b608087307555a155f5",
-    ]
-  0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
-    [
-      "22599 13 2 39f2df14ac0ae24fb1095085a18b4514842a6f5f68cb1a225848dd917cfc0897",
-    ]
-  0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa:
-    [
-      "46907 13 2 a46b0554db3c26d94ed93ab78e2a4e3c80bc017631ef6dc68e5ebdb5c314832f",
+      "48827 13 2 40bd902a503d4d35555854cc958bbdb91d7c700aa638ae5fb9a7ddb225a09886",
+      "48827 13 4 86e17d80e2f66043cf12abcca57c0c839f262713aa555ebcf73e067040eda534b63ee7809fcc87113bde723786fc8001",
     ]
 pdns_recursor_rpz_zone: hosts.zone
 

@@ -23,7 +23,7 @@ type InfraDNSRecordResourceModel struct {
 	Name    types.String `tfsdk:"name"`
 	Type    types.String `tfsdk:"type"`
 	TTL     types.Int32  `tfsdk:"ttl"`
-	Records types.List   `tfsdk:"records"`
+	Records types.Set    `tfsdk:"records"`
 }
 
 var (
@@ -50,7 +50,7 @@ func (r *InfraDNSRecordResource) Schema(ctx context.Context, req resource.Schema
 			PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 		},
 		"ttl":     schema.Int32Attribute{Required: true},
-		"records": schema.ListAttribute{Required: true, ElementType: types.StringType},
+		"records": schema.SetAttribute{Required: true, ElementType: types.StringType},
 	}
 }
 
@@ -120,7 +120,7 @@ func (r *InfraDNSRecordResource) Read(ctx context.Context, req resource.ReadRequ
 	for i, v := range rrset.Records {
 		recordVals[i] = v.Content
 	}
-	records, diag := types.ListValueFrom(ctx, types.StringType, recordVals)
+	records, diag := types.SetValueFrom(ctx, types.StringType, recordVals)
 	resp.Diagnostics.Append(diag...)
 	if resp.Diagnostics.HasError() {
 		return
@@ -195,7 +195,7 @@ func (r *InfraDNSRecordResource) ImportState(ctx context.Context, req resource.I
 	for i, v := range rrset.Records {
 		recordVals[i] = v.Content
 	}
-	records, diag := types.ListValueFrom(ctx, types.StringType, recordVals)
+	records, diag := types.SetValueFrom(ctx, types.StringType, recordVals)
 	resp.Diagnostics.Append(diag...)
 	if resp.Diagnostics.HasError() {
 		return
