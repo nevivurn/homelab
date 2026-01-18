@@ -8,12 +8,6 @@
   ansible,
   ansible-lint,
 
-  # helm
-  helmfile,
-  kubernetes-helm,
-  kubernetes-helmPlugins,
-  wrapHelm,
-
   talosctl,
   python3,
 
@@ -23,19 +17,6 @@
   # go
   golangci-lint,
 }:
-
-let
-  helmfile-plugins = with kubernetes-helmPlugins; [
-    helm-diff
-    helm-git
-    helm-s3
-    helm-secrets
-  ];
-  helm' = wrapHelm kubernetes-helm { plugins = helmfile-plugins; };
-  helmfile' = helmfile.override {
-    inherit (helm'.passthru) pluginsDir;
-  };
-in
 
 mkShell {
   packages = [
