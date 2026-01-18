@@ -15,5 +15,5 @@ terraform-providers.mkProvider rec {
   version = lib.removePrefix "v" rev;
 
   hash = null;
-  vendorHash = "sha256-HRsAiRxNYCSLs6/P3WY/z+QMZ6losW0Qndbss+KQZwA=";
+  vendorHash = "sha256-GHlpjdSyvr3KZ+0bs2sEFV3zkHVnq/cmzlDyBEH540o=";
 }
