@@ -1,7 +1,0 @@
-$ORIGIN 30.64.10.in-addr.arpa
-$TTL 60
-@ SOA net01.inf.nevi.network. nevivurn.nevi.network. 0 86400 7200 3600000 60
-@ NS net01.inf.nevi.network.
-@ NS net02.inf.nevi.network.
-4.30.64.10.in-addr.arpa. PTR relay01.k8s.nevi.network.
-5.30.64.10.in-addr.arpa. PTR relay02.k8s.nevi.network.
