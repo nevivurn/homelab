@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"sync"
 )
 
 type Client struct {
@@ -16,7 +17,13 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+// pdns is not quite concurrency-safe, just globally lock everything.
+var mu sync.Mutex
+
 func request(ctx context.Context, c *Client, method, path string, query url.Values, reqBody any) (*http.Response, error) {
+	mu.Lock()
+	defer mu.Unlock()
+
 	reqURL, err := url.JoinPath(c.BaseURL, APIPrefix, path)
 	if err != nil {
 		return nil, fmt.Errorf("failed creating request: %w", err)
