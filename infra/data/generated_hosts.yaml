@@ -1,0 +1,191 @@
+hosts:
+  home:
+    fwd: fwd_home
+    rev_v4: rev_v4_home
+    rev_v6: rev_v6_home
+    hosts:
+      relay01:
+        ipv4: 10.64.10.4
+        ptr_v4: 4.10.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:10::4
+        ptr_v6: 4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      relay02:
+        ipv4: 10.64.10.5
+        ptr_v4: 5.10.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:10::5
+        ptr_v6: 5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+    subnet_id: 10
+  guest:
+    fwd: fwd_guest
+    rev_v4: rev_v4_guest
+    rev_v6: rev_v6_guest
+    hosts:
+      relay01:
+        ipv4: 10.64.11.4
+        ptr_v4: 4.11.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:11::4
+        ptr_v6: 4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      relay02:
+        ipv4: 10.64.11.5
+        ptr_v4: 5.11.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:11::5
+        ptr_v6: 5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.1.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+    subnet_id: 11
+  inf:
+    fwd: fwd_inf
+    rev_v4: rev_v4_inf
+    rev_v6: rev_v6_inf
+    hosts:
+      rtr01:
+        ipv4: 10.64.20.2
+        ptr_v4: 2.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::2
+        ptr_v6: 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      rtr02:
+        ipv4: 10.64.20.3
+        ptr_v4: 3.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::3
+        ptr_v6: 3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      net01:
+        ipv4: 10.64.20.4
+        ptr_v4: 4.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::4
+        ptr_v6: 4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      net02:
+        ipv4: 10.64.20.5
+        ptr_v4: 5.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::5
+        ptr_v6: 5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      net03:
+        ipv4: 10.64.20.6
+        ptr_v4: 6.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::6
+        ptr_v6: 6.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      pve01:
+        ipv4: 10.64.20.11
+        ptr_v4: 11.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::11
+        ptr_v6: 1.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      kuma:
+        hw_address: f0:09:0d:17:8a:fc
+        ipv4: 10.64.20.91
+        ptr_v4: 91.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::91
+        ptr_v6: 1.9.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      thuban:
+        hw_address: 3c:78:95:1a:48:63
+        ipv4: 10.64.20.92
+        ptr_v4: 92.20.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:20::92
+        ptr_v6: 2.9.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+    subnet_id: 20
+  k8s:
+    fwd: fwd_k8s
+    rev_v4: rev_v4_k8s
+    rev_v6: rev_v6_k8s
+    hosts:
+      relay01:
+        ipv4: 10.64.30.4
+        ptr_v4: 4.30.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:30::4
+        ptr_v6: 4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      relay02:
+        ipv4: 10.64.30.5
+        ptr_v4: 5.30.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:30::5
+        ptr_v6: 5.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      k8s1:
+        ipv4: 10.64.30.10
+        ptr_v4: 10.30.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:30::10
+        ptr_v6: 0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      k8s-master11:
+        hw_address: bc:24:11:82:96:2d
+        ipv4: 10.64.30.11
+        ptr_v4: 11.30.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:30::11
+        ptr_v6: 1.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      k8s-master12:
+        hw_address: bc:24:11:39:ac:49
+        ipv4: 10.64.30.12
+        ptr_v4: 12.30.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:30::12
+        ptr_v6: 2.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      k8s-master13:
+        hw_address: bc:24:11:22:dd:08
+        ipv4: 10.64.30.13
+        ptr_v4: 13.30.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:30::13
+        ptr_v6: 3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+    subnet_id: 30
+  root:
+    fwd: fwd_root
+    rev_v4: rev_v4_root,
+    rev_v6: rev_v6_root
+    hosts: {}
+records:
+  home: {}
+  guest: {}
+  inf:
+    api:
+      A:
+      - 10.64.20.4
+      - 10.64.20.5
+      AAAA:
+      - fdbc:ba6a:38de:20::4
+      - fdbc:ba6a:38de:20::5
+  k8s:
+    k8s1-masters:
+      A:
+      - 10.64.30.11
+      - 10.64.30.12
+      - 10.64.30.13
+      AAAA:
+      - fdbc:ba6a:38de:30::11
+      - fdbc:ba6a:38de:30::12
+      - fdbc:ba6a:38de:30::13
+  root:
+    net01.inf:
+      A:
+      - 10.64.20.4
+      AAAA:
+      - fdbc:ba6a:38de:20::4
+    net02.inf:
+      A:
+      - 10.64.20.5
+      AAAA:
+      - fdbc:ba6a:38de:20::5
+    'null':
+      A:
+      - 0.0.0.0
+      AAAA:
+      - '::'
+    funi:
+      A:
+      - 192.168.2.1
+      AAAA:
+      - fdbc:ba6a:38de::1
+    athebyne:
+      A:
+      - 192.168.2.10
+      AAAA:
+      - fdbc:ba6a:38de::10
+    audiobookshelf:
+      CNAME:
+      - athebyne.nevi.network.
+    kavita:
+      CNAME:
+      - athebyne.nevi.network.
+    matrix:
+      CNAME:
+      - athebyne.nevi.network.
+    alrakis.proxy:
+      A:
+      - 10.42.43.2
+      AAAA:
+      - fdbc:ba6a:38de:2::2
+    giausar.proxy:
+      A:
+      - 10.42.43.3
+      AAAA:
+      - fdbc:ba6a:38de:2::3

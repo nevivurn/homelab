@@ -1,7 +1,7 @@
 export TALOS_VERSION ?= v1.12.0
 CLUSTER_NAME ?= k8s1
 CLUSTER_ENDPOINT ?= https://k8s1.k8s.nevi.network
-TALOS_ENDPOINT ?= 10.64.30.11
+TALOS_ENDPOINT ?= k8s1-masters.k8s.nevi.network
 TALOS_NODE ?= 10.64.30.11
 
 PREFIX := _out

@@ -1,5 +1,5 @@
 locals {
-  hosts_data = jsondecode(file("${path.module}/data/hosts.json"))
+  hosts_data = yamldecode(file("${path.module}/data/generated_hosts.yaml"))
 
   all_hosts = merge([
     for zone_name, zone_data in local.hosts_data.hosts : {
@@ -8,12 +8,10 @@ locals {
         fwd_zone  = zone_data.fwd
         rev_v4    = zone_data.rev_v4
         rev_v6    = zone_data.rev_v6
+        subnet_id = lookup(zone_data, "subnet_id", null)
       })
     }
   ]...)
-
-  hosts_v4 = { for k, v in local.all_hosts : k => v if lookup(v, "ipv4", null) != null }
-  hosts_v6 = { for k, v in local.all_hosts : k => v if lookup(v, "ipv6", null) != null }
 
   custom_records = merge([
     for zone_name, records in local.hosts_data.records : merge([
@@ -30,7 +28,7 @@ locals {
 }
 
 resource "infra_dns_record" "host_a" {
-  for_each = local.hosts_v4
+  for_each = local.all_hosts
 
   zone    = infra_dns_zone.zones[each.value.fwd_zone].name
   name    = "${each.value.host_name}.${infra_dns_zone.zones[each.value.fwd_zone].name}"
@@ -40,7 +38,7 @@ resource "infra_dns_record" "host_a" {
 }
 
 resource "infra_dns_record" "host_aaaa" {
-  for_each = local.hosts_v6
+  for_each = local.all_hosts
 
   zone    = infra_dns_zone.zones[each.value.fwd_zone].name
   name    = "${each.value.host_name}.${infra_dns_zone.zones[each.value.fwd_zone].name}"
@@ -50,7 +48,7 @@ resource "infra_dns_record" "host_aaaa" {
 }
 
 resource "infra_dns_record" "host_ptr_v4" {
-  for_each = local.hosts_v4
+  for_each = local.all_hosts
 
   zone    = infra_dns_zone.zones[each.value.rev_v4].name
   name    = each.value.ptr_v4
@@ -60,7 +58,7 @@ resource "infra_dns_record" "host_ptr_v4" {
 }
 
 resource "infra_dns_record" "host_ptr_v6" {
-  for_each = local.hosts_v6
+  for_each = local.all_hosts
 
   zone    = infra_dns_zone.zones[each.value.rev_v6].name
   name    = each.value.ptr_v6

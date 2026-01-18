@@ -1,9 +1,27 @@
 #!/usr/bin/env python3
 
 import ipaddress
-import json
 import sys
 import yaml
+
+
+def process_host(host_data):
+    host = {}
+
+    if "hw_address" in host_data:
+        host["hw_address"] = host_data["hw_address"]
+
+    if "ipv4" in host_data:
+        addr = ipaddress.IPv4Address(host_data["ipv4"])
+        host["ipv4"] = str(addr)
+        host["ptr_v4"] = addr.reverse_pointer + "."
+
+    if "ipv6" in host_data:
+        addr = ipaddress.IPv6Address(host_data["ipv6"])
+        host["ipv6"] = str(addr)
+        host["ptr_v6"] = addr.reverse_pointer + "."
+
+    return host
 
 
 def main():
@@ -19,38 +37,25 @@ def main():
         "records": {},
     }
 
-    for zone_name, zone_data in data.get("zones", {}).items():
-        fwd_zone = zone_data.get("fwd")
-        rev_v4_zone = zone_data.get("rev_v4")
-        rev_v6_zone = zone_data.get("rev_v6")
-
+    for zone_name, zone_data in data.items():
         hosts = {}
         for host_name, host_data in zone_data.get("hosts", {}).items():
-            host = {}
+            hosts[host_name] = process_host(host_data)
 
-            if "ipv4" in host_data:
-                addr = ipaddress.IPv4Address(host_data["ipv4"])
-                host["ipv4"] = str(addr)
-                host["ptr_v4"] = addr.reverse_pointer + "."
-
-            if "ipv6" in host_data:
-                addr = ipaddress.IPv6Address(host_data["ipv6"])
-                host["ipv6"] = str(addr)
-                host["ptr_v6"] = addr.reverse_pointer + "."
-
-            hosts[host_name] = host
-
-        output["hosts"][zone_name] = {
-            "fwd": fwd_zone,
-            "rev_v4": rev_v4_zone,
-            "rev_v6": rev_v6_zone,
+        zone_output = {
+            "fwd": zone_data.get("fwd"),
+            "rev_v4": zone_data.get("rev_v4"),
+            "rev_v6": zone_data.get("rev_v6"),
             "hosts": hosts,
         }
 
+        if "subnet_id" in zone_data:
+            zone_output["subnet_id"] = zone_data["subnet_id"]
+
+        output["hosts"][zone_name] = zone_output
         output["records"][zone_name] = zone_data.get("records", {})
 
-    json.dump(output, sys.stdout, indent=2)
-    print()
+    yaml.dump(output, sys.stdout, default_flow_style=False, sort_keys=False)
 
 
 if __name__ == "__main__":

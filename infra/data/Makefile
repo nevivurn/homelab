@@ -1,4 +1,4 @@
-all: hosts.json
+all: generated_hosts.yaml
 
-hosts.json: hosts.yaml generate-hosts.py
+generated_hosts.yaml: hosts.yaml
 	./generate-hosts.py $< > $@
