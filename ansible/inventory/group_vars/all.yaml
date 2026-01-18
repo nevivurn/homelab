@@ -125,3 +125,5 @@ caddy_ca_cn: caddy-ca
 caddy_config_dir: /etc/caddy
 caddy_image: docker.io/caddy
 caddy_version: 2.10.2
+caddy_extra_sans:
+  - DNS:api.inf.nevi.network

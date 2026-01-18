@@ -33,6 +33,7 @@
       - serverAuth
     pki_ca_host: "{{ caddy_ca_host }}"
     pki_ca_basedir: "{{ caddy_ca_basedir }}"
+    pki_extra_sans: "{{ caddy_extra_sans }}"
 
 - name: Generate Caddy client certs
   ansible.builtin.import_role:

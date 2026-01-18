@@ -21,10 +21,7 @@
   community.crypto.openssl_csr:
     path: '{{ pki_dir }}/{{ pki_cert_id }}.csr'
     privatekey_path: '{{ pki_dir }}/{{ pki_cert_id }}.key'
-    subject_alt_name:
-      - DNS:{{ inventory_hostname }}
-      - IP:{{ ip }}
-      - IP:127.0.0.1
+    subject_alt_name: '{{ ["DNS:" + inventory_hostname, "IP:" + ip, "IP:127.0.0.1"] + (pki_extra_sans | default([])) }}'
     subject_alt_name_critical: true
     key_usage:
       - digitalSignature

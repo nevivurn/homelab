@@ -52,6 +52,10 @@ zones:
       thuban:
         ipv4: 10.64.20.92
         ipv6: fdbc:ba6a:38de:20::92
+    records:
+      api:
+        A: [*net01-v4, *net02-v4]
+        AAAA: [*net01-v6, *net02-v6]
 
   k8s:
     fwd: fwd_k8s
