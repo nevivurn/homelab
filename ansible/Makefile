@@ -1,5 +1,12 @@
 .PHONY: all
-all: files/infra_zones.json
+all: generate
+
+.PHONY: lint
+lint:
+	ansible-lint -s
+
+.PHONY: generate
+generate: files/infra_zones.json
 
 .PHONY: ../infra/outputs.json
 ../infra/outputs.json:

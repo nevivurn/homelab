@@ -32,45 +32,45 @@
   ansible.builtin.import_role:
     name: pki_certs
   vars:
-    pki_user: postgres
-    pki_group: postgres
-    pki_dir: '{{ patroni_config_dir }}/ssl'
-    pki_cert_id: etcd-client
-    pki_cert_ca_prefix: etcd-
-    pki_ekus:
+    pki_certs_user: postgres
+    pki_certs_group: postgres
+    pki_certs_dir: '{{ patroni_config_dir }}/ssl'
+    pki_certs_id: etcd-client
+    pki_certs_ca_prefix: etcd-
+    pki_certs_ekus:
       - clientAuth
-    pki_ca_host: '{{ etcd_ca_host }}'
-    pki_ca_basedir: '{{ etcd_ca_basedir }}'
+    pki_certs_ca_host: '{{ etcd_ca_host }}'
+    pki_certs_ca_basedir: '{{ etcd_ca_basedir }}'
 
 - name: Generate patroni server certs
   ansible.builtin.import_role:
     name: pki_certs
   vars:
-    pki_user: postgres
-    pki_group: postgres
-    pki_dir: '{{ patroni_config_dir }}/ssl'
-    pki_cert_id: patroni-server
-    pki_cert_ca_prefix: patroni-
-    pki_ekus:
+    pki_certs_user: postgres
+    pki_certs_group: postgres
+    pki_certs_dir: '{{ patroni_config_dir }}/ssl'
+    pki_certs_id: patroni-server
+    pki_certs_ca_prefix: patroni-
+    pki_certs_ekus:
       - serverAuth
       - clientAuth
-    pki_ca_host: '{{ patroni_ca_host }}'
-    pki_ca_basedir: '{{ patroni_ca_basedir }}'
+    pki_certs_ca_host: '{{ patroni_ca_host }}'
+    pki_certs_ca_basedir: '{{ patroni_ca_basedir }}'
 
 - name: Generate patroni postgres certs
   ansible.builtin.import_role:
     name: pki_certs
   vars:
-    pki_user: postgres
-    pki_group: postgres
-    pki_dir: '{{ patroni_config_dir }}/ssl'
-    pki_cert_id: postgres-server
-    pki_cert_ca_prefix: postgres-
-    pki_ekus:
+    pki_certs_user: postgres
+    pki_certs_group: postgres
+    pki_certs_dir: '{{ patroni_config_dir }}/ssl'
+    pki_certs_id: postgres-server
+    pki_certs_ca_prefix: postgres-
+    pki_certs_ekus:
       - serverAuth
-    pki_ca_host: '{{ patroni_postgres_ca_host }}'
-    pki_ca_basedir: '{{ patroni_postgres_ca_basedir }}'
-    pki_algo: RSA # NOTE(nevivurn): my psql libraries don't seem to support EC certs
+    pki_certs_ca_host: '{{ patroni_postgres_ca_host }}'
+    pki_certs_ca_basedir: '{{ patroni_postgres_ca_basedir }}'
+    pki_certs_algo: RSA # NOTE(nevivurn): my psql libraries don't seem to support EC certs
 
 - name: Copy patroni configuration
   ansible.builtin.template:

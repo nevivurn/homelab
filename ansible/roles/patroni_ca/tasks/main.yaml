@@ -10,4 +10,4 @@
   vars:
     pki_ca_basedir: '{{ patroni_postgres_ca_basedir }}'
     pki_ca_cn: '{{ patroni_postgres_ca_cn }}'
-    pki_algo: RSA # NOTE(nevivurn): my psql libraries don't seem to support EC certs
+    pki_ca_algo: RSA # NOTE(nevivurn): my psql libraries don't seem to support EC certs

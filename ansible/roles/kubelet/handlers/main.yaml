@@ -1,0 +1,4 @@
+- name: Set link MTU
+  ansible.builtin.command:
+    cmd: ip link set eth0 mtu 9000
+  changed_when: true

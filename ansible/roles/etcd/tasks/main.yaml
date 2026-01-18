@@ -32,15 +32,15 @@
   ansible.builtin.import_role:
     name: pki_certs
   vars:
-    pki_user: etcd
-    pki_group: etcd
-    pki_dir: '{{ etcd_config_dir }}/ssl'
-    pki_cert_id: server
-    pki_ekus:
+    pki_certs_user: etcd
+    pki_certs_group: etcd
+    pki_certs_dir: '{{ etcd_config_dir }}/ssl'
+    pki_certs_id: server
+    pki_certs_ekus:
       - clientAuth
       - serverAuth
-    pki_ca_host: '{{ etcd_ca_host }}'
-    pki_ca_basedir: '{{ etcd_ca_basedir }}'
+    pki_certs_ca_host: '{{ etcd_ca_host }}'
+    pki_certs_ca_basedir: '{{ etcd_ca_basedir }}'
 
 - name: Copy etcd configuration
   ansible.builtin.template:

@@ -70,11 +70,7 @@
     path: /etc/network/interfaces
     line: "\tmtu 9000"
     insertafter: 'inet6'
-  register: kubelet_interface_mtu
-- name: Set link MTU
-  ansible.builtin.command:
-    cmd: ip link set eth0 mtu 9000
-  when: kubelet_interface_mtu.changed
+  notify: Set link MTU
 
 - name: Start services
   ansible.builtin.systemd_service:

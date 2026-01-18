@@ -53,7 +53,7 @@ func request(ctx context.Context, c *Client, method, path string, query url.Valu
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		body, _ := io.ReadAll(resp.Body)
-		resp.Body.Close()
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("unexpected response status: %s: %s", resp.Status, body)
 	}
 
@@ -65,7 +65,7 @@ func requestEmpty(ctx context.Context, c *Client, method, path string, query url
 	if err != nil {
 		return err
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close()
 	return nil
 }
 

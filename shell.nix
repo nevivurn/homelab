@@ -8,13 +8,6 @@
   ansible,
   ansible-lint,
 
-  # cilium
-  cilium-cli,
-  hubble,
-
-  # k8s
-  k9s,
-
   # helm
   helmfile,
   kubernetes-helm,
@@ -26,6 +19,9 @@
 
   # opentofu
   opentofu,
+
+  # go
+  golangci-lint,
 }:
 
 let
@@ -46,26 +42,13 @@ mkShell {
     ansible
     ansible-lint
 
-    cilium-cli
-    hubble
-
-    helm'
-    helmfile'
-
-    k9s
     talosctl
 
     (opentofu.withPlugins (ps: with ps; [ infra ]))
 
-    (python3.withPackages (
-      ps: with ps; [
-        dataclass-wizard
-        flake8
-        mypy
-        pyyaml
-        types-pyyaml
-      ]
-    ))
+    (python3.withPackages (ps: with ps; [ pyyaml ]))
+
+    golangci-lint
   ];
 
   inputsFrom = customPackages;

@@ -7,7 +7,7 @@
 - name: Generate CA private key
   community.crypto.openssl_privatekey:
     path: '{{ pki_ca_basedir }}/ca.key'
-    type: '{{ pki_algo | default("Ed25519") }}'
+    type: '{{ pki_ca_algo | default("Ed25519") }}'
 - name: Generate CA CSR
   community.crypto.openssl_csr:
     path: '{{ pki_ca_basedir }}/ca.csr'
