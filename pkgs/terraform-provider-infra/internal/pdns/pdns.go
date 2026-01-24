@@ -21,8 +21,10 @@ type Client struct {
 var mu sync.Mutex
 
 func request(ctx context.Context, c *Client, method, path string, query url.Values, reqBody any) (*http.Response, error) {
-	mu.Lock()
-	defer mu.Unlock()
+	if method != http.MethodGet {
+		mu.Lock()
+		defer mu.Unlock()
+	}
 
 	reqURL, err := url.JoinPath(c.BaseURL, APIPrefix, path)
 	if err != nil {
