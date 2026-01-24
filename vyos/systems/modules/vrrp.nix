@@ -42,18 +42,20 @@ in
           peer-address
           ;
         address = v.v4address;
-        excluded-address.${v.v6address} = { };
-        excluded-address."fe80::1/64" = { };
+        excluded-address = [
+          v.v6address
+          "fe80::1/64"
+        ];
       }) groups;
     };
 
     service.conntrack-sync = {
-      accept-protocol = {
-        tcp = { };
-        udp = { };
-        icmp = { };
-        icmp6 = { };
-      };
+      accept-protocol = [
+        "tcp"
+        "udp"
+        "icmp"
+        "icmp6"
+      ];
       failover-mechanism.vrrp.sync-group = "ROUTER";
       interface.${groups.ROUTER.interface}.peer = groups.ROUTER.peer-address;
       startup-resync = { };
