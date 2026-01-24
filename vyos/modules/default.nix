@@ -12,32 +12,33 @@ let
     merge =
       loc: defs:
       let
+        normalValue =
+          v:
+          if lib.isAttrs v then
+            v
+          else if lib.isString v then
+            { ${v} = { }; }
+          else if lib.isList v then
+            lib.genAttrs v (_: { })
+          else
+            throw "invalid type";
+
         mergeValue =
           path: lhs: rhs:
-          if lib.isString lhs && lib.isString rhs then
-            {
-              ${lhs} = { };
-              ${rhs} = { };
-            }
-          else if lib.isString lhs && lib.isAttrs rhs then
-            { ${lhs} = { }; } // rhs
-          else if lib.isAttrs lhs && lib.isString rhs then
-            lhs // { ${rhs} = { }; }
-          else if lib.isAttrs lhs && lib.isAttrs rhs then
-            let
-              allKeys = lib.uniqueStrings (lib.attrNames lhs ++ lib.attrNames rhs);
-              mergeKey =
-                k:
-                if lhs ? ${k} && rhs ? ${k} then
-                  mergeValue (path ++ [ k ]) lhs.${k} rhs.${k}
-                else if lhs ? ${k} then
-                  lhs.${k}
-                else
-                  rhs.${k};
-            in
-            lib.genAttrs allKeys mergeKey
-          else
-            rhs;
+          let
+            lhs' = normalValue lhs;
+            rhs' = normalValue rhs;
+            allKeys = lib.uniqueStrings (lib.attrNames lhs' ++ lib.attrNames rhs');
+            mergeKey =
+              k:
+              if lhs' ? ${k} && rhs' ? ${k} then
+                mergeValue (path ++ [ k ]) lhs'.${k} rhs'.${k}
+              else if lhs' ? ${k} then
+                lhs'.${k}
+              else
+                rhs'.${k};
+          in
+          lib.genAttrs allKeys mergeKey;
       in
       lib.foldl' (acc: def: mergeValue loc acc def.value) { } defs;
   };

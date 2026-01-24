@@ -1,23 +1,21 @@
 {
   lib,
-  libVyos,
   config,
   ...
 }:
 
 let
-  inherit (libVyos) listToVyosAttrs;
   cfg = config.firewall;
 
   groupsConfig = {
     firewall.group = {
       address-group = lib.mapAttrs (_: addrs: {
-        address = listToVyosAttrs addrs;
+        address = addrs;
       }) cfg.groups.address-group;
       ipv6-address-group = lib.mapAttrs (_: addrs: {
-        address = listToVyosAttrs addrs;
+        address = addrs;
       }) cfg.groups.ipv6-address-group;
-      port-group = lib.mapAttrs (_: ports: { port = listToVyosAttrs ports; }) cfg.groups.port-group;
+      port-group = lib.mapAttrs (_: ports: { port = ports; }) cfg.groups.port-group;
     };
   };
 
@@ -25,7 +23,7 @@ let
     firewall.zone = lib.mapAttrs (
       name: zone:
       lib.filterAttrs (_: v: v != null) {
-        member = if zone.members != [ ] then { interface = listToVyosAttrs zone.members; } else null;
+        member = if zone.members != [ ] then { interface = zone.members; } else null;
         local-zone = if zone.local-zone then { } else null;
         intra-zone-filtering.action = zone.intra-zone-filtering;
       }

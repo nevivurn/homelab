@@ -1,9 +1,7 @@
 { lib }:
 
 let
-  libVyos = { inherit mkVyosConfig toVyosCommands listToVyosAttrs; };
-
-  listToVyosAttrs = list: lib.genAttrs list (_: { });
+  libVyos = { inherit mkVyosConfig toVyosCommands; };
 
   mkVyosConfig =
     { modules }:
@@ -22,6 +20,8 @@ let
             [ "set ${lib.concatStringsSep " " path}" ]
           else
             lib.concatMap (key: toCommands (path ++ [ key ]) value.${key}) (lib.attrNames value)
+        else if lib.isList value then
+          lib.concatMap (val: toCommands (path ++ [ val ]) { }) value
         else
           [ "set ${lib.concatStringsSep " " (path ++ [ (builtins.toString value) ])}" ];
     in

@@ -15,21 +15,21 @@ in
 
     neighbor.${peerAddr} = {
       remote-as = "internal";
-      address-family = {
-        ipv4-unicast = { };
-        ipv6-unicast = { };
-      };
+      address-family = [
+        "ipv4-unicast"
+        "ipv6-unicast"
+      ];
     };
 
     listen.range."fdbc:ba6a:38de:30::/64".peer-group = "K8S-cilium";
     peer-group.K8S-cilium = {
       remote-as = "65001";
       password = "secret"; # TODO(nevivurn): generate real secret
-      graceful-restart.enable = { };
-      address-family = {
-        ipv4-unicast = { };
-        ipv6-unicast = { };
-      };
+      graceful-restart = "enable";
+      address-family = [
+        "ipv4-unicast"
+        "ipv6-unicast"
+      ];
     };
   };
 }

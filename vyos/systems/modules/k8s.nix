@@ -80,14 +80,8 @@ in
 
     # VIP VRRP
     high-availability.vrrp.group.K8S = {
-      address = lib.mapAttrs' (_: v: {
-        name = "${v.addr}/24";
-        value = { };
-      }) v4Services;
-      excluded-address = lib.mapAttrs' (_: v: {
-        name = "${v.addr}/64";
-        value = { };
-      }) v6Services;
+      address = lib.mapAttrsToList (_: v: "${v.addr}/24") v4Services;
+      excluded-address = lib.mapAttrsToList (_: v: "${v.addr}/64") v6Services;
     };
   };
 }

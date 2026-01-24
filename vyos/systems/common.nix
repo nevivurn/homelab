@@ -28,14 +28,14 @@
 
     # non-critical dependencies on network infra
     system.domain-name = "inf.nevi.network";
-    system.name-server = {
-      "10.64.20.4" = { };
-      "10.64.20.5" = { };
-    };
-    service.ntp.server = {
-      "10.64.20.4" = { };
-      "10.64.20.5" = { };
-    };
+    system.name-server = [
+      "10.64.20.4"
+      "10.64.20.5"
+    ];
+    service.ntp.server = [
+      "10.64.20.4"
+      "10.64.20.5"
+    ];
 
     # default SSH config
     service.ssh = { };
