@@ -120,7 +120,7 @@ hosts:
     subnet_id: 30
   root:
     fwd: fwd_root
-    rev_v4: rev_v4_root,
+    rev_v4: rev_v4_root
     rev_v6: rev_v6_root
     hosts: {}
 records:
