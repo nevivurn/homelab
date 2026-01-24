@@ -9,7 +9,7 @@ terraform-providers.mkProvider rec {
   provider-source-address = "registry.terraform.io/nevivurn/infra";
 
   spdx = "GPL-3.0-or-later";
-  mkProviderFetcher = lib.const ./.;
+  mkProviderFetcher = _: ./.;
 
   rev = "v1.0.0";
   version = lib.removePrefix "v" rev;
