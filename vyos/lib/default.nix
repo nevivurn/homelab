@@ -6,8 +6,11 @@ let
   mkVyosConfig =
     { modules }:
     lib.evalModules {
-      specialArgs = { inherit libVyos; };
-      modules = [ ../modules ] ++ modules;
+      modules = [
+        { _module.args = { inherit libVyos; }; }
+        ../modules
+      ]
+      ++ modules;
     };
 
   toVyosCommands =
