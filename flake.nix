@@ -33,19 +33,6 @@
     )
     // {
       overlays.default = final: prev: {
-        # ref: https://github.com/NixOS/nixpkgs/pull/473711
-        # hasn't landed on unstable quite yet
-        talosctl = prev.talosctl.overrideAttrs rec {
-          version = "1.12.0";
-          src = final.fetchFromGitHub {
-            owner = "siderolabs";
-            repo = "talos";
-            tag = "v${version}";
-            hash = "sha256-u8/T01PWBGH3bJCNoC+FIzp8aH05ci4Kr3eHHWPDRkI=";
-          };
-          vendorHash = "sha256-LLtbdKq028EEs8lMt3uiwMo2KMJ6nJKf6xFyLJlg+oM=";
-        };
-
         # custom packages
         terraform-providers = prev.terraform-providers // {
           infra = final.callPackage ./pkgs/terraform-provider-infra { };
