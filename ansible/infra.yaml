@@ -1,27 +1,35 @@
+- name: Gather facts
+  hosts: all
+
 - name: Install standalone kubelet
   hosts: kubelet
+  gather_facts: false
   roles:
     - role: kubelet
       tags: kubelet
 
 - name: Generate etcd CA
   hosts: etcd_ca
+  gather_facts: false
   roles:
     - role: etcd_ca
       tags: etcd
 - name: Install etcd
   hosts: etcd
+  gather_facts: false
   roles:
     - role: etcd
       tags: etcd
 
 - name: Generate patroni CA
   hosts: patroni_ca
+  gather_facts: false
   roles:
     - role: patroni_ca
       tags: patroni
 - name: Install patroni
   hosts: patroni
+  gather_facts: false
   vars_files:
     - secrets/patroni.yaml
   roles:
@@ -30,12 +38,14 @@
 
 - name: Install patroni-haproxy
   hosts: patroni_haproxy
+  gather_facts: false
   roles:
     - role: patroni_haproxy
       tags: patroni_haproxy
 
 - name: Install kea
   hosts: kea
+  gather_facts: false
   vars_files:
     - secrets/kea.yaml
   roles:
@@ -44,6 +54,7 @@
 
 - name: Install pdns-recursor
   hosts: pdns
+  gather_facts: false
   vars_files:
     - secrets/pdns.yaml
   roles:
@@ -52,23 +63,27 @@
 
 - name: Install chrony
   hosts: chrony
+  gather_facts: false
   roles:
     - role: chrony
       tags: chrony
 
 - name: Install dhcrelay
   hosts: dhcrelay
+  gather_facts: false
   roles:
     - role: dhcrelay
       tags: dhcrelay
 
 - name: Generate caddy CA
   hosts: caddy_ca
+  gather_facts: false
   roles:
     - role: caddy_ca
       tags: caddy
 - name: Install caddy
   hosts: caddy
+  gather_facts: false
   vars_files:
     # for the API key
     - secrets/pdns.yaml
