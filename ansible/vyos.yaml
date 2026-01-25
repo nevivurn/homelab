@@ -2,11 +2,7 @@
   hosts: vyos
   gather_facts: false
   tasks:
-    - name: Load configuration commands
-      ansible.builtin.set_fact:
-        vyos_commands: "{{ lookup('file', vyos_config).splitlines() }}"
-
     - name: Apply VyOS configuration
       vyos.vyos.vyos_config:
-        lines: "{{ vyos_commands }}"
+        src: "files/{{ vyos_config }}"
         save: true

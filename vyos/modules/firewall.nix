@@ -25,7 +25,7 @@ let
       lib.filterAttrs (_: v: v != null) {
         member = if zone.members != [ ] then { interface = zone.members; } else null;
         local-zone = if zone.local-zone then { } else null;
-        intra-zone-filtering.action = zone.intra-zone-filtering;
+        intra-zone-filtering = if !zone.local-zone then { action = zone.intra-zone-filtering; } else null;
       }
     ) cfg.zones;
   };

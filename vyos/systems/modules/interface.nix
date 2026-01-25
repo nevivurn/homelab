@@ -25,8 +25,8 @@ let
     // {
       "200" = {
         address = [
-          "10.64.200.1/24"
-          "fdbc:ba6a:38de:200::1/64"
+          "10.64.200.${if primary then "1" else "2"}/24"
+          "fdbc:ba6a:38de:200::${if primary then "1" else "2"}/64"
         ];
       };
       "99" = {

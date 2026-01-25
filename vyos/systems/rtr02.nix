@@ -1,8 +1,5 @@
 {
   imports = [ ./modules ];
   primary = false;
-
-  vyosConfig = {
-    system.host-name = "rtr01";
-  };
+  vyosConfig.system.host-name = "rtr02";
 }
