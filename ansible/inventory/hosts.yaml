@@ -41,6 +41,15 @@ all:
       ip: 10.64.30.5
       ip6: fdbc:ba6a:38de:30::5
 
+vyos:
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: vyos.vyos.vyos
+    ansible_user: vyos
+  hosts:
+    rtr01.rtr.nevi.network:
+    rtr02.rtr.nevi.network:
+
 etcd_ca:
   hosts:
     localhost:

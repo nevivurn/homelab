@@ -36,16 +36,6 @@ hosts:
     rev_v4: rev_v4_inf
     rev_v6: rev_v6_inf
     hosts:
-      rtr01:
-        ipv4: 10.64.20.2
-        ptr_v4: 2.20.64.10.in-addr.arpa.
-        ipv6: fdbc:ba6a:38de:20::2
-        ptr_v6: 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
-      rtr02:
-        ipv4: 10.64.20.3
-        ptr_v4: 3.20.64.10.in-addr.arpa.
-        ipv6: fdbc:ba6a:38de:20::3
-        ptr_v6: 3.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
       net01:
         ipv4: 10.64.20.4
         ptr_v4: 4.20.64.10.in-addr.arpa.
@@ -118,6 +108,22 @@ hosts:
         ipv6: fdbc:ba6a:38de:30::13
         ptr_v6: 3.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
     subnet_id: 30
+  rtr:
+    fwd: fwd_rtr
+    rev_v4: rev_v4_rtr
+    rev_v6: rev_v6_rtr
+    hosts:
+      rtr01:
+        ipv4: 10.64.200.1
+        ptr_v4: 1.200.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:200::1
+        ptr_v6: 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+      rtr02:
+        ipv4: 10.64.200.2
+        ptr_v4: 2.200.64.10.in-addr.arpa.
+        ipv6: fdbc:ba6a:38de:200::2
+        ptr_v6: 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa.
+    subnet_id: 200
   root:
     fwd: fwd_root
     rev_v4: rev_v4_root
@@ -144,6 +150,7 @@ records:
       - fdbc:ba6a:38de:30::11
       - fdbc:ba6a:38de:30::12
       - fdbc:ba6a:38de:30::13
+  rtr: {}
   root:
     net01.inf:
       A:
