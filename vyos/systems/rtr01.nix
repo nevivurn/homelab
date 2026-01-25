@@ -1,5 +1,5 @@
 {
-  imports = [ ./common.nix ];
+  imports = [ ./modules ];
   primary = true;
 
   vyosConfig = {

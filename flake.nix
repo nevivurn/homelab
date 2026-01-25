@@ -24,6 +24,7 @@
         packages = {
           hosts = callPackage ./pkgs/hosts { };
           terraform-provider-infra = pkgs.terraform-providers.infra;
+          vyos-configs = import ./vyos { inherit lib pkgs; };
         };
         devShells.default = callPackage ./shell.nix {
           customPackages = lib.attrValues self.packages.${system};

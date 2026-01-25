@@ -48,7 +48,9 @@ vyos:
     ansible_user: vyos
   hosts:
     rtr01.rtr.nevi.network:
+      vyos_config: vyos-configs/rtr01.txt
     rtr02.rtr.nevi.network:
+      vyos_config: vyos-configs/rtr02.txt
 
 etcd_ca:
   hosts:

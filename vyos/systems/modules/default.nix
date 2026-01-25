@@ -1,13 +1,15 @@
 { lib, ... }:
 
-{
-  imports = [
-    ./modules/bgp.nix
-    ./modules/firewall.nix
-    ./modules/interface.nix
-    ./modules/k8s.nix
-    ./modules/vrrp.nix
+let
+  allModules = lib.pipe (builtins.readDir ./.) [
+    lib.attrNames
+    (lib.filter (f: f != "default.nix"))
+    (lib.map (f: ./${f}))
   ];
+in
+
+{
+  imports = allModules;
 
   options.primary = lib.mkOption {
     type = lib.types.bool;
