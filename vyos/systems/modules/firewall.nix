@@ -37,8 +37,8 @@ let
   };
 
   rulesets = {
-    # allow access to basic infra services (DHCP, DNS, NTP)
-    infra-services = {
+    # allow access to DHCP
+    dhcp-services = {
       "110" = {
         # allow DHCP relay traffic
         action = "accept";
@@ -54,6 +54,9 @@ let
           destination.port = "547";
         };
       };
+    };
+    # allow access to other infra services (DNS, NTP)
+    infra-services = rulesets.dhcp-services // {
       "120" = {
         # allow DNS, NTP, etc.
         action = "accept";
@@ -228,7 +231,7 @@ in
 
       GUEST-INFRA = {
         default-action = "drop";
-        rules = rulesets.infra-services // {
+        rules = rulesets.dhcp-services // {
           "10" = lib.recursiveUpdate rules.allow-ping {
             # allow pinging infra servers
             ipv4.destination.group.address-group = "INFRA-addr4";
