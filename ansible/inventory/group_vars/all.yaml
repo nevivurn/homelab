@@ -46,10 +46,15 @@ kea_subnets:
     pool_v4: "10.64.11.100 - 10.64.11.200"
     subnet_v6: fdbc:ba6a:38de:11::/64
     pool_v6: fdbc:ba6a:38de:11:d6d6::/80
-    extra_options:
+    extra_options_v4:
       - name: domain-name-servers
         data: 1.1.1.1, 1.0.0.1
       - name: ntp-servers
+        never-send: true
+    extra_options_v6:
+      - name: dns-servers
+        data: 2606:4700:4700::1111, 2606:4700:4700::1001
+      - name: sntp-servers
         never-send: true
   20:
     domain: inf.nevi.network

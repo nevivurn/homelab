@@ -30,6 +30,9 @@ Dhcp6:
       option-data:
         - name: domain-search
           data: {{ subnet.domain }}
+        {%- if subnet.extra_options_v6 is defined +%}
+        {{ subnet.extra_options_v6 | to_yaml | indent(8) }}
+        {%- endif +%}
       ddns-qualifying-suffix: {{ subnet.domain }}
     {%- endfor +%}
   option-data:
