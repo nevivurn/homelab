@@ -4,6 +4,6 @@
 provider "registry.opentofu.org/nevivurn/infra" {
   version = "1.0.0"
   hashes = [
-    "h1:By4LDVPqoW5HVDu6yN+UfOBqubO68+R5L/ovIWHWxP0=",
+    "h1:Wq0+6U6zzZuI1OKw733dJ27UVxBAhoQWsbO52NxlzAU=",
   ]
 }

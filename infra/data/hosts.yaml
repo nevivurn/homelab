@@ -137,3 +137,9 @@ root:
     giausar.proxy:
       A: [10.42.43.3]
       AAAA: [fdbc:ba6a:38de:2::3]
+    # public zone
+    # NOTE(nevivurn): this breaks DNSSEC only for the public zone...
+    # Resolving the public zone is _less_ safe when done from my network vs.
+    # from outside.
+    pub:
+      NS: [mark.ns.cloudflare.com., mira.ns.cloudflare.com.]

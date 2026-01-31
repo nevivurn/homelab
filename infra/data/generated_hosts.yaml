@@ -196,3 +196,7 @@ records:
       - 10.42.43.3
       AAAA:
       - fdbc:ba6a:38de:2::3
+    pub:
+      NS:
+      - mark.ns.cloudflare.com.
+      - mira.ns.cloudflare.com.
