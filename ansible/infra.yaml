@@ -1,5 +1,5 @@
 - name: Gather facts
-  hosts: all
+  hosts: kubelet
 
 - name: Install standalone kubelet
   hosts: kubelet

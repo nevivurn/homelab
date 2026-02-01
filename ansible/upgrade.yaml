@@ -1,5 +1,5 @@
 - name: Upgrade tasks
-  hosts: all:!localhost
+  hosts: kubelet
   become: true
   tasks:
     - name: Upgrade
