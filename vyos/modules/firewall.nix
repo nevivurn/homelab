@@ -8,7 +8,7 @@ let
   cfg = config.firewall;
 
   groupsConfig = {
-    firewall.group = {
+    firewall.group = lib.filterAttrs (_: v: v != { }) {
       address-group = lib.mapAttrs (_: addrs: {
         address = addrs;
       }) cfg.groups.address-group;
@@ -16,6 +16,7 @@ let
         address = addrs;
       }) cfg.groups.ipv6-address-group;
       port-group = lib.mapAttrs (_: ports: { port = ports; }) cfg.groups.port-group;
+      interface-group = lib.mapAttrs (_: interface: { inherit interface; }) cfg.groups.interface-group;
     };
   };
 
@@ -89,6 +90,10 @@ in
         default = { };
       };
       port-group = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.listOf lib.types.str);
+        default = { };
+      };
+      interface-group = lib.mkOption {
         type = lib.types.attrsOf (lib.types.listOf lib.types.str);
         default = { };
       };

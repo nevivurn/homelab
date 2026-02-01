@@ -80,12 +80,11 @@ in
         ];
         MGMT-addr4 = [ "10.64.20.90-10.64.20.100" ];
         ROUTER-addr4 = [
-          "10.64.10.1-10.64.10.3" # HOME
-          "10.64.11.1-10.64.11.3" # GUEST
-          "10.64.20.1-10.64.20.3" # INFRA
-          "10.64.30.1-10.64.30.3" # K8S
+          "10.64.10.2-10.64.10.3" # HOME
+          "10.64.11.2-10.64.11.3" # GUEST
+          "10.64.20.2-10.64.20.3" # INFRA
+          "10.64.30.2-10.64.30.3" # K8S
           "10.64.200.1-10.64.200.2" # ROUTER
-          "10.64.200.4" # ROUTER-VRRP
         ];
         K8S-LB-addr4 = [ "10.64.31.0-10.64.31.255" ];
       };
@@ -98,6 +97,8 @@ in
         ];
         MGMT-addr6 = [ "fdbc:ba6a:38de:20::90-fdbc:ba6a:38de:20::100" ];
         ROUTER-addr6 = [
+          # ROUTER peers
+          "fdbc:ba6a:38de:200::1-fdbc:ba6a:38de:200::2"
           # K8S node range - for cilium BGP
           "fdbc:ba6a:38de:30::-fdbc:ba6a:38de:30:ffff:ffff:ffff:ffff"
         ];
@@ -118,7 +119,10 @@ in
       };
       LOCAL.local-zone = true;
       ROUTER.members = [ "eth0.200" ];
-      HOME.members = [ "eth0.10" ];
+      HOME.members = [
+        "eth0.10"
+        "wg40"
+      ];
       GUEST.members = [ "eth0.11" ];
       INFRA.members = [ "eth0.20" ];
       K8S.members = [ "eth0.30" ];
@@ -149,11 +153,12 @@ in
           };
           "102" = {
             # allow BGP
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "179";
-            ipv4.source.group.address-group = "ROUTER-addr4";
-            ipv6.source.group.address-group = "ROUTER-addr6";
+            ipv6 = {
+              action = "accept";
+              protocol = "tcp";
+              destination.port = "179";
+              source.group.address-group = "ROUTER-addr6";
+            };
           };
           "200" = rules.allow-ssh;
         };
