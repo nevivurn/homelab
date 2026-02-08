@@ -28,6 +28,6 @@ let
         else
           [ "set ${lib.concatStringsSep " " (path ++ [ (builtins.toString value) ])}" ];
     in
-    lib.concatLines (toCommands [ ] cfg);
+    lib.concatLines (lib.sort (a: b: a < b) (toCommands [ ] cfg));
 in
 libVyos
