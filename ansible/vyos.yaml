@@ -1,8 +1,10 @@
 - name: Deploy VyOS configuration
   hosts: vyos
   gather_facts: false
+  vars:
+    save: false
   tasks:
     - name: Apply VyOS configuration
       vyos.vyos.vyos_config:
         src: "files/{{ vyos_config }}"
-        save: true
+        save: "{{ save }}"

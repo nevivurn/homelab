@@ -21,6 +21,8 @@ recursor:
       policyName: hosts
       extendedErrorCode: 15
       extendedErrorExtra: 'blocked by hosts list'
+    - name: /etc/powerdns/recursor.d/private.zone
+      policyName: private
 
 dnssec:
   validation: validate

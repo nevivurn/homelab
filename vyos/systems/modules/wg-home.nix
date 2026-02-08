@@ -9,16 +9,18 @@ let
   v4prefix = "10.64.4${if primary then "1" else "2"}.";
   v6prefix = "fdbc:ba6a:38de:4${if primary then "1" else "2"}::";
 
+  port = "51820";
+
   peers = {
     altais = {
-      address = "2";
+      index = "2";
       public-key = [
         "0xsPcmKTLsF68NtaTDh45m5lbBr3AyMLZVgckNxT1UM="
         "mtrjUEpeiulV7ltHPAoXcLuRkDy2b7UZKgC6UmxgtXw="
       ];
     };
     edasich = {
-      address = "3";
+      index = "3";
       public-key = [
         "Ib3YqWCoVOem0q4jNnFlLeSplFovcFDNhXiqADseeU0="
         "79vDmwvL+mK1rsXHXjxupInwQWXYg2l/+duiv5exoio="
@@ -34,12 +36,12 @@ in
         "${v4prefix}1/24"
         "${v6prefix}1/64"
       ];
-      port = "51820";
+      inherit port;
 
       peer = lib.mapAttrs (_: peer: {
         allowed-ips = [
-          "${v4prefix}${peer.address}/32"
-          "${v6prefix}${peer.address}/128"
+          "${v4prefix}${peer.index}/32"
+          "${v6prefix}${peer.index}/128"
         ];
         public-key = lib.elemAt peer.public-key (if primary then 0 else 1);
       }) peers;
@@ -51,7 +53,7 @@ in
       rule = {
         action = "accept";
         protocol = "udp";
-        destination.port = "51820";
+        destination = { inherit port; };
       };
     in
     {

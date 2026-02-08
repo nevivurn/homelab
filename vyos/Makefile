@@ -3,13 +3,13 @@ all: generate
 
 .PHONY: clean
 clean:
-	rm -rf results fetched
+	rm -rf result fetched
 
 .PHONY: generate
-generate: results fetched/rtr01.rtr.nevi.network fetched/rtr02.rtr.nevi.network
+generate: result fetched/rtr01.rtr.nevi.network fetched/rtr02.rtr.nevi.network
 
-.PHONY: results
-results:
+.PHONY: result
+result:
 	nix build .#vyos-configs
 
 fetched/%:

@@ -16,6 +16,7 @@ locals {
     fwd_inf   = "inf.nevi.network."
     fwd_k8s   = "k8s.nevi.network."
     fwd_rtr   = "rtr.nevi.network."
+    fwd_prx   = "prx.nevi.network."
 
     rev_v4_home  = "10.64.10.in-addr.arpa."
     rev_v4_guest = "11.64.10.in-addr.arpa."
@@ -28,13 +29,14 @@ locals {
     rev_v6_inf   = "0.2.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa."
     rev_v6_k8s   = "0.3.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa."
     rev_v6_rtr   = "0.0.2.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa."
+    rev_v6_prx   = "5.0.0.e.d.8.3.a.6.a.b.c.b.d.f.ip6.arpa."
   }
 
   dns_roots = ["fwd_root", "rev_v4_root", "rev_v6_root"]
 
   dns_delegations = {
-    fwd_root    = ["fwd_home", "fwd_guest", "fwd_inf", "fwd_k8s", "fwd_rtr"]
+    fwd_root    = ["fwd_home", "fwd_guest", "fwd_inf", "fwd_k8s", "fwd_rtr", "fwd_prx"]
     rev_v4_root = ["rev_v4_home", "rev_v4_guest", "rev_v4_inf", "rev_v4_k8s", "rev_v4_rtr"]
-    rev_v6_root = ["rev_v6_home", "rev_v6_guest", "rev_v6_inf", "rev_v6_k8s", "rev_v6_rtr"]
+    rev_v6_root = ["rev_v6_home", "rev_v6_guest", "rev_v6_inf", "rev_v6_k8s", "rev_v6_rtr", "rev_v6_prx"]
   }
 }

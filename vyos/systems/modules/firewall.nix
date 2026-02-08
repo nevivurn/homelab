@@ -126,6 +126,10 @@ in
       GUEST.members = [ "eth0.11" ];
       INFRA.members = [ "eth0.20" ];
       K8S.members = [ "eth0.30" ];
+      PROXY = {
+        members = [ "wg50" ];
+        intra-zone-filtering = "drop";
+      };
     };
 
     tables = {
@@ -275,6 +279,13 @@ in
       GUEST.WAN = "EGRESS-WAN";
       INFRA.WAN = "EGRESS-WAN";
       K8S.WAN = "EGRESS-WAN";
+
+      # Egress to PROXY
+      LOCAL.PROXY = "EGRESS-WAN";
+      ROUTER.PROXY = "EGRESS-WAN";
+      HOME.PROXY = "EGRESS-WAN";
+      INFRA.PROXY = "EGRESS-WAN";
+      K8S.PROXY = "EGRESS-WAN";
 
       # Egress from LOCAL
       LOCAL.ROUTER = "LOCAL-EGRESS";

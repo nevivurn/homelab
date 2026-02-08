@@ -96,6 +96,8 @@ Address | Host    | Notes
 - https://troopers.de/wp-content/uploads/2013/11/TROOPERS14-HA_Strategies_in_IPv6_Networks-Ivan_Pepelnjak.pdf
 - https://github.com/vyos/vyos-1x/pull/2638 - flowtables in named tables for zone-based firewall
 - https://serverfault.com/questions/1033682/dhclient-is-sending-host-name-for-ipv4-but-not-ipv6
+- https://datatracker.ietf.org/doc/html/draft-krishnaswamy-dnsop-dnssec-split-view-04
+- https://www.rfc-editor.org/rfc/rfc8901.html
 
 ## TODOS
 

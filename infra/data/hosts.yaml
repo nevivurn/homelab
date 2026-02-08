@@ -86,7 +86,6 @@ k8s:
     k8s1-masters:
       A: [*k8s-master11-v4, *k8s-master12-v4, *k8s-master13-v4]
       AAAA: [*k8s-master11-v6, *k8s-master12-v6, *k8s-master13-v6]
-
 rtr:
   fwd: fwd_rtr
   rev_v4: rev_v4_rtr
@@ -100,6 +99,15 @@ rtr:
       ipv4: 10.64.200.2
       ipv6: fdbc:ba6a:38de:200::2
 
+prx:
+  fwd: fwd_prx
+  rev_v6: rev_v6_prx
+  hosts:
+    alrakis:
+      ipv6s: [fdbc:ba6a:38de:51::2, fdbc:ba6a:38de:52::2]
+    giausar:
+      ipv6s: [fdbc:ba6a:38de:51::3, fdbc:ba6a:38de:52::3]
+
 root:
   fwd: fwd_root
   rev_v4: rev_v4_root
@@ -112,10 +120,13 @@ root:
     net02.inf:
       A: [*net02-v4]
       AAAA: [*net02-v6]
-    # null, used in rpz
+    # used in rpz
     "null":
       A: [0.0.0.0]
       AAAA: ["::"]
+    proxy:
+      A: [10.64.50.1]
+      AAAA: [fdbc:ba6a:38de:50::1]
     # legacy hosts, not in 'hosts' because we don't bother with RDNS
     funi:
       A: [192.168.2.1]

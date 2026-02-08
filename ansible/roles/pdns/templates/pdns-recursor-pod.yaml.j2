@@ -5,6 +5,7 @@ metadata:
   annotations:
     checksum/config: {{ pdns_recursor_config.checksum }}
     checksum/config-rpz: {{ pdns_recursor_rpz_config.checksum }}
+    checksum/config-rpz-private: {{ pdns_recursor_rpz_private_config.checksum }}
 spec:
   hostNetwork: true
   containers:

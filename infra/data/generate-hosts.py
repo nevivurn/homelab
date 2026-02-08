@@ -21,16 +21,21 @@ def process_host(host_data):
         host["ipv6"] = str(addr)
         host["ptr_v6"] = addr.reverse_pointer + "."
 
+    if "ipv4s" in host_data:
+        addrs = [ipaddress.IPv4Address(ip) for ip in host_data["ipv4s"]]
+        host["ipv4s"] = [str(addr) for addr in addrs]
+        host["ptrs_v4"] = [addr.reverse_pointer + "." for addr in addrs]
+
+    if "ipv6s" in host_data:
+        addrs = [ipaddress.IPv6Address(ip) for ip in host_data["ipv6s"]]
+        host["ipv6s"] = [str(addr) for addr in addrs]
+        host["ptrs_v6"] = [addr.reverse_pointer + "." for addr in addrs]
+
     return host
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <hosts.yaml>", file=sys.stderr)
-        sys.exit(1)
-
-    with open(sys.argv[1], 'r') as f:
-        data = yaml.safe_load(f)
+    data = yaml.safe_load(sys.stdin)
 
     output = {
         "hosts": {},
