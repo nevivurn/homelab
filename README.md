@@ -24,12 +24,7 @@ DHCP ranges are
 
 CIDR                | Notes
 ---                 | ---
-10.42.42.0/24       | legacy vpn
 10.42.43.0/24       | legacy proxy
-10.89.0.0/16        | Bacchus internal range
-10.90.0.0/16        | Bacchus internal range
-10.91.0.0/16        | Bacchus internal range
-10.92.0.0/16        | Bacchus internal range
 172.20.0.0/14       | dn42
 
 ## Network architecture
@@ -82,6 +77,16 @@ Address | Host    | Notes
 .4      | relay01 | DHCP relay to net01
 .5      | relay02 | DHCP relay to net02
 .20     |         | control plane VIP
+
+#### Notes
+
+- We currently drop connections to the k8s apiserver VIP on router failover
+  because the connections are terminated (proxied) on the routers themselves.
+  - We could avoid this with eg. IPVS but we run into issues with hairpin
+    connections or weirdness in the return-path.
+    - We could have a separate set of hosts running just the k8s loadbalancer,
+      but the k8s apiserver is not super critical, and only affects external
+      clients.
 
 # Resources
 - https://gitlab.isc.org/isc-projects/kea-docker/-/tree/master/kea-compose?ref_type=heads
