@@ -3,11 +3,8 @@
 let
   routerv4 = "10.64.200.3";
   routerv6 = "fdbc:ba6a:38de:200::3";
-  routev4 = [
-    "10.42.43.0/24" # wg-proxy
-    "192.168.2.0/24" # legacy
-  ];
-  routev6 = [ "fdbc:ba6a:38de::/62" ]; # legacy
+  routev4 = [ "192.168.2.0/24" ];
+  routev6 = [ "fdbc:ba6a:38de::/64" ];
 in
 {
   vyosConfig.protocols.static = {
