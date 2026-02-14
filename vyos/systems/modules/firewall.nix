@@ -165,6 +165,11 @@ in
             };
           };
           "200" = rules.allow-ssh;
+          "210" = {
+            action = "accept";
+            protocol = "tcp";
+            destination.port = "9100";
+          };
         };
       };
 

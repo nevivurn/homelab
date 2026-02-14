@@ -41,6 +41,7 @@ in
 
     # default SSH config
     service.ssh = { };
+    service.monitoring.prometheus.node-exporter = { };
 
     # upstream drops out on sustained >100Mbit/s upload
     qos = {

@@ -6,7 +6,7 @@ clean:
 	rm -rf result fetched
 
 .PHONY: generate
-generate: result fetched/rtr01.rtr.nevi.network fetched/rtr02.rtr.nevi.network
+generate: result fetched/rtr01.home.nevi.network fetched/rtr02.home.nevi.network
 
 .PHONY: result
 result:
