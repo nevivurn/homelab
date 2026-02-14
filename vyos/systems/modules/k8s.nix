@@ -1,45 +1,27 @@
 { lib, ... }:
 
 let
-  services = {
-    K8S-API4 = {
-      addr = "10.64.30.10";
-      family = "ipv4";
-      hosts = {
-        k8s-master11 = "10.64.30.11";
-        k8s-master12 = "10.64.30.12";
-        k8s-master13 = "10.64.30.13";
-      };
-    };
-    K8S-API6 = {
-      addr = "fdbc:ba6a:38de:30::10";
-      family = "ipv6";
-      hosts = {
-        k8s-master11 = "fdbc:ba6a:38de:30::11";
-        k8s-master12 = "fdbc:ba6a:38de:30::12";
-        k8s-master13 = "fdbc:ba6a:38de:30::13";
-      };
-    };
+  v4addr = "10.64.30.10";
+  v6addr = "fdbc:ba6a:38de:30::10";
+
+  hosts = {
+    k8s-master11 = "fdbc:ba6a:38de:30::11";
+    k8s-master12 = "fdbc:ba6a:38de:30::12";
+    k8s-master13 = "fdbc:ba6a:38de:30::13";
   };
-
-  v4Services = lib.filterAttrs (_: v: v.family == "ipv4") services;
-  v6Services = lib.filterAttrs (_: v: v.family == "ipv6") services;
-
-  servicePort = "443";
-  backendPort = "6443";
 in
 
 {
   # K8S API firewall rules
   firewall = {
     groups = {
-      address-group = lib.mapAttrs (_: v: [ v.addr ]) v4Services;
-      ipv6-address-group = lib.mapAttrs (_: v: [ v.addr ]) v6Services;
+      address-group.K8S-API4 = [ v4addr ];
+      ipv6-address-group.K8S-API6 = [ v6addr ];
     };
     tables.LAN-INGRESS.rules."300" = {
       action = "accept";
       protocol = "tcp";
-      destination.port = servicePort;
+      destination.port = "443";
       ipv4.destination.group.address-group = "K8S-API4";
       ipv6.destination.group.address-group = "K8S-API6";
     };
@@ -48,28 +30,23 @@ in
   vyosConfig = {
     # primary HAProxy config
     load-balancing.haproxy = {
-      backend =
-        let
-          genBackend = hosts: {
-            mode = "tcp";
-            server = lib.mapAttrs (_: addr: {
-              address = addr;
-              port = backendPort;
-              check.port = backendPort;
-            }) hosts;
-          };
-        in
-        lib.mapAttrs (_: v: genBackend v.hosts) services;
-      service =
-        let
-          genService = name: addr: {
-            backend = name;
-            listen-address = addr;
-            mode = "tcp";
-            port = servicePort;
-          };
-        in
-        lib.mapAttrs (k: v: genService k v.addr) services;
+      backend.K8S-API = {
+        mode = "tcp";
+        server = lib.mapAttrs (_: addr: {
+          address = addr;
+          port = "6443";
+          check.port = "6443";
+        }) hosts;
+      };
+      service.K8S-API = {
+        backend = "K8S-API";
+        listen-address = [
+          v4addr
+          v6addr
+        ];
+        mode = "tcp";
+        port = "443";
+      };
     };
 
     # allow haproxy to listen on non-local addresses (when we are not the VRRP master)
@@ -80,8 +57,8 @@ in
 
     # VIP VRRP
     high-availability.vrrp.group.K8S = {
-      address = lib.mapAttrsToList (_: v: "${v.addr}/24") v4Services;
-      excluded-address = lib.mapAttrsToList (_: v: "${v.addr}/64") v6Services;
+      address = [ "${v4addr}/24" ];
+      excluded-address = [ "${v6addr}/64" ];
     };
   };
 }

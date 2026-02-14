@@ -207,6 +207,10 @@ in
         };
       };
 
+      WAN-INFRA = {
+        default-action = "drop";
+      };
+
       LAN-INFRA = {
         default-action = "drop";
         rules = rulesets.infra-services // {
@@ -314,6 +318,7 @@ in
       HOME.GUEST = "LAN-GUEST";
       INFRA.GUEST = "LAN-GUEST";
 
+      WAN.INFRA = "WAN-INFRA";
       ROUTER.INFRA = "LAN-INFRA";
       HOME.INFRA = "LAN-INFRA";
       GUEST.INFRA = "GUEST-INFRA";

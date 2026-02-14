@@ -135,8 +135,7 @@ root:
       A: [192.168.2.1]
       AAAA: [fdbc:ba6a:38de::1]
     athebyne:
-      A: [192.168.2.10]
-      AAAA: [fdbc:ba6a:38de::10]
+      CNAME: [athebyne.inf.nevi.network.]
     # legacy services
     audiobookshelf:
       CNAME: [athebyne.nevi.network.]

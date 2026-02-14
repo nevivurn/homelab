@@ -16,10 +16,10 @@ in
       system-as = localAS;
       parameters.router-id = routerId;
 
-      address-family = {
-        ipv4-unicast.redistribute = [ "connected" ];
-        ipv6-unicast.redistribute = [ "connected" ];
-      };
+      address-family = [
+        "ipv4-unicast"
+        "ipv6-unicast"
+      ];
 
       neighbor.${peerAddr} = {
         remote-as = "internal";
