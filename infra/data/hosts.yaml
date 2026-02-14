@@ -4,6 +4,12 @@ home:
   rev_v6: rev_v6_home
   subnet_id: 10
   hosts:
+    rtr01:
+      ipv4: 10.64.10.1
+      ipv6: fdbc:ba6a:38de:10::1
+    rtr02:
+      ipv4: 10.64.10.2
+      ipv6: fdbc:ba6a:38de:10::2
     relay01:
       ipv4: 10.64.10.4
       ipv6: fdbc:ba6a:38de:10::4
@@ -17,6 +23,12 @@ guest:
   rev_v6: rev_v6_guest
   subnet_id: 11
   hosts:
+    rtr01:
+      ipv4: 10.64.11.1
+      ipv6: fdbc:ba6a:38de:11::1
+    rtr02:
+      ipv4: 10.64.11.2
+      ipv6: fdbc:ba6a:38de:11::2
     relay01:
       ipv4: 10.64.11.4
       ipv6: fdbc:ba6a:38de:11::4
@@ -30,6 +42,12 @@ inf:
   rev_v6: rev_v6_inf
   subnet_id: 20
   hosts:
+    rtr01:
+      ipv4: 10.64.20.1
+      ipv6: fdbc:ba6a:38de:20::1
+    rtr02:
+      ipv4: 10.64.20.2
+      ipv6: fdbc:ba6a:38de:20::2
     net01:
       ipv4: &net01-v4 10.64.20.4
       ipv6: &net01-v6 fdbc:ba6a:38de:20::4
@@ -63,6 +81,12 @@ k8s:
   rev_v6: rev_v6_k8s
   subnet_id: 30
   hosts:
+    rtr01:
+      ipv4: 10.64.30.1
+      ipv6: fdbc:ba6a:38de:30::1
+    rtr02:
+      ipv4: 10.64.30.2
+      ipv6: fdbc:ba6a:38de:30::2
     relay01:
       ipv4: 10.64.30.4
       ipv6: fdbc:ba6a:38de:30::4
