@@ -7,7 +7,7 @@ lint:
 	tofu validate
 
 .PHONY: generate
-generate: outputs.json
+generate:
 	$(MAKE) -C data
 
 .PHONY: outputs.json

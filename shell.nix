@@ -4,18 +4,13 @@
   # custom packages
   customPackages,
 
-  # ansible
   ansible,
   ansible-lint,
-
-  talosctl,
-  python3,
-
-  # opentofu
-  opentofu,
-
-  # go
   golangci-lint,
+  opentofu,
+  python3,
+  python3Packages,
+  talosctl,
 }:
 
 mkShell {
@@ -28,6 +23,8 @@ mkShell {
     (opentofu.withPlugins (ps: with ps; [ infra ]))
 
     (python3.withPackages (ps: with ps; [ pyyaml ]))
+    python3Packages.flake8
+    python3Packages.mypy
 
     golangci-lint
   ];

@@ -1,0 +1,9 @@
+system config-management
+system console
+system login
+system option
+system syslog
+interfaces ethernet eth0 hw-id
+interfaces wireguard * private-key
+interfaces wireguard * peer * preshared-key
+service dns
