@@ -98,7 +98,9 @@ Address | Host    | Notes
 - https://serverfault.com/questions/1033682/dhclient-is-sending-host-name-for-ipv4-but-not-ipv6
 - https://datatracker.ietf.org/doc/html/draft-krishnaswamy-dnsop-dnssec-split-view-04
 - https://www.rfc-editor.org/rfc/rfc8901.html
+- https://vyos.dev/T7358 - presumably we'll have proper flowtables soon
 
 ## TODOS
 
-- router iac
+- mgmt (native) network
+- NIC passthrough
