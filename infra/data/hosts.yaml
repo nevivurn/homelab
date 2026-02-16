@@ -189,9 +189,6 @@ root:
       A: [10.64.50.1]
       AAAA: [fdbc:ba6a:38de:50::1]
     # legacy hosts, not in 'hosts' because we don't bother with RDNS
-    funi:
-      A: [192.168.2.1]
-      AAAA: [fdbc:ba6a:38de::1]
     athebyne:
       CNAME: [athebyne.inf.nevi.network.]
     # legacy services
@@ -201,13 +198,6 @@ root:
       CNAME: [athebyne.nevi.network.]
     matrix:
       CNAME: [athebyne.nevi.network.]
-    # legacy proxies
-    alrakis.proxy:
-      A: [10.42.43.2]
-      AAAA: [fdbc:ba6a:38de:2::2]
-    giausar.proxy:
-      A: [10.42.43.3]
-      AAAA: [fdbc:ba6a:38de:2::3]
     # public zone
     # NOTE(nevivurn): this breaks DNSSEC only for the public zone...
     # Resolving the public zone is _less_ safe when done from my network vs.
