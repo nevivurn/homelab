@@ -92,13 +92,11 @@ def compute_diff(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Diff VyOS configurations")
-    parser.add_argument("running", type=Path, help="Running config file")
-    parser.add_argument("desired", type=Path, help="Desired config file")
-    parser.add_argument("patterns", type=Path, help="Ignore patterns file")
-    parser.add_argument(
-        "-v", "--verbose", action="store_true", help="Print ignored config"
-    )
+    parser = argparse.ArgumentParser()
+    parser.add_argument("running", type=Path)
+    parser.add_argument("desired", type=Path)
+    parser.add_argument("patterns", type=Path)
+    parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
 
     with args.running.open() as f:
