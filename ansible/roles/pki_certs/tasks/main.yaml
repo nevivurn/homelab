@@ -38,7 +38,7 @@
     csr_content: '{{ pki_certs_csr.csr }}'
     provider: ownca
     ownca_path: '{{ pki_certs_ca_basedir }}/ca.crt'
-    ownca_privatekey_path: '{{ pki_certs_ca_basedir }}/ca.key'
+    ownca_privatekey_content: "{{ lookup('community.sops.sops', pki_certs_ca_basedir + '/ca.sops.key') }}"
     return_content: true
   register: pki_certs_crt
 

@@ -101,6 +101,8 @@ dhcrelay_version: 4.4.3-fa3a227
 caddy_ca_host: localhost
 caddy_ca_basedir: pki/caddy
 caddy_ca_cn: caddy-ca
+caddy_client_cert_sans:
+  - DNS:localhost
 caddy_config_dir: /etc/caddy
 caddy_image: docker.io/caddy
 caddy_version: 2.10.2

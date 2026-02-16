@@ -1,0 +1,45 @@
+- name: Generate cert base directory
+  ansible.builtin.file:
+    path: '{{ pki_local_certs_dir }}'
+    state: directory
+    mode: '0o700'
+
+- name: Check for encrypted private key
+  ansible.builtin.stat:
+    path: '{{ pki_local_certs_dir }}/{{ pki_local_certs_id }}.sops.key'
+  register: pki_local_certs_sops_key
+- name: Generate private key
+  community.crypto.openssl_privatekey:
+    path: '{{ pki_local_certs_dir }}/{{ pki_local_certs_id }}.key'
+    type: '{{ pki_local_certs_algo | default("Ed25519") }}'
+  when: not pki_local_certs_sops_key.stat.exists
+- name: Encrypt private key
+  community.sops.sops_encrypt:
+    path: '{{ pki_local_certs_dir }}/{{ pki_local_certs_id }}.sops.key'
+    content_text: "{{ lookup('file', pki_local_certs_dir + '/' + pki_local_certs_id + '.key') }}"
+  when: not pki_local_certs_sops_key.stat.exists
+- name: Delete unencrypted private key
+  ansible.builtin.file:
+    path: '{{ pki_local_certs_dir }}/{{ pki_local_certs_id }}.key'
+    state: absent
+  when: not pki_local_certs_sops_key.stat.exists
+
+- name: Generate CSR
+  community.crypto.openssl_csr:
+    path: '{{ pki_local_certs_dir }}/{{ pki_local_certs_id }}.csr'
+    privatekey_content: "{{ lookup('community.sops.sops', pki_local_certs_dir + '/' + pki_local_certs_id + '.sops.key') }}"
+    subject_alt_name: '{{ pki_local_certs_sans }}'
+    subject_alt_name_critical: true
+    key_usage:
+      - digitalSignature
+      - keyEncipherment
+    extended_key_usage: '{{ pki_local_certs_ekus }}'
+    return_content: true
+  register: pki_local_certs_csr
+- name: Sign CSR
+  community.crypto.x509_certificate:
+    path: '{{ pki_local_certs_dir }}/{{ pki_local_certs_id }}.crt'
+    csr_content: '{{ pki_local_certs_csr.csr }}'
+    provider: ownca
+    ownca_path: '{{ pki_local_certs_ca_basedir }}/ca.crt'
+    ownca_privatekey_content: "{{ lookup('community.sops.sops', pki_local_certs_ca_basedir + '/ca.sops.key') }}"

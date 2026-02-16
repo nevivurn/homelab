@@ -4,3 +4,14 @@
   vars:
     pki_ca_basedir: "{{ caddy_ca_basedir }}"
     pki_ca_cn: "{{ caddy_ca_cn }}"
+
+- name: Generate caddy client cert
+  ansible.builtin.import_role:
+    name: pki_local_certs
+  vars:
+    pki_local_certs_dir: "{{ caddy_ca_basedir }}/client-certs"
+    pki_local_certs_id: client
+    pki_local_certs_sans: "{{ caddy_client_cert_sans }}"
+    pki_local_certs_ekus:
+      - clientAuth
+    pki_local_certs_ca_basedir: "{{ caddy_ca_basedir }}"

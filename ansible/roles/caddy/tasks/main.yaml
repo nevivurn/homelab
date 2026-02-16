@@ -35,19 +35,6 @@
     pki_certs_ca_basedir: "{{ caddy_ca_basedir }}"
     pki_certs_extra_sans: "{{ caddy_extra_sans }}"
 
-- name: Generate Caddy client certs
-  ansible.builtin.import_role:
-    name: pki_certs
-  vars:
-    pki_certs_user: caddy
-    pki_certs_group: caddy
-    pki_certs_dir: "{{ caddy_config_dir }}/ssl"
-    pki_certs_id: client
-    pki_certs_ekus:
-      - clientAuth
-    pki_certs_ca_host: "{{ caddy_ca_host }}"
-    pki_certs_ca_basedir: "{{ caddy_ca_basedir }}"
-
 - name: Copy Caddy configuration
   ansible.builtin.template:
     src: templates/Caddyfile.j2

@@ -4,14 +4,29 @@
     state: directory
     mode: '0o700'
 
+- name: Check for encrypted CA private key
+  ansible.builtin.stat:
+    path: '{{ pki_ca_basedir }}/ca.sops.key'
+  register: pki_ca_sops_key
 - name: Generate CA private key
   community.crypto.openssl_privatekey:
     path: '{{ pki_ca_basedir }}/ca.key'
     type: '{{ pki_ca_algo | default("Ed25519") }}'
+  when: not pki_ca_sops_key.stat.exists
+- name: Encrypt CA private key
+  community.sops.sops_encrypt:
+    path: '{{ pki_ca_basedir }}/ca.sops.key'
+    content_text: "{{ lookup('file', pki_ca_basedir + '/ca.key') }}"
+  when: not pki_ca_sops_key.stat.exists
+- name: Delete unencrypted CA private key
+  ansible.builtin.file:
+    path: '{{ pki_ca_basedir }}/ca.key'
+    state: absent
+  when: not pki_ca_sops_key.stat.exists
 - name: Generate CA CSR
   community.crypto.openssl_csr:
     path: '{{ pki_ca_basedir }}/ca.csr'
-    privatekey_path: '{{ pki_ca_basedir }}/ca.key'
+    privatekey_content: "{{ lookup('community.sops.sops', pki_ca_basedir + '/ca.sops.key') }}"
     common_name: '{{ pki_ca_cn }}'
     use_common_name_for_san: false
     basic_constraints: 'CA:TRUE'
@@ -24,7 +39,7 @@
   community.crypto.x509_certificate:
     path: '{{ pki_ca_basedir }}/ca.crt'
     csr_path: '{{ pki_ca_basedir }}/ca.csr'
-    privatekey_path: '{{ pki_ca_basedir }}/ca.key'
+    privatekey_content: "{{ lookup('community.sops.sops', pki_ca_basedir + '/ca.sops.key') }}"
     provider: selfsigned
     return_content: true
 

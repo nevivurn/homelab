@@ -10,6 +10,8 @@
   opentofu,
   python3,
   python3Packages,
+  sops,
+  talhelper,
   talosctl,
 }:
 
@@ -17,7 +19,8 @@ mkShell {
   packages = [
     ansible
     ansible-lint
-
+    sops
+    talhelper
     talosctl
 
     (opentofu.withPlugins (ps: with ps; [ infra ]))
@@ -30,9 +33,4 @@ mkShell {
   ];
 
   inputsFrom = customPackages;
-
-  shellHook = ''
-    export KUBECONFIG=$(pwd)/talos/_out/kubeconfig
-    export TALOSCONFIG=$(pwd)/talos/_out/talosconfig
-  '';
 }

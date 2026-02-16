@@ -30,8 +30,11 @@
 - name: Install patroni
   hosts: patroni
   gather_facts: false
-  vars_files:
-    - secrets/patroni.yaml
+  pre_tasks:
+    - name: Load secrets
+      community.sops.load_vars:
+        file: secrets/patroni.sops.yaml
+      tags: patroni
   roles:
     - role: patroni
       tags: patroni
@@ -46,8 +49,11 @@
 - name: Install kea
   hosts: kea
   gather_facts: false
-  vars_files:
-    - secrets/kea.yaml
+  pre_tasks:
+    - name: Load secrets
+      community.sops.load_vars:
+        file: secrets/kea.sops.yaml
+      tags: kea
   roles:
     - role: kea
       tags: kea
@@ -55,8 +61,11 @@
 - name: Install pdns-recursor
   hosts: pdns
   gather_facts: false
-  vars_files:
-    - secrets/pdns.yaml
+  pre_tasks:
+    - name: Load secrets
+      community.sops.load_vars:
+        file: secrets/pdns.sops.yaml
+      tags: pdns
   roles:
     - role: pdns
       tags: pdns
@@ -84,9 +93,12 @@
 - name: Install caddy
   hosts: caddy
   gather_facts: false
-  vars_files:
+  pre_tasks:
     # for the API key
-    - secrets/pdns.yaml
+    - name: Load secrets
+      community.sops.load_vars:
+        file: secrets/pdns.sops.yaml
+      tags: caddy
   roles:
     - role: caddy
       tags: caddy
