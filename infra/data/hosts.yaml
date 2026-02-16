@@ -19,6 +19,9 @@ mgmt:
     relay02:
       ipv4: 10.64.1.5
       ipv6: fdbc:ba6a:38de:1::5
+    pve01:
+      ipv4: 10.64.1.11
+      ipv6: fdbc:ba6a:38de:1::11
     kuma:
       ipv4: 10.64.1.91
       ipv6: fdbc:ba6a:38de:1::91
@@ -94,9 +97,6 @@ inf:
     net03:
       ipv4: 10.64.20.6
       ipv6: fdbc:ba6a:38de:20::6
-    pve01:
-      ipv4: 10.64.20.11
-      ipv6: fdbc:ba6a:38de:20::11
     athebyne:
       ipv4: 10.64.20.20
       ipv6: fdbc:ba6a:38de:20::20

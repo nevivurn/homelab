@@ -79,7 +79,6 @@ in
           "10.64.11.4-10.64.11.5" # GUEST
           "10.64.30.4-10.64.30.5" # K8S
         ];
-        MGMT-addr4 = [ "10.64.20.90-10.64.20.100" ];
         ROUTER-addr4 = [
           "10.64.1.2-10.64.1.3" # MGMT
           "10.64.10.2-10.64.10.3" # HOME
@@ -98,7 +97,6 @@ in
           "fdbc:ba6a:38de:11::4-fdbc:ba6a:38de:11::5" # GUEST
           "fdbc:ba6a:38de:30::4-fdbc:ba6a:38de:30::5" # K8S
         ];
-        MGMT-addr6 = [ "fdbc:ba6a:38de:20::90-fdbc:ba6a:38de:20::100" ];
         ROUTER-addr6 = [
           # ROUTER peers
           "fdbc:ba6a:38de:200::1-fdbc:ba6a:38de:200::2"
@@ -156,6 +154,12 @@ in
             protocol = "tcp";
             destination.port = "443";
             # NOTE: needs masquerade, check below
+          };
+          "220" = {
+            # allow Proxmox
+            action = "accept";
+            protocol = "tcp";
+            destination.port = "8006";
           };
         };
       };
@@ -241,12 +245,6 @@ in
         rules = rulesets.infra-services // {
           "10" = rules.allow-ping;
           "200" = rules.allow-ssh;
-          "210" = {
-            # allow Proxmox
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "8006";
-          };
           "220" = {
             # allow Caddy (infra proxy)
             action = "accept";
@@ -254,15 +252,6 @@ in
             destination.port = "443";
             ipv4.destination.group.address-group = "INFRA-addr4";
             ipv6.destination.group.address-group = "INFRA-addr6";
-          };
-          "230" = {
-            # allow management interfaces
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "443";
-            ipv4.destination.group.address-group = "MGMT-addr4";
-            ipv6.destination.group.address-group = "MGMT-addr6";
-            # NOTE: needs masquerade, check below
           };
         };
       };
@@ -357,20 +346,12 @@ in
   vyosConfig = {
     nat.source.rule = {
       "20" = {
-        destination.group.address-group = "MGMT-addr4";
-        translation.address = "masquerade";
-      };
-      "30" = {
         outbound-interface.name = "eth0";
         translation.address = "masquerade";
       };
     };
     nat66.source.rule = {
       "20" = {
-        destination.group.address-group = "MGMT-addr6";
-        translation.address = "masquerade";
-      };
-      "30" = {
         outbound-interface.name = "eth0";
         translation.address = "masquerade";
       };

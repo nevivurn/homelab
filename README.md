@@ -54,7 +54,6 @@ Address  | Host    | Notes
 .5       | net02   | DHCP, DNS, NTP
 .6       | net03   | quorum
 .10      | net     | VIP
-.11      | pve01   |
 .90~.99  | HW      | various hardware management interfaces
 
 ### Other subnets

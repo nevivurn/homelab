@@ -99,11 +99,11 @@ kubelet:
     dhcrelay:
       hosts:
         relay01.mgmt.nevi.network:
-          dhcrelay_v4: 10.64.1.4
-          dhcrelay_v6: fdbc:ba6a:38de:1::4
+          dhcrelay_v4: 10.64.20.4
+          dhcrelay_v6: fdbc:ba6a:38de:20::4
         relay02.mgmt.nevi.network:
-          dhcrelay_v4: 10.64.1.5
-          dhcrelay_v6: fdbc:ba6a:38de:1::5
+          dhcrelay_v4: 10.64.20.5
+          dhcrelay_v6: fdbc:ba6a:38de:20::5
         relay01.home.nevi.network:
           dhcrelay_v4: 10.64.20.4
           dhcrelay_v6: fdbc:ba6a:38de:20::4
