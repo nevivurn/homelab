@@ -6,7 +6,7 @@ Generally, everything is in `10.64.0.0/16` and `fdbc:ba6a:38de::/48`.
 
 VLAN | Name                     | DNS                | IPv4           | IPv6
 ---  | ---                      | ---                | ---            | ---
-1    | LEGACY                   | ---                | 192.168.0.0/22 | fdbc:ba6a:38de::/62
+1    | MGMT                     | mgmt.nevi.network  | 10.64.1.0/24   | fdbc:ba6a:38de:1::/64
 10   | HOME                     | home.nevi.network  | 10.64.10.0/24  | fdbc:ba6a:38de:10::/64
 11   | GUEST                    | guest.nevi.network | 10.64.11.0/24  | fdbc:ba6a:38de:11::/64
 20   | INFRA                    | inf.nevi.network   | 10.64.20.0/24  | fdbc:ba6a:38de:20::/64
@@ -102,5 +102,4 @@ Address | Host    | Notes
 
 ## TODOS
 
-- mgmt (native) network
 - NIC passthrough

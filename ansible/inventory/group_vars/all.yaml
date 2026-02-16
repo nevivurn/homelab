@@ -32,6 +32,13 @@ kea_dhcp6_image: docker.cloudsmith.io/isc/docker/kea-dhcp6
 kea_version: 3.0.2
 
 kea_subnets:
+  1:
+    domain: mgmt.nevi.network
+    subnet_v4: 10.64.1.0/24
+    router_v4: 10.64.1.1
+    pool_v4: "10.64.1.100 - 10.64.1.200"
+    subnet_v6: fdbc:ba6a:38de:1::/64
+    pool_v6: fdbc:ba6a:38de:1:d6d6::/80
   10:
     domain: home.nevi.network
     subnet_v4: 10.64.10.0/24

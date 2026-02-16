@@ -4,17 +4,16 @@ let
   inherit (config) primary;
 
   groupIds = {
+    MGMT = "1";
     HOME = "10";
     GUEST = "11";
     INFRA = "20";
     K8S = "30";
   };
 
-  # .1, .2, ... mappings:
-  # For other zones: VIP, primary, backup
-  # For ROUTER: primary, backup, [reserved], VIP
+  # VIP, primary, backup
   groups = lib.mapAttrs (name: id: {
-    interface = "eth0.${id}";
+    interface = if id == "1" then "eth0" else "eth0.${id}";
     vrid = id;
     v4address = "10.64.${id}.1/24";
     v6address = "fdbc:ba6a:38de:${id}::1/64";

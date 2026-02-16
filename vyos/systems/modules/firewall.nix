@@ -74,12 +74,14 @@ in
       address-group = {
         INFRA-addr4 = [ "10.64.20.4-10.64.20.5" ];
         DHCP4-RELAY = [
+          "10.64.1.4-10.64.1.5" # MGMT
           "10.64.10.4-10.64.10.5" # HOME
           "10.64.11.4-10.64.11.5" # GUEST
           "10.64.30.4-10.64.30.5" # K8S
         ];
         MGMT-addr4 = [ "10.64.20.90-10.64.20.100" ];
         ROUTER-addr4 = [
+          "10.64.1.2-10.64.1.3" # MGMT
           "10.64.10.2-10.64.10.3" # HOME
           "10.64.11.2-10.64.11.3" # GUEST
           "10.64.20.2-10.64.20.3" # INFRA
@@ -91,6 +93,7 @@ in
       ipv6-address-group = {
         INFRA-addr6 = [ "fdbc:ba6a:38de:20::4-fdbc:ba6a:38de:20::5" ];
         DHCP6-RELAY = [
+          "fdbc:ba6a:38de:1::4-fdbc:ba6a:38de:1::5" # MGMT
           "fdbc:ba6a:38de:10::4-fdbc:ba6a:38de:10::5" # HOME
           "fdbc:ba6a:38de:11::4-fdbc:ba6a:38de:11::5" # GUEST
           "fdbc:ba6a:38de:30::4-fdbc:ba6a:38de:30::5" # K8S
@@ -118,6 +121,7 @@ in
         intra-zone-filtering = "drop";
       };
       LOCAL.local-zone = true;
+      MGMT.members = [ "eth0" ];
       ROUTER.members = [ "eth0.200" ];
       HOME.members = [
         "eth0.10"
@@ -139,6 +143,22 @@ in
       LOCAL-EGRESS.default-action = "accept";
       # LAN -> ROUTER (trust that ROUTER is capable of filtering traffic)
       LAN-ROUTER.default-action = "accept";
+
+      LAN-MGMT = {
+        default-action = "drop";
+        rules = {
+          "10" = rules.allow-icmp;
+          "100" = rules.allow-vrrp;
+          "200" = rules.allow-ssh;
+          "210" = {
+            # allow management interfaces
+            action = "accept";
+            protocol = "tcp";
+            destination.port = "443";
+            # NOTE: needs masquerade, check below
+          };
+        };
+      };
 
       # LAN -> LOCAL
       LAN-INGRESS = {
@@ -283,7 +303,7 @@ in
     mappings = {
       # Egress to WAN
       LOCAL.WAN = "EGRESS-WAN";
-      ROUTER.WAN = "EGRESS-WAN";
+      MGMT.WAN = "EGRESS-WAN";
       HOME.WAN = "EGRESS-WAN";
       GUEST.WAN = "EGRESS-WAN";
       INFRA.WAN = "EGRESS-WAN";
@@ -291,13 +311,13 @@ in
 
       # Egress to PROXY
       LOCAL.PROXY = "EGRESS-WAN";
-      ROUTER.PROXY = "EGRESS-WAN";
       HOME.PROXY = "EGRESS-WAN";
       INFRA.PROXY = "EGRESS-WAN";
       K8S.PROXY = "EGRESS-WAN";
 
       # Egress from LOCAL
       LOCAL.ROUTER = "LOCAL-EGRESS";
+      LOCAL.MGMT = "LOCAL-EGRESS";
       LOCAL.HOME = "LOCAL-EGRESS";
       LOCAL.GUEST = "LOCAL-EGRESS";
       LOCAL.INFRA = "LOCAL-EGRESS";
@@ -306,30 +326,28 @@ in
       # Ingress to LOCAL
       WAN.LOCAL = "WAN-INGRESS";
       ROUTER.LOCAL = "LAN-INGRESS";
+      MGMT.LOCAL = "LAN-INGRESS";
       HOME.LOCAL = "LAN-INGRESS";
       INFRA.LOCAL = "LAN-INGRESS";
       K8S.LOCAL = "LAN-INGRESS";
       GUEST.LOCAL = "GUEST-INGRESS";
 
       HOME.ROUTER = "LAN-ROUTER";
-      INFRA.ROUTER = "LAN-ROUTER";
-      K8S.ROUTER = "LAN-ROUTER";
 
-      ROUTER.HOME = "LAN-HOME";
+      HOME.MGMT = "LAN-MGMT";
+
       INFRA.HOME = "LAN-HOME";
       K8S.HOME = "LAN-HOME";
 
-      ROUTER.GUEST = "LAN-GUEST";
       HOME.GUEST = "LAN-GUEST";
       INFRA.GUEST = "LAN-GUEST";
 
       WAN.INFRA = "WAN-INFRA";
-      ROUTER.INFRA = "LAN-INFRA";
+      MGMT.INFRA = "LAN-INFRA";
       HOME.INFRA = "LAN-INFRA";
       GUEST.INFRA = "GUEST-INFRA";
       K8S.INFRA = "LAN-INFRA";
 
-      ROUTER.K8S = "LAN-K8S";
       HOME.K8S = "LAN-K8S";
       INFRA.K8S = "LAN-K8S";
     };
@@ -337,13 +355,25 @@ in
 
   # mgmt devices expect traffic from the same network segment, masquerade
   vyosConfig = {
-    nat.source.rule."20" = {
-      destination.group.address-group = "MGMT-addr4";
-      translation.address = "masquerade";
+    nat.source.rule = {
+      "20" = {
+        destination.group.address-group = "MGMT-addr4";
+        translation.address = "masquerade";
+      };
+      "30" = {
+        outbound-interface.name = "eth0";
+        translation.address = "masquerade";
+      };
     };
-    nat66.source.rule."20" = {
-      destination.group.address-group = "MGMT-addr6";
-      translation.address = "masquerade";
+    nat66.source.rule = {
+      "20" = {
+        destination.group.address-group = "MGMT-addr6";
+        translation.address = "masquerade";
+      };
+      "30" = {
+        outbound-interface.name = "eth0";
+        translation.address = "masquerade";
+      };
     };
   };
 }

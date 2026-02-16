@@ -18,6 +18,13 @@ all:
       ip: 10.64.20.6
       ip6: fdbc:ba6a:38de:20::6
 
+    relay01.mgmt.nevi.network:
+      ip: 10.64.1.4
+      ip6: fdbc:ba6a:38de:30::4
+    relay02.mgmt.nevi.network:
+      ip: 10.64.1.5
+      ip6: fdbc:ba6a:38de:30::5
+
     relay01.home.nevi.network:
       ip: 10.64.10.4
       ip6: fdbc:ba6a:38de:10::4
@@ -91,6 +98,12 @@ kubelet:
 
     dhcrelay:
       hosts:
+        relay01.mgmt.nevi.network:
+          dhcrelay_v4: 10.64.1.4
+          dhcrelay_v6: fdbc:ba6a:38de:1::4
+        relay02.mgmt.nevi.network:
+          dhcrelay_v4: 10.64.1.5
+          dhcrelay_v6: fdbc:ba6a:38de:1::5
         relay01.home.nevi.network:
           dhcrelay_v4: 10.64.20.4
           dhcrelay_v6: fdbc:ba6a:38de:20::4

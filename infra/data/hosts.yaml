@@ -1,3 +1,31 @@
+mgmt:
+  fwd: fwd_mgmt
+  rev_v4: rev_v4_mgmt
+  rev_v6: rev_v6_mgmt
+  subnet_id: 1
+  hosts:
+    gateway:
+      ipv4: 10.64.1.1
+      ipv6: fdbc:ba6a:38de:1::1
+    rtr01:
+      ipv4: 10.64.1.2
+      ipv6: fdbc:ba6a:38de:1::2
+    rtr02:
+      ipv4: 10.64.1.3
+      ipv6: fdbc:ba6a:38de:1::3
+    relay01:
+      ipv4: 10.64.1.4
+      ipv6: fdbc:ba6a:38de:1::4
+    relay02:
+      ipv4: 10.64.1.5
+      ipv6: fdbc:ba6a:38de:1::5
+    kuma:
+      ipv4: 10.64.1.91
+      ipv6: fdbc:ba6a:38de:1::91
+    thuban:
+      ipv4: 10.64.1.92
+      ipv6: fdbc:ba6a:38de:1::92
+
 home:
   fwd: fwd_home
   rev_v4: rev_v4_home
@@ -69,12 +97,6 @@ inf:
     pve01:
       ipv4: 10.64.20.11
       ipv6: fdbc:ba6a:38de:20::11
-    kuma:
-      ipv4: 10.64.20.91
-      ipv6: fdbc:ba6a:38de:20::91
-    thuban:
-      ipv4: 10.64.20.92
-      ipv6: fdbc:ba6a:38de:20::92
     athebyne:
       ipv4: 10.64.20.20
       ipv6: fdbc:ba6a:38de:20::20
