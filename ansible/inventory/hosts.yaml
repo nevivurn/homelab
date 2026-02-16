@@ -18,33 +18,8 @@ all:
       ip: 10.64.20.6
       ip6: fdbc:ba6a:38de:20::6
 
-    relay01.mgmt.nevi.network:
-      ip: 10.64.1.4
-      ip6: fdbc:ba6a:38de:30::4
-    relay02.mgmt.nevi.network:
-      ip: 10.64.1.5
-      ip6: fdbc:ba6a:38de:30::5
-
     relay01.home.nevi.network:
-      ip: 10.64.10.4
-      ip6: fdbc:ba6a:38de:10::4
     relay02.home.nevi.network:
-      ip: 10.64.10.5
-      ip6: fdbc:ba6a:38de:10::5
-
-    relay01.guest.nevi.network:
-      ip: 10.64.11.4
-      ip6: fdbc:ba6a:38de:11::4
-    relay02.guest.nevi.network:
-      ip: 10.64.11.5
-      ip6: fdbc:ba6a:38de:11::5
-
-    relay01.k8s.nevi.network:
-      ip: 10.64.30.4
-      ip6: fdbc:ba6a:38de:30::4
-    relay02.k8s.nevi.network:
-      ip: 10.64.30.5
-      ip6: fdbc:ba6a:38de:30::5
 
 vyos:
   vars:
@@ -97,29 +72,18 @@ kubelet:
         net02.inf.nevi.network:
 
     dhcrelay:
+      vars:
+        dhcrelay_up: eth20
+        dhcrelay_down:
+          - eth1
+          - eth10
+          - eth11
+          - eth30
       hosts:
-        relay01.mgmt.nevi.network:
-          dhcrelay_v4: 10.64.20.4
-          dhcrelay_v6: fdbc:ba6a:38de:20::4
-        relay02.mgmt.nevi.network:
-          dhcrelay_v4: 10.64.20.5
-          dhcrelay_v6: fdbc:ba6a:38de:20::5
         relay01.home.nevi.network:
           dhcrelay_v4: 10.64.20.4
           dhcrelay_v6: fdbc:ba6a:38de:20::4
         relay02.home.nevi.network:
-          dhcrelay_v4: 10.64.20.5
-          dhcrelay_v6: fdbc:ba6a:38de:20::5
-        relay01.guest.nevi.network:
-          dhcrelay_v4: 10.64.20.4
-          dhcrelay_v6: fdbc:ba6a:38de:20::4
-        relay02.guest.nevi.network:
-          dhcrelay_v4: 10.64.20.5
-          dhcrelay_v6: fdbc:ba6a:38de:20::5
-        relay01.k8s.nevi.network:
-          dhcrelay_v4: 10.64.20.4
-          dhcrelay_v6: fdbc:ba6a:38de:20::4
-        relay02.k8s.nevi.network:
           dhcrelay_v4: 10.64.20.5
           dhcrelay_v6: fdbc:ba6a:38de:20::5
 

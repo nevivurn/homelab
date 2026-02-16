@@ -20,7 +20,9 @@ spec:
       args:
         - -d
         - '-6'
+        {%- for iface in dhcrelay_down +%}
         - -l
-        - eth0
+        - {{ iface }}
+        {%- endfor +%}
         - -u
-        - {{ dhcrelay_v6 }}%eth0
+        - {{ dhcrelay_v6 }}%{{ dhcrelay_up }}

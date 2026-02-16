@@ -37,26 +37,8 @@ let
   };
 
   rulesets = {
-    # allow access to DHCP
-    dhcp-services = {
-      "110" = {
-        # allow DHCP relay traffic
-        action = "accept";
-        protocol = "udp";
-        ipv4 = {
-          source.group.address-group = "DHCP4-RELAY";
-          destination.group.address-group = "INFRA-addr4";
-          destination.port = "67";
-        };
-        ipv6 = {
-          source.group.address-group = "DHCP6-RELAY";
-          destination.group.address-group = "INFRA-addr6";
-          destination.port = "547";
-        };
-      };
-    };
     # allow access to other infra services (DNS, NTP)
-    infra-services = rulesets.dhcp-services // {
+    infra-services = {
       "120" = {
         # allow DNS, NTP, etc.
         action = "accept";
@@ -73,12 +55,6 @@ in
     groups = {
       address-group = {
         INFRA-addr4 = [ "10.64.20.4-10.64.20.5" ];
-        DHCP4-RELAY = [
-          "10.64.1.4-10.64.1.5" # MGMT
-          "10.64.10.4-10.64.10.5" # HOME
-          "10.64.11.4-10.64.11.5" # GUEST
-          "10.64.30.4-10.64.30.5" # K8S
-        ];
         ROUTER-addr4 = [
           "10.64.1.2-10.64.1.3" # MGMT
           "10.64.10.2-10.64.10.3" # HOME
@@ -91,12 +67,6 @@ in
       };
       ipv6-address-group = {
         INFRA-addr6 = [ "fdbc:ba6a:38de:20::4-fdbc:ba6a:38de:20::5" ];
-        DHCP6-RELAY = [
-          "fdbc:ba6a:38de:1::4-fdbc:ba6a:38de:1::5" # MGMT
-          "fdbc:ba6a:38de:10::4-fdbc:ba6a:38de:10::5" # HOME
-          "fdbc:ba6a:38de:11::4-fdbc:ba6a:38de:11::5" # GUEST
-          "fdbc:ba6a:38de:30::4-fdbc:ba6a:38de:30::5" # K8S
-        ];
         ROUTER-addr6 = [
           # ROUTER peers
           "fdbc:ba6a:38de:200::1-fdbc:ba6a:38de:200::2"
@@ -220,22 +190,6 @@ in
         };
       };
 
-      LAN-GUEST = {
-        default-action = "drop";
-        rules = {
-          "10" = lib.recursiveUpdate rules.allow-ping {
-            # allow pinging DHCP relays
-            ipv4.destination.group.address-group = "DHCP4-RELAY";
-            ipv6.destination.group.address-group = "DHCP6-RELAY";
-          };
-          "200" = lib.recursiveUpdate rules.allow-ssh {
-            # allow ssh into DHCP relays
-            ipv4.destination.group.address-group = "DHCP4-RELAY";
-            ipv6.destination.group.address-group = "DHCP6-RELAY";
-          };
-        };
-      };
-
       WAN-INFRA = {
         default-action = "drop";
       };
@@ -250,17 +204,6 @@ in
             action = "accept";
             protocol = "tcp_udp";
             destination.port = "443";
-            ipv4.destination.group.address-group = "INFRA-addr4";
-            ipv6.destination.group.address-group = "INFRA-addr6";
-          };
-        };
-      };
-
-      GUEST-INFRA = {
-        default-action = "drop";
-        rules = rulesets.dhcp-services // {
-          "10" = lib.recursiveUpdate rules.allow-ping {
-            # allow pinging infra servers
             ipv4.destination.group.address-group = "INFRA-addr4";
             ipv6.destination.group.address-group = "INFRA-addr6";
           };
@@ -328,13 +271,9 @@ in
       INFRA.HOME = "LAN-HOME";
       K8S.HOME = "LAN-HOME";
 
-      HOME.GUEST = "LAN-GUEST";
-      INFRA.GUEST = "LAN-GUEST";
-
       WAN.INFRA = "WAN-INFRA";
       MGMT.INFRA = "LAN-INFRA";
       HOME.INFRA = "LAN-INFRA";
-      GUEST.INFRA = "GUEST-INFRA";
       K8S.INFRA = "LAN-INFRA";
 
       HOME.K8S = "LAN-K8S";

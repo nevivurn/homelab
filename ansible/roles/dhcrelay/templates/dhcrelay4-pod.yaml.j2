@@ -18,4 +18,10 @@ spec:
       args:
         - -d
         - '-4'
+        {%- for iface in dhcrelay_down +%}
+        - -id
+        - {{ iface }}
+        {%- endfor +%}
+        - -iu
+        - {{ dhcrelay_up }}
         - {{ dhcrelay_v4 }}

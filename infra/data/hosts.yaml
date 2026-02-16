@@ -94,6 +94,12 @@ inf:
     net02:
       ipv4: &net02-v4 10.64.20.5
       ipv6: &net02-v6 fdbc:ba6a:38de:20::5
+    relay01:
+      ipv4: 10.64.20.7
+      ipv6: fdbc:ba6a:38de:20::7
+    relay02:
+      ipv4: 10.64.20.8
+      ipv6: fdbc:ba6a:38de:20::8
     net03:
       ipv4: 10.64.20.6
       ipv6: fdbc:ba6a:38de:20::6
