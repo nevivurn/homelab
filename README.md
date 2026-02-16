@@ -24,7 +24,6 @@ DHCP ranges are
 
 CIDR                | Notes
 ---                 | ---
-10.42.43.0/24       | legacy proxy
 172.20.0.0/14       | dn42
 
 ## Network architecture
@@ -53,6 +52,8 @@ Address  | Host    | Notes
 .4       | net01   | DHCP, DNS, NTP
 .5       | net02   | DHCP, DNS, NTP
 .6       | net03   | quorum
+.7       | relay01 | DHCP relay to net01
+.8       | relay02 | DHCP relay to net02
 .90~.99  | HW      | various hardware management interfaces
 
 ### Other subnets
