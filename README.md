@@ -53,7 +53,6 @@ Address  | Host    | Notes
 .4       | net01   | DHCP, DNS, NTP
 .5       | net02   | DHCP, DNS, NTP
 .6       | net03   | quorum
-.10      | net     | VIP
 .90~.99  | HW      | various hardware management interfaces
 
 ### Other subnets
@@ -75,7 +74,7 @@ Address | Host    | Notes
 .3      | rtr02   |
 .4      | relay01 | DHCP relay to net01
 .5      | relay02 | DHCP relay to net02
-.20     |         | control plane VIP
+.10     |         | control plane VIP
 
 #### Notes
 
