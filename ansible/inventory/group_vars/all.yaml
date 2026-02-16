@@ -19,7 +19,7 @@ patroni_scope: netbox
 patroni_config_dir: /etc/patroni
 patroni_postgres_data_dir: /var/lib/postgresql
 patroni_image: ghcr.io/nevivurn/homelab-images/patroni
-patroni_version: 4.1.0-fa3a227
+patroni_version: 4.1.0-3cb988c
 
 patroni_haproxy_config_dir: /etc/haproxy
 patroni_haproxy_image: docker.io/library/haproxy
@@ -90,13 +90,13 @@ pdns_recursor_rpz_zone: hosts.zone
 
 chrony_config_dir: /etc/chrony
 chrony_image: ghcr.io/nevivurn/homelab-images/chrony
-chrony_version: 4.8-fa3a227
+chrony_version: 4.8-3cb988c
 # rely on pve01 for now, until we get better clocks
 chrony_config: |
   server 10.64.20.11 iburst
 
 dhcrelay_image: ghcr.io/nevivurn/homelab-images/isc-dhcp-dhcrelay
-dhcrelay_version: 4.4.3-fa3a227
+dhcrelay_version: 4.4.3-3cb988c
 
 caddy_ca_host: localhost
 caddy_ca_basedir: pki/caddy
