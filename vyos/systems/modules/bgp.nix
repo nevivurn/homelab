@@ -10,16 +10,39 @@ in
 
 {
   vyosConfig = {
-    policy.route-map.DENY-ALL.rule."10".action = "deny";
+    policy = {
+      prefix-list.INTERNAL-v4.rule."10" = {
+        action = "permit";
+        prefix = "10.64.0.0/16";
+        le = "32";
+      };
+      prefix-list6.INTERNAL-v6.rule."10" = {
+        action = "permit";
+        prefix = "fdbc:ba6a:38de::/48";
+        le = "128";
+      };
+
+      route-map.DENY-ALL.rule."10".action = "deny";
+      route-map.REDISTRIBUTE-INTERNAL.rule = {
+        "10" = {
+          action = "permit";
+          match.ip.address.prefix-list = "INTERNAL-v4";
+        };
+        "20" = {
+          action = "permit";
+          match.ipv6.address.prefix-list = "INTERNAL-v6";
+        };
+      };
+    };
 
     protocols.bgp = {
       system-as = localAS;
       parameters.router-id = routerId;
 
-      address-family = [
-        "ipv4-unicast"
-        "ipv6-unicast"
-      ];
+      address-family = {
+        ipv4-unicast.redistribute.connected.route-map = "REDISTRIBUTE-INTERNAL";
+        ipv6-unicast.redistribute.connected.route-map = "REDISTRIBUTE-INTERNAL";
+      };
 
       neighbor.${peerAddr} = {
         remote-as = "internal";
