@@ -16,13 +16,15 @@ mgmt:
             hw_address: ENC[AES256_GCM,data:ZKsSYjkdoe6WDZsuPWWgwJE=,iv:EomZ9OgKCK8SLH3FTm40s4KUNDo9Jg8f6x9JozKQKnY=,tag:2ARXfx5YztHrQK8Wv+KeoQ==,type:str]
         thuban:
             hw_address: ENC[AES256_GCM,data:29S4rkjcgBwNM87EMq2mTHM=,iv:PLQ9ejTx3iNF+ceut07Va87NtA9VEqc/JHOGnkjHMCs=,tag:uzlY9zxmtYIW0cvT6OD/rg==,type:str]
+        tpeap:
+            hw_address: ENC[AES256_GCM,data:HZ+rEac2s220QFEkdkZkq30=,iv:yTWAo1G0MIwfLYH+qBWO7RNYU52etwKhOfsx41nmh60=,tag:nwOoMqzf1NyQJctWZBOc/g==,type:str]
 inf:
     hosts:
         athebyne:
             hw_address: ENC[AES256_GCM,data:3ZsenRng4KGi8TdaEPaQxis=,iv:e/G6Kw9ZHB+n2TvNewtYml2V/1qfunM87aAz0ZT/cgs=,tag:vvjCdzEU7u/VleGfyu58iw==,type:str]
 sops:
-    lastmodified: "2026-02-16T15:57:43Z"
-    mac: ENC[AES256_GCM,data:Ngc82cSrBoUsYzLvO8IAsfNk/oUnkDLoE+7qDoXOL5sXoqXOsrB8ll7+CdqgX2YFRNGOCTyNOLSrByan9xQFi/S3ORfi5PBbvLMLG1vTZV0dmu/Aa1bU07/E5pLNrcgUDWFsG8VtOz5+a3JcbK3M4ik/QskoWymHMn4+cn3e8EY=,iv:BRdNU83rqhr1EiLRFmZSOkRSmLpF5vahtfcIxUY3RLM=,tag:1ztkOL9d9jPsJm7CLzMbyg==,type:str]
+    lastmodified: "2026-02-17T09:34:48Z"
+    mac: ENC[AES256_GCM,data:BERfjmK8SKbKmWRcgFC0dpFDXu21buzfPYB+l7JotuLlV3WKVGQBbw2GXz1amp1c4qrzxjMXBnKys8i4RwP7ceZQMEcRsGVT4D0ua7Qp9ERFaHZALR9yN4VJbdoj60I27XUh0iaPsXP5GUQw9Ke6gJTG0XckiATtrwoufVqIwMI=,iv:DJFNQU3Oe8dZks4aNHKhxJao2Y6AkJxD/V6qoVxFw44=,tag:2F2iUi0tEO7c+XrLPlNZRg==,type:str]
     pgp:
         - created_at: "2026-02-16T15:57:43Z"
           enc: |-

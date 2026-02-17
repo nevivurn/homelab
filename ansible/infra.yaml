@@ -102,3 +102,10 @@
   roles:
     - role: caddy
       tags: caddy
+
+- name: Install tpeap
+  hosts: tpeap
+  gather_facts: false
+  roles:
+    - role: tpeap
+      tags: tpeap

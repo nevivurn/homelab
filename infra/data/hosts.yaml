@@ -28,6 +28,9 @@ mgmt:
     thuban:
       ipv4: 10.64.1.92
       ipv6: fdbc:ba6a:38de:1::92
+    tpeap:
+      ipv4: 10.64.1.90
+      ipv6: fdbc:ba6a:38de:1::90
 
 home:
   fwd: fwd_home

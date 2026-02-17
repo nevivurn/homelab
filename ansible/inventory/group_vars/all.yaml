@@ -108,3 +108,7 @@ caddy_image: docker.io/caddy
 caddy_version: 2.10.2
 caddy_extra_sans:
   - DNS:api.inf.nevi.network
+
+tpeap_data_dir: /var/lib/tpeap
+tpeap_image: ghcr.io/nevivurn/homelab-images/tpeap
+tpeap_version: 6.1.0.19-e5d8290

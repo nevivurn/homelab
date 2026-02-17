@@ -1,0 +1,30 @@
+- name: Create tpeap group
+  ansible.builtin.group:
+    name: tpeap
+    system: true
+  register: tpeap_group
+- name: Create tpeap user
+  ansible.builtin.user:
+    name: tpeap
+    group: tpeap
+    home: "{{ tpeap_data_dir }}"
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: tpeap_user
+
+- name: Generate tpeap data directory
+  ansible.builtin.file:
+    path: "{{ tpeap_data_dir }}"
+    state: directory
+    owner: tpeap
+    group: tpeap
+    mode: "0o755"
+
+- name: Copy tpeap pod manifest
+  ansible.builtin.template:
+    src: templates/tpeap-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/tpeap.yaml
+    owner: root
+    group: root
+    mode: "0o644"

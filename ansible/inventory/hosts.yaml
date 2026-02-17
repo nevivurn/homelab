@@ -21,6 +21,8 @@ all:
     relay01.home.nevi.network:
     relay02.home.nevi.network:
 
+    tpeap.mgmt.nevi.network:
+
 vyos:
   vars:
     ansible_connection: ansible.netcommon.network_cli
@@ -91,3 +93,7 @@ kubelet:
       hosts:
         net01.inf.nevi.network:
         net02.inf.nevi.network:
+
+    tpeap:
+      hosts:
+        tpeap.mgmt.nevi.network:
