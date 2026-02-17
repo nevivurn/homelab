@@ -98,6 +98,7 @@ Address | Host    | Notes
 - https://datatracker.ietf.org/doc/html/draft-krishnaswamy-dnsop-dnssec-split-view-04
 - https://www.rfc-editor.org/rfc/rfc8901.html
 - https://vyos.dev/T7358 - presumably we'll have proper flowtables soon
+- https://a-cup-of.coffee/blog/talos-capi-proxmox/
 
 ## TODOS
 
