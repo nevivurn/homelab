@@ -1,5 +1,3 @@
-{ lib, ... }:
-
 # general rule numbering
 # 0~99 basic rules managed centrally
 # 100~199 "infra" rules managed centrally

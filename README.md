@@ -54,7 +54,6 @@ Address  | Host    | Notes
 .6       | net03   | quorum
 .7       | relay01 | DHCP relay to net01
 .8       | relay02 | DHCP relay to net02
-.90~.99  | HW      | various hardware management interfaces
 
 ### Other subnets
 
@@ -99,7 +98,11 @@ Address | Host    | Notes
 - https://www.rfc-editor.org/rfc/rfc8901.html
 - https://vyos.dev/T7358 - presumably we'll have proper flowtables soon
 - https://a-cup-of.coffee/blog/talos-capi-proxmox/
+- Turns out naive passthrough hurts performance vs. paravirt NICs, and I can't
+  be bothered to figure it out over a <10% performance hit over line rate. I'll
+  fix it when we upgrade to >10Gbit networking. By that time, I'll presumably
+  have switched to physical routers.
 
-## TODOS
+## TODOs
 
-- NIC passthrough
+- capi
