@@ -106,3 +106,5 @@ Address | Host    | Notes
 ## TODOs
 
 - capi
+- ntp with gps
+- aqi
