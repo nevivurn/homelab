@@ -21,6 +21,16 @@
     group: tpeap
     mode: "0o755"
 
+- name: Redirect port 443 to 8043
+  ansible.builtin.iptables:
+    table: nat
+    chain: PREROUTING
+    protocol: tcp
+    destination_port: "443"
+    jump: DNAT
+    to_destination: ":8043"
+    state: present
+
 - name: Copy tpeap pod manifest
   ansible.builtin.template:
     src: templates/tpeap-pod.yaml.j2
