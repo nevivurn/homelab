@@ -61,7 +61,7 @@ in
           "10.64.30.2-10.64.30.3" # K8S
           "10.64.200.1-10.64.200.2" # ROUTER
         ];
-        K8S-LB-addr4 = [ "10.64.31.0-10.64.31.255" ];
+
       };
       ipv6-address-group = {
         INFRA-addr6 = [ "fdbc:ba6a:38de:20::4-fdbc:ba6a:38de:20::5" ];
@@ -71,7 +71,6 @@ in
           # K8S node range - for cilium BGP
           "fdbc:ba6a:38de:30::-fdbc:ba6a:38de:30:ffff:ffff:ffff:ffff"
         ];
-        K8S-LB-addr6 = [ "fdbc:ba6a:38de:31::-fdbc:ba6a:38de:31:ffff:ffff:ffff:ffff" ];
       };
       port-group = {
         INFRA-port = [
@@ -128,6 +127,14 @@ in
             action = "accept";
             protocol = "tcp";
             destination.port = "8006";
+          };
+          "230" = {
+            # allow NTP, currently relying on pve01.mgmt for NTP root
+            action = "accept";
+            protocol = "tcp_udp";
+            destination.port = "123";
+            ipv4.destination.address = "10.64.1.11";
+            ipv6.destination.address = "fdbc:ba6a:38de:1::11";
           };
         };
       };
@@ -213,19 +220,6 @@ in
         rules = {
           "10" = rules.allow-ping;
           "200" = rules.allow-ssh;
-          "210" = {
-            # allow Talos API
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "50000";
-          };
-          "300" = {
-            # allow exposed LB services
-            action = "accept";
-            protocol = "tcp_udp";
-            ipv4.destination.group.address-group = "K8S-LB-addr4";
-            ipv6.destination.group.address-group = "K8S-LB-addr6";
-          };
         };
       };
     };
@@ -265,6 +259,7 @@ in
       HOME.ROUTER = "LAN-ROUTER";
 
       HOME.MGMT = "LAN-MGMT";
+      INFRA.MGMT = "LAN-MGMT";
 
       INFRA.HOME = "LAN-HOME";
       K8S.HOME = "LAN-HOME";

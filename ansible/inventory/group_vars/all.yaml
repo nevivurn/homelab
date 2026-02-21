@@ -93,7 +93,7 @@ chrony_image: ghcr.io/nevivurn/homelab-images/chrony
 chrony_version: 4.8-3cb988c
 # rely on pve01 for now, until we get better clocks
 chrony_config: |
-  server 10.64.20.11 iburst
+  server 10.64.1.11 iburst
 
 dhcrelay_image: ghcr.io/nevivurn/homelab-images/isc-dhcp-dhcrelay
 dhcrelay_version: 4.4.3-3cb988c
