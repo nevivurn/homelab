@@ -7,6 +7,7 @@
 let
   inherit (config) primary;
   prefix = "fdbc:ba6a:38de:5${if primary then "1" else "2"}::";
+  otherPrefix = "fdbc:ba6a:38de:5${if primary then "2" else "1"}::";
 
   v4addr = "10.64.50.1";
   v6addr = "fdbc:ba6a:38de:50::1";
@@ -72,9 +73,20 @@ in
       };
     };
 
-    nat66.source.rule."50" = {
-      outbound-interface.name = "wg50";
-      translation.address = "masquerade";
+    nat66 = {
+      # hide local addresses from proxies
+      source.rule."50" = {
+        outbound-interface.name = "wg50";
+        translation.address = "masquerade";
+      };
+      # always route to local tunnels
+      destination.rule = lib.mapAttrs' (_: peer: {
+        name = lib.toString (50 + lib.toIntBase10 peer.index);
+        value = {
+          destination.address = "${otherPrefix}${peer.index}";
+          translation.address = "${prefix}${peer.index}";
+        };
+      }) peers;
     };
   };
 
