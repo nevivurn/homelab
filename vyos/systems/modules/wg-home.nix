@@ -26,6 +26,13 @@ let
         "79vDmwvL+mK1rsXHXjxupInwQWXYg2l/+duiv5exoio="
       ];
     };
+    alsafi = {
+      index = "4";
+      public-key = [
+        "XVFy+N9xOTcU7XBc/lCVlyz3M6uacKEPspO3r6NDRDc="
+        "aAPN4n7CnWckL+uAdxktDsMS2me+r9bRv5gZp8gJ5EE="
+      ];
+    };
   };
 in
 
