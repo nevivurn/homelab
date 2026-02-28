@@ -1,9 +1,10 @@
+interfaces ethernet eth0 hw-id
+interfaces ethernet eth0 vif 99 dhcp-options
+interfaces wireguard * peer * preshared-key
+interfaces wireguard * private-key
+service dns dynamic name * password
 system config-management
 system console
 system login
 system option
 system syslog
-interfaces ethernet eth0 hw-id
-interfaces wireguard * private-key
-interfaces wireguard * peer * preshared-key
-service dns
