@@ -1,0 +1,62 @@
+releases:
+  - name: coredns
+    namespace: kube-system
+    chart: oci://ghcr.io/coredns/charts/coredns
+    version: 1.45.2
+    values:
+      - service:
+          clusterIP: 10.96.0.10
+          clusterIPs:
+            - 10.96.0.10
+            - fdbc:ba6a:38de:6000::a
+          ipFamilyPolicy: PreferDualStack
+
+  - name: cilium
+    namespace: cilium-system
+    chart: oci://quay.io/cilium/charts/cilium
+    version: 1.19.1
+    values:
+      - # basic options for Talos & kube-proxy replacement
+        ipam:
+          mode: kubernetes
+        cgroup:
+          autoMount:
+            enabled: false
+          hostRoot: /sys/fs/cgroup
+        securityContext:
+          capabilities:
+            cleanCiliumState: [NET_ADMIN, SYS_ADMIN, SYS_RESOURCE]
+            ciliumAgent:
+              [
+                CHOWN,
+                KILL,
+                NET_ADMIN,
+                NET_RAW,
+                IPC_LOCK,
+                SYS_ADMIN,
+                SYS_RESOURCE,
+                DAC_OVERRIDE,
+                FOWNER,
+                SETGID,
+                SETUID,
+              ]
+        k8sServiceHost: localhost
+        k8sServicePort: 7445
+
+        # kube-proxy replacement
+        kubeProxyReplacement: true
+        bpf:
+          masquerade: true
+          datapathMode: netkit
+        hubble:
+          enabled: false
+
+        # dualstack
+        ipv4:
+          enabled: true
+        ipv6:
+          enabled: true
+
+        # single-node cluster
+        operator:
+          replicas: 1

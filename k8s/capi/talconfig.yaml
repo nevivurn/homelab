@@ -1,0 +1,94 @@
+clusterName: capi
+talosVersion: v1.12.4
+kubernetesVersion: v1.35.1
+endpoint: https://capi.k8s.nevi.network:6443
+
+allowSchedulingOnControlPlanes: true
+
+cniConfig:
+  name: none
+
+clusterPodNets:
+  - 10.244.0.0/16
+  - fdbc:ba6a:38de:f400::/56
+clusterSvcNets:
+  - 10.96.0.0/12
+  - fdbc:ba6a:38de:6000::/112
+
+controlPlane:
+  machineSpec:
+    secureboot: true
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/qemu-guest-agent
+
+patches:
+  - |
+    # primary interface alias
+    apiVersion: v1alpha1
+    kind: LinkAliasConfig
+    name: net0
+    selector:
+      match: true
+  - |
+    # network config from dhcp
+    ---
+    apiVersion: v1alpha1
+    kind: DHCPv4Config
+    name: net0
+    ---
+    apiVersion: v1alpha1
+    kind: DHCPv6Config
+    name: net0
+    ---
+    apiVersion: v1alpha1
+    kind: TimeSyncConfig
+    ptp:
+      devices: [/dev/ptp0]
+  - |
+    # disk config
+    ---
+    apiVersion: v1alpha1
+    kind: VolumeConfig
+    name: STATE
+    encryption:
+      provider: luks2
+      keys:
+        - slot: 0
+          tpm: {}
+    ---
+    apiVersion: v1alpha1
+    kind: VolumeConfig
+    name: EPHEMERAL
+    encryption:
+      provider: luks2
+      keys:
+        - slot: 0
+          tpm: {}
+          lockToState: true
+  - |
+    # disable features
+    machine:
+      network:
+        kubespan:
+          enabled: false
+      features:
+        hostDNS:
+          enabled: true
+          forwardKubeDNSToHost: false
+    cluster:
+      discovery:
+        enabled: false
+      coreDNS:
+        disabled: true
+      proxy:
+        disabled: true
+
+nodes:
+  - hostname: capi.k8s.nevi.network
+    ipAddress: capi.k8s.nevi.network
+    controlPlane: true
+    installDisk: /dev/vda
+    ignoreHostname: true

@@ -7,6 +7,10 @@
   ansible,
   ansible-lint,
   golangci-lint,
+  helmfile,
+  kubernetes-helm,
+  kubernetes-helmPlugins,
+  wrapHelm,
   opentofu,
   python3,
   python3Packages,
@@ -15,10 +19,26 @@
   talosctl,
 }:
 
+let
+  kubernetes-helm' = wrapHelm kubernetes-helm {
+    plugins = with kubernetes-helmPlugins; [
+      helm-diff
+      helm-git
+      helm-s3
+      helm-secrets
+    ];
+  };
+  helmfile' = helmfile.override {
+    inherit (kubernetes-helm'.passthru) pluginsDir;
+  };
+in
+
 mkShell {
   packages = [
     ansible
     ansible-lint
+    golangci-lint
+    helmfile'
     sops
     talhelper
     talosctl
@@ -28,8 +48,6 @@ mkShell {
     (python3.withPackages (ps: with ps; [ pyyaml ]))
     python3Packages.flake8
     python3Packages.mypy
-
-    golangci-lint
   ];
 
   inputsFrom = customPackages;

@@ -260,6 +260,7 @@ in
 
       HOME.MGMT = "LAN-MGMT";
       INFRA.MGMT = "LAN-MGMT";
+      K8S.MGMT = "LAN-MGMT";
 
       INFRA.HOME = "LAN-HOME";
       K8S.HOME = "LAN-HOME";

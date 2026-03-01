@@ -12,8 +12,6 @@ VLAN | Name                     | DNS                | IPv4           | IPv6
 20   | INFRA                    | inf.nevi.network   | 10.64.20.0/24  | fdbc:ba6a:38de:20::/64
 30   | Kubernetes nodes         | k8s.nevi.network   | 10.64.30.0/24  | fdbc:ba6a:38de:30::/64
 30   | Kubernetes loadbalancers | ---                | 10.64.31.0/24  | fdbc:ba6a:38de:31::/64
-30   | Kubernetes pods          | ---                | 10.64.128.0/20 | fdbc:ba6a:38de:32::/64
----  | ClusterIPs               | svc.cluster.local  | 172.30.0.0/16  | fdbc:ba6a:38de:33::/64
 200  | ROUTER                   |                    | 10.64.200.0/24 | fdbc:ba6a:38de:200::/64
 
 DHCP ranges are
@@ -22,9 +20,13 @@ DHCP ranges are
 
 ### Reserved ranges
 
-CIDR                | Notes
----                 | ---
-172.20.0.0/14       | dn42
+CIDR                      | Notes
+---                       | ---
+172.20.0.0/14             | dn42
+10.244.0.0/16             | shared talos default pod range
+fdbc:ba6a:38de:f400::/56  | shared pod range
+10.96.0.0/12              | shared talos default service range
+fdbc:ba6a:38de:6000::/112 | shared service range
 
 ## Network architecture
 
