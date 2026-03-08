@@ -23,7 +23,6 @@ in
         state-policy = {
           established.action = "accept";
           related.action = "accept";
-          invalid.action = "drop";
         };
       };
     };

@@ -1,0 +1,58 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: rtr
+spec:
+  bgpInstances:
+    - name: instance-65000
+      localASN: 65001
+      peers:
+        - name: rtr01
+          peerASN: 65000
+          peerAddress: fdbc:ba6a:38de:30::2
+          peerConfigRef:
+            name: rtr
+        - name: rtr02
+          peerASN: 65000
+          peerAddress: fdbc:ba6a:38de:30::3
+          peerConfigRef:
+            name: rtr
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPPeerConfig
+metadata:
+  name: rtr
+spec:
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: rtr
+    - afi: ipv6
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: rtr
+  gracefulRestart:
+    enabled: true
+---
+apiVersion: cilium.io/v2
+kind: CiliumBGPAdvertisement
+metadata:
+  name: rtr
+  labels:
+    advertise: rtr
+spec:
+  advertisements:
+    - advertisementType: PodCIDR
+    - advertisementType: Service
+      service:
+        addresses:
+          - LoadBalancerIP
+      selector:
+        matchExpressions:
+          - key: always
+            operator: NotIn
+            values: [never]

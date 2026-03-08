@@ -9,11 +9,11 @@ cniConfig:
   name: none
 
 clusterPodNets:
-  - 10.244.0.0/16
-  - fdbc:ba6a:38de:f400::/56
+  - 10.64.32.0/22
+  - fdbc:ba6a:38de:32::/80
 clusterSvcNets:
   - 10.96.0.0/12
-  - fdbc:ba6a:38de:6000::/112
+  - fdbc:ba6a:38de:6000::/108
 
 controlPlane:
   machineSpec:
@@ -26,15 +26,15 @@ controlPlane:
 
 patches:
   - |
+    ---
     # primary interface alias
     apiVersion: v1alpha1
     kind: LinkAliasConfig
     name: net0
     selector:
       match: true
-  - |
-    # network config from dhcp
     ---
+    # network config from dhcp
     apiVersion: v1alpha1
     kind: DHCPv4Config
     name: net0
@@ -43,6 +43,7 @@ patches:
     kind: DHCPv6Config
     name: net0
     ---
+    # time config
     apiVersion: v1alpha1
     kind: TimeSyncConfig
     ptp:
@@ -70,6 +71,20 @@ patches:
           lockToState: true
   - |
     # disable features
+    cluster:
+      network:
+        cni:
+          name: none
+      proxy:
+        disabled: true
+      coreDNS:
+        disabled: true
+      discovery:
+        enabled: false
+      controllerManager:
+        extraArgs:
+          node-cidr-mask-size-ipv4: 26
+          node-cidr-mask-size-ipv6: 96
     machine:
       network:
         kubespan:
@@ -78,13 +93,6 @@ patches:
         hostDNS:
           enabled: true
           forwardKubeDNSToHost: false
-    cluster:
-      discovery:
-        enabled: false
-      coreDNS:
-        disabled: true
-      proxy:
-        disabled: true
 
 nodes:
   - hostname: capi.k8s.nevi.network

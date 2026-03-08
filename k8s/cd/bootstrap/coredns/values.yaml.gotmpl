@@ -1,0 +1,26 @@
+service:
+  clusterIP: 10.96.0.10
+  clusterIPs:
+    - 10.96.0.10
+    - fdbc:ba6a:38de:6000::a
+  ipFamilyPolicy: PreferDualStack
+
+tolerations:
+  - key: node.cloudprovider.kubernetes.io/uninitialized
+    effect: NoSchedule
+    operator: Exists
+  - key: node-role.kubernetes.io/control-plane
+    effect: NoSchedule
+    operator: Exists
+
+{{- if ne .Environment.Name "management" }}
+replicaCount: 2
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: coredns
+            app.kubernetes.io/instance: coredns
+        topologyKey: kubernetes.io/hostname
+{{- end }}

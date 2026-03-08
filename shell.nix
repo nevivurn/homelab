@@ -6,17 +6,19 @@
 
   ansible,
   ansible-lint,
+  clusterctl,
   golangci-lint,
   helmfile,
   kubernetes-helm,
   kubernetes-helmPlugins,
-  wrapHelm,
+  kustomize,
   opentofu,
   python3,
   python3Packages,
   sops,
   talhelper,
   talosctl,
+  wrapHelm,
 }:
 
 let
@@ -37,8 +39,10 @@ mkShell {
   packages = [
     ansible
     ansible-lint
+    clusterctl
     golangci-lint
     helmfile'
+    kustomize
     sops
     talhelper
     talosctl

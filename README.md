@@ -23,10 +23,10 @@ DHCP ranges are
 CIDR                      | Notes
 ---                       | ---
 172.20.0.0/14             | dn42
-10.244.0.0/16             | shared talos default pod range
-fdbc:ba6a:38de:f400::/56  | shared pod range
+10.244.0.0/16             | shared talos default pod range (/24 per node)
+fdbc:ba6a:38de:f400::/56  | shared pod range (/64 per node)
 10.96.0.0/12              | shared talos default service range
-fdbc:ba6a:38de:6000::/112 | shared service range
+fdbc:ba6a:38de:6000::/108 | shared service range
 
 ## Network architecture
 
@@ -76,7 +76,15 @@ Address | Host    | Notes
 .3      | rtr02   |
 .4      | relay01 | DHCP relay to net01
 .5      | relay02 | DHCP relay to net02
-.10     |         | control plane VIP
+
+- controlplane nodes are .x1 ~ .x3, cluster entrypoint at .x0
+- workers are randomly assigned in the DHCP range (.100~.200 and :d6d6::/80)
+- ipv4 loadbalancer range assigned in blocks of /27
+- ipv6 loadbalancer range assigned in blocks of /112
+- ipv4 pod range assigned in blocks of /22 (/26 per node) starting from 10.64.32.0/22
+- ipv6 pod range assigned in blocks of /80 (/96 per node) starting from fdbc:ba6a:38de:32::/80
+- non-service clusters (pod IP masquerade, no BGP, etc.) use the shared ranges
+  as documented in `Reserved Ranges`.
 
 #### Notes
 

@@ -97,15 +97,15 @@ inf:
     net02:
       ipv4: &net02-v4 10.64.20.5
       ipv6: &net02-v6 fdbc:ba6a:38de:20::5
+    net03:
+      ipv4: 10.64.20.6
+      ipv6: fdbc:ba6a:38de:20::6
     relay01:
       ipv4: 10.64.20.7
       ipv6: fdbc:ba6a:38de:20::7
     relay02:
       ipv4: 10.64.20.8
       ipv6: fdbc:ba6a:38de:20::8
-    net03:
-      ipv4: 10.64.20.6
-      ipv6: fdbc:ba6a:38de:20::6
     athebyne:
       ipv4: 10.64.20.20
       ipv6: fdbc:ba6a:38de:20::20
@@ -138,9 +138,21 @@ k8s:
       ipv6: fdbc:ba6a:38de:30::5
 
     capi:
+      ipv4: 10.64.30.10
+      ipv6: fdbc:ba6a:38de:30::10
+      hw_address: bc:24:11:c9:60:53
+    c20: # LB for 21..24
       ipv4: 10.64.30.20
       ipv6: fdbc:ba6a:38de:30::20
-      hw_address: bc:24:11:f4:a4:6b
+    c25: # LB for 26..29
+      ipv4: 10.64.30.25
+      ipv6: fdbc:ba6a:38de:30::25
+    c30: # LB for 31..34
+      ipv4: 10.64.30.30
+      ipv6: fdbc:ba6a:38de:30::30
+    c35: # LB for 36..39
+      ipv4: 10.64.30.35
+      ipv6: fdbc:ba6a:38de:30::35
 
 rtr:
   fwd: fwd_rtr

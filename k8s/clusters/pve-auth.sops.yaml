@@ -1,0 +1,36 @@
+apiVersion: ENC[AES256_GCM,data:jI0=,iv:KAEndEZ5x1MJ37eFA1aQ57r1zgFibvc8y5CtIy0+D1E=,tag:UGvm47QBydp19E4EeS4DOA==,type:str]
+kind: ENC[AES256_GCM,data:ZYhXSnUg,iv:DOiP7b8lf/NoFk6sXU/9cLMADSJkV+dxKKsHffkMoXc=,tag:7klkLyzj+/O4JWZ2gn/fYg==,type:str]
+metadata:
+    name: ENC[AES256_GCM,data:vSwdZsiKFB8=,iv:e9qnRq2xq90yMTMrzwclI0yjVqRYF99g4Axsak2C+JQ=,tag:ZJGV5XxBAT+b9zzy5SgS3A==,type:str]
+stringData:
+    url: ENC[AES256_GCM,data:zHWCRP7sfju+fF4eD4hnD4ZG5OMSR80cyMcwt0qEP47NyVwU,iv:V7K53Bvl7lhWBldqT88h99351vkUw3X/6TkKqxB26kw=,tag:708GyP2ZLCZIDM2NjZ4kkA==,type:str]
+    token: ENC[AES256_GCM,data:RwXBx2I1Ud7eVl/0F3AbaAk=,iv:75PJe9j4Lk2Rfdmu83PEfZ1n/4oyMEGT2KqPfoCHDGo=,tag:w+tUXN0U5nNBt1EvcuIRcA==,type:str]
+    secret: ENC[AES256_GCM,data:QAV1JQbp+B61kIhp6NlJT6sVgaSVCJs1NXy10Q3l22mKFbvK,iv:VZ1/anRfXEOSqALxAZ+x9uu+j7x975bZLTUr/nnJb/s=,tag:7Lb/x2dnZ1F4S9Hj9atO+w==,type:str]
+sops:
+    lastmodified: "2026-03-08T02:24:57Z"
+    mac: ENC[AES256_GCM,data:ObmVyq5cGj77yh1Qj7eWQnKE+GqbK5hLnihYvp3Xm69mKiMlhb+rAeOIky2bLuysfLtu8GbEFV31gDZyLc2uSeaYRpnB2JPsqgGMI+P1sC+SwKQV9hBZpGwTJe/jFT59H6mbRDIaUBfv+XpsDcd/n8u0fuBvVrTFaS/gU0vKRM4=,iv:PEY0smjo+AgSK/1EwqwwAu3r0xF5RuenShQPS7sJuB4=,tag:3upiCTDAdKkBJL9A3fSV4A==,type:str]
+    pgp:
+        - created_at: "2026-03-08T02:24:57Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hF4DeebQOtJNR30SAQdAErBGYPLzPz8vowD3LjkFHSc9O8w5YDQ9VfljeQwURlYw
+            cljZIURXcv2BwoeBiLmYd7wc+YMsnCyij5ag73fNf+YRf9VLIRjq8jZAsRJfXlF9
+            0l4B241bxT3E8PYpM26lmR1DFBVARIOrWql/lGL8gw7Iry5C5LxWV49cmeJcvZ04
+            hjXw5fTkl7Hq6d/CRM6yGgiwu2DouMoiY+fCTVlaEMCh0M7Gzettm4mFC8sfNAO2
+            =GL3y
+            -----END PGP MESSAGE-----
+          fp: E20595D143F7DC96
+        - created_at: "2026-03-08T02:24:57Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hF4DGnE4EHLjsVoSAQdAx8OTFHZGZykHHDBgn9MFUlmT6jN490oKywE5Q351GRcw
+            t+kGp+XpRN6jN+YApofjmmHzgo3ZSm43UsWZHpjuv232K9xooy9s+iKSs0HxVS4W
+            0l4BQmeCnFcqyw27Qsl2r/Kfm7sZgITlSTjaPUBAAp+mxe3d+qqbEG1WNVxh60wq
+            wWNkPKHXcNaPC1SrXrd8/rtvmPX5yaIUxYIGPKllakBo8E9YRjnF+CuvdhN018F2
+            =oasD
+            -----END PGP MESSAGE-----
+          fp: 8E3032515785D8F2
+    unencrypted_suffix: _unencrypted
+    version: 3.12.1

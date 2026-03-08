@@ -24,14 +24,16 @@ securityContext:
 k8sServiceHost: localhost
 k8sServicePort: 7445
 
-routingMode: native
+kubeProxyReplacement: true
 bpf:
   distributedLRU:
     enabled: true
   mapDynamicSizeRatio: 0.08
   datapathMode: netkit
-kubeProxyReplacement: true
 bpfClockProbe: true
+enableIPv4Masquerade: false
+enableIPv6Masquerade: false
+
 bandwidthManager:
   enabled: true
   bbr: true
@@ -40,7 +42,10 @@ ipv4:
   enabled: true
 ipv6:
   enabled: true
+
+routingMode: native
 autoDirectNodeRoutes: true
+
 loadBalancer:
   mode: dsr
   dsrDispatch: opt
@@ -48,5 +53,10 @@ loadBalancer:
 bgpControlPlane:
   enabled: true
 
-enableIPv4Masquerade: false
-enableIPv6Masquerade: false
+hubble:
+  enabled: false
+
+{{- if eq .Environment.Name "management" }}
+operator:
+  replicas: 1
+{{- end }}

@@ -1,0 +1,110 @@
+---
+apiVersion: cluster.x-k8s.io/v1beta2
+kind: MachineDeployment
+metadata:
+  name: c20-workers
+spec:
+  clusterName: c20
+  replicas: 2
+  selector:
+    matchLabels: null
+  template:
+    spec:
+      clusterName: c20
+      bootstrap:
+        configRef:
+          apiGroup: bootstrap.cluster.x-k8s.io
+          kind: TalosConfigTemplate
+          name: c20-worker
+      infrastructureRef:
+        apiGroup: infrastructure.cluster.x-k8s.io
+        kind: ProxmoxMachineTemplate
+        name: c20-worker
+      version: v1.35.1
+---
+apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+kind: TalosConfigTemplate
+metadata:
+  name: c20-worker
+spec:
+  template:
+    spec:
+      generateType: worker
+      strategicPatches:
+        - |
+          ---
+          # primary interface alias
+          apiVersion: v1alpha1
+          kind: LinkAliasConfig
+          name: net0
+          selector:
+            match: true
+          ---
+          # time config
+          apiVersion: v1alpha1
+          kind: TimeSyncConfig
+          ptp:
+            devices: [/dev/ptp0]
+        - |
+          # disk config
+          ---
+          apiVersion: v1alpha1
+          kind: VolumeConfig
+          name: STATE
+          encryption:
+            provider: luks2
+            keys:
+              - slot: 0
+                tpm: {}
+          ---
+          apiVersion: v1alpha1
+          kind: VolumeConfig
+          name: EPHEMERAL
+          encryption:
+            provider: luks2
+            keys:
+              - slot: 0
+                tpm: {}
+                lockToState: true
+        - |
+          machine:
+            kubelet:
+              extraArgs:
+                cloud-provider: external
+                rotate-server-certificates: true
+        - |
+          machine:
+            features:
+              hostDNS:
+                enabled: true
+                forwardKubeDNSToHost: false
+              kubePrism:
+                enabled: true
+                port: 7445
+      talosVersion: v1.12.4
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: ProxmoxMachineTemplate
+metadata:
+  name: c20-worker
+spec:
+  template:
+    spec:
+      checks:
+        skipCloudInitStatus: true
+      disks:
+        bootVolume:
+          disk: virtio0
+          sizeGb: 100
+      network:
+        default:
+          bridge: vmbr0
+          model: virtio
+          vlan: 30
+      sourceNode: pve01
+      templateID: 301
+      vmIDRange:
+        start: 300
+        end: 399
+      metadataSettings:
+        providerIDInjection: true

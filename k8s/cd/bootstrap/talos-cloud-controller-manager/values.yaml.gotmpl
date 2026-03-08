@@ -1,0 +1,11 @@
+{{- if ne .Environment.Name "management" }}
+replicaCount: 2
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: talos-cloud-controller-manager
+            app.kubernetes.io/instance: talos-cloud-controller-manager
+        topologyKey: kubernetes.io/hostname
+{{- end }}
