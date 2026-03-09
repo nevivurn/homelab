@@ -1,2 +1,5 @@
 talos-cloud-controller-manager:
   enabled: false
+
+talos-ccm-pdb:
+  enabled: false

@@ -1,2 +1,4 @@
 operator:
   replicas: 1
+  podDisruptionBudget:
+    enabled: false

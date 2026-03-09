@@ -13,6 +13,9 @@ talos-cloud-controller-manager:
   enabled: true
   version: 0.5.4
 
+talos-ccm-pdb:
+  enabled: true
+
 coredns:
   enabled: true
   version: 1.45.2

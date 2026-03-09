@@ -35,6 +35,11 @@ releases:
     inherit:
       - template: default
 
+  - name: talos-ccm-pdb
+    chart: ./talos-ccm-pdb
+    inherit:
+      - template: default
+
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns

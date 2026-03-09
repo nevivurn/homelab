@@ -56,3 +56,9 @@ bgpControlPlane:
 hubble:
   enabled: false
 
+operator:
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+    maxUnavailable: null
+
