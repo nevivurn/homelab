@@ -5,6 +5,8 @@ service:
     - fdbc:ba6a:38de:6000::a
   ipFamilyPolicy: PreferDualStack
 
+replicaCount: 2
+
 tolerations:
   - key: node.cloudprovider.kubernetes.io/uninitialized
     effect: NoSchedule
@@ -13,8 +15,6 @@ tolerations:
     effect: NoSchedule
     operator: Exists
 
-{{- if ne .Environment.Name "management" }}
-replicaCount: 2
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -23,4 +23,3 @@ affinity:
             app.kubernetes.io/name: coredns
             app.kubernetes.io/instance: coredns
         topologyKey: kubernetes.io/hostname
-{{- end }}

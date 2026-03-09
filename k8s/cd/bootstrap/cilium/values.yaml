@@ -56,7 +56,3 @@ bgpControlPlane:
 hubble:
   enabled: false
 
-{{- if eq .Environment.Name "management" }}
-operator:
-  replicas: 1
-{{- end }}
