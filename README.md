@@ -112,7 +112,6 @@ Address | Host    | Notes
   be bothered to figure it out over a <10% performance hit over line rate. I'll
   fix it when we upgrade to >10Gbit networking. By that time, I'll presumably
   have switched to physical routers.
-- https://github.com/siderolabs/pkgs/pull/1464
 
 ## TODOs
 

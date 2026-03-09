@@ -1,0 +1,2 @@
+talos-cloud-controller-manager:
+  enabled: false

@@ -1,6 +1,0 @@
----
-environments:
-  management: {}
----
-helmfiles:
-  - bootstrap/helmfile.yaml

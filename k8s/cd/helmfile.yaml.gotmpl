@@ -1,0 +1,22 @@
+---
+environments:
+  default:
+    values:
+      - environments/default.yaml
+  management:
+    values:
+      - environments/default.yaml
+      - environments/management.yaml
+  c20:
+    values:
+      - environments/default.yaml
+      - environments/c20.yaml
+  c30:
+    values:
+      - environments/default.yaml
+      - environments/c30.yaml
+---
+helmfiles:
+  - path: bootstrap/helmfile.yaml.gotmpl
+    values:
+      - {{ toYaml .Values | nindent 8 }}

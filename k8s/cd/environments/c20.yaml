@@ -1,0 +1,5 @@
+cilium:
+  version: 1.18.6
+
+cilium-preflight:
+  version: 1.18.6

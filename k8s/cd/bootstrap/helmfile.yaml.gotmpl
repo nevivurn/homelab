@@ -1,0 +1,42 @@
+---
+commonLabels:
+  bootstrap: "true"
+
+templates:
+  default:
+    missingFileHandler: Debug
+    installedTemplate: '{{`{{ index .Environment.Values .Release.Name "enabled" }}`}}'
+    version: '{{`{{ index .Environment.Values .Release.Name "version" | default "" }}`}}'
+    values:
+      - "{{`{{ .Release.Name }}`}}/values.yaml.gotmpl"
+      - "{{`{{ .Release.Name }}`}}/{{`{{ .Environment.Name }}`}}.yaml"
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: oci://quay.io/cilium/charts/cilium
+    inherit:
+      - template: default
+
+  - name: cilium-preflight
+    namespace: kube-system
+    chart: oci://quay.io/cilium/charts/cilium
+    inherit:
+      - template: default
+
+  - name: cilium-bgp
+    chart: ./cilium-bgp
+    inherit:
+      - template: default
+
+  - name: talos-cloud-controller-manager
+    namespace: kube-system
+    chart: oci://ghcr.io/siderolabs/charts/talos-cloud-controller-manager
+    inherit:
+      - template: default
+
+  - name: coredns
+    namespace: kube-system
+    chart: oci://ghcr.io/coredns/charts/coredns
+    inherit:
+      - template: default
