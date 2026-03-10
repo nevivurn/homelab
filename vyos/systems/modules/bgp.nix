@@ -11,26 +11,70 @@ in
 {
   vyosConfig = {
     policy = {
-      prefix-list.INTERNAL-v4.rule."10" = {
-        action = "permit";
-        prefix = "10.64.0.0/16";
-        le = "32";
+      prefix-list = {
+        INTERNAL-v4.rule = {
+          "10" = {
+            action = "permit";
+            prefix = "10.64.0.0/16";
+            le = "32";
+          };
+          "11" = {
+            action = "permit";
+            prefix = "10.32.0.0/16";
+            le = "32";
+          };
+        };
+        AS65001-IN-v4.rule."10" = {
+          action = "permit";
+          prefix = "10.32.0.0/16";
+          le = "32";
+        };
       };
-      prefix-list6.INTERNAL-v6.rule."10" = {
-        action = "permit";
-        prefix = "fdbc:ba6a:38de::/48";
-        le = "128";
+      prefix-list6 = {
+        INTERNAL-v6.rule = {
+          "10" = {
+            action = "permit";
+            prefix = "fdbc:ba6a:38de::/48";
+            le = "128";
+          };
+          "20" = {
+            action = "permit";
+            prefix = "fdbc:ba6a:38de:32::/64";
+            le = "128";
+          };
+        };
+        AS65001-IN-v6.rule."10" = {
+          action = "permit";
+          prefix = "fdbc:ba6a:38de:32::/64";
+          le = "128";
+        };
       };
 
-      route-map.DENY-ALL.rule."10".action = "deny";
-      route-map.REDISTRIBUTE-INTERNAL.rule = {
-        "10" = {
-          action = "permit";
-          match.ip.address.prefix-list = "INTERNAL-v4";
+      route-map = {
+        DENY-ALL.rule."10".action = "deny";
+
+        REDISTRIBUTE-INTERNAL.rule = {
+          "10" = {
+            action = "permit";
+            match.ip.address.prefix-list = "INTERNAL-v4";
+          };
+          "20" = {
+            action = "permit";
+            match.ipv6.address.prefix-list = "INTERNAL-v6";
+          };
+          "100".action = "deny";
         };
-        "20" = {
-          action = "permit";
-          match.ipv6.address.prefix-list = "INTERNAL-v6";
+
+        AS65001-IN.rule = {
+          "10" = {
+            action = "permit";
+            match.ip.address.prefix-list = "AS65001-IN-v4";
+          };
+          "20" = {
+            action = "permit";
+            match.ipv6.address.prefix-list = "AS65001-IN-v6";
+          };
+          "100".action = "deny";
         };
       };
     };
@@ -60,6 +104,8 @@ in
           # cilium CP does not install any routes, don't bother exporting
           ipv4-unicast.route-map.export = "DENY-ALL";
           ipv6-unicast.route-map.export = "DENY-ALL";
+          ipv4-unicast.route-map.import = "AS65001-IN";
+          ipv6-unicast.route-map.import = "AS65001-IN";
         };
       };
     };
