@@ -1,8 +1,8 @@
 kustomizations := $(wildcard */kustomization.yaml)
 targets := $(kustomizations:kustomization.yaml=build.yaml)
 
-.PHONY: build
-build: $(targets)
+.PHONY: all
+all: $(targets)
 
 .PHONY: clean
 clean:

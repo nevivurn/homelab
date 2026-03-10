@@ -12,17 +12,10 @@ in
   vyosConfig = {
     policy = {
       prefix-list = {
-        INTERNAL-v4.rule = {
-          "10" = {
-            action = "permit";
-            prefix = "10.64.0.0/16";
-            le = "32";
-          };
-          "11" = {
-            action = "permit";
-            prefix = "10.32.0.0/16";
-            le = "32";
-          };
+        INTERNAL-v4.rule."10" = {
+          action = "permit";
+          prefix = "10.64.0.0/16";
+          le = "32";
         };
         AS65001-IN-v4.rule."10" = {
           action = "permit";
@@ -35,11 +28,6 @@ in
           "10" = {
             action = "permit";
             prefix = "fdbc:ba6a:38de::/48";
-            le = "128";
-          };
-          "20" = {
-            action = "permit";
-            prefix = "fdbc:ba6a:38de:32::/64";
             le = "128";
           };
         };
@@ -58,9 +46,17 @@ in
             action = "permit";
             match.ip.address.prefix-list = "INTERNAL-v4";
           };
+          "11" = {
+            action = "permit";
+            match.ip.address.prefix-list = "AS65001-IN-v4";
+          };
           "20" = {
             action = "permit";
             match.ipv6.address.prefix-list = "INTERNAL-v6";
+          };
+          "21" = {
+            action = "permit";
+            match.ipv6.address.prefix-list = "AS65001-IN-v6";
           };
           "100".action = "deny";
         };

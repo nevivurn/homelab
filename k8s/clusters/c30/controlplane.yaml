@@ -84,7 +84,7 @@ spec:
               cni:
                 name: none
               podSubnets:
-                - 10.64.40.0/22
+                - 10.32.32.0/20
                 - fdbc:ba6a:38de:32:2::/80
               serviceSubnets:
                 - 10.96.0.0/12
@@ -97,7 +97,7 @@ spec:
               enabled: false
             controllerManager:
               extraArgs:
-                node-cidr-mask-size-ipv4: 26
+                node-cidr-mask-size-ipv4: 24
                 node-cidr-mask-size-ipv6: 96
           machine:
             features:

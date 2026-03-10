@@ -84,7 +84,7 @@ spec:
               cni:
                 name: none
               podSubnets:
-                - 10.64.36.0/22
+                - 10.32.16.0/20
                 - fdbc:ba6a:38de:32:1::/80
               serviceSubnets:
                 - 10.96.0.0/12
@@ -97,7 +97,7 @@ spec:
               enabled: false
             controllerManager:
               extraArgs:
-                node-cidr-mask-size-ipv4: 26
+                node-cidr-mask-size-ipv4: 24
                 node-cidr-mask-size-ipv6: 96
           machine:
             features:
@@ -107,16 +107,16 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.12.4
+      talosVersion: v1.12.5
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: ProxmoxMachineTemplate
-    name: c20-cp
+    name: c20-cp-1-12-5
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-cp
+  name: c20-cp-1-12-5
 spec:
   template:
     spec:
@@ -141,7 +141,7 @@ spec:
             kind: InClusterIPPool
             name: c20-cp-v6
       sourceNode: pve01
-      templateID: 301
+      templateID: 299
       vmIDRange:
         start: 300
         end: 399

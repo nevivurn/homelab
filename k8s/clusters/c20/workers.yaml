@@ -2,7 +2,7 @@
 apiVersion: cluster.x-k8s.io/v1beta2
 kind: MachineDeployment
 metadata:
-  name: c20-workers
+  name: c20
 spec:
   clusterName: c20
   replicas: 2
@@ -15,17 +15,17 @@ spec:
         configRef:
           apiGroup: bootstrap.cluster.x-k8s.io
           kind: TalosConfigTemplate
-          name: c20-worker
+          name: c20-1-12-5
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: ProxmoxMachineTemplate
-        name: c20-worker
+        name: c20-1-12-5
       version: v1.35.1
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
 kind: TalosConfigTemplate
 metadata:
-  name: c20-worker
+  name: c20-1-12-5
 spec:
   template:
     spec:
@@ -81,12 +81,12 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.12.4
+      talosVersion: v1.12.5
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-worker
+  name: c20-1-12-5
 spec:
   template:
     spec:
@@ -102,7 +102,7 @@ spec:
           model: virtio
           vlan: 30
       sourceNode: pve01
-      templateID: 301
+      templateID: 299
       vmIDRange:
         start: 300
         end: 399

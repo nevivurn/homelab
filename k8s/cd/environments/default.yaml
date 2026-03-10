@@ -1,10 +1,10 @@
 cilium:
   enabled: true
-  version: 1.18.6
+  version: 1.19.1
 
 cilium-preflight:
   enabled: false
-  version: 1.18.6
+  version: 1.19.1
 
 cilium-bgp:
   enabled: true

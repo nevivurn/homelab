@@ -2,7 +2,7 @@
 apiVersion: cluster.x-k8s.io/v1beta2
 kind: MachineDeployment
 metadata:
-  name: c30-workers
+  name: c30
 spec:
   clusterName: c30
   replicas: 2
@@ -15,17 +15,17 @@ spec:
         configRef:
           apiGroup: bootstrap.cluster.x-k8s.io
           kind: TalosConfigTemplate
-          name: c30-wk-1-12-5
+          name: c30-1-12-5
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: ProxmoxMachineTemplate
-        name: c30-wk-1-12-5
+        name: c30-1-12-5
       version: v1.35.1
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
 kind: TalosConfigTemplate
 metadata:
-  name: c30-wk-1-12-5
+  name: c30-1-12-5
 spec:
   template:
     spec:
@@ -86,7 +86,7 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c30-wk-1-12-5
+  name: c30-1-12-5
 spec:
   template:
     spec:

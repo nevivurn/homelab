@@ -2,16 +2,21 @@
 
 ## Addressing
 
-Generally, everything is in `10.64.0.0/16` and `fdbc:ba6a:38de::/48`.
+Generally, most networks are in `10.64.0.0/16` and `fdbc:ba6a:38de::/48`.
 
 VLAN | Name                     | DNS                | IPv4           | IPv6
 ---  | ---                      | ---                | ---            | ---
 1    | MGMT                     | mgmt.nevi.network  | 10.64.1.0/24   | fdbc:ba6a:38de:1::/64
 10   | HOME                     | home.nevi.network  | 10.64.10.0/24  | fdbc:ba6a:38de:10::/64
+10   | wg40 (rtr01)             |                    | 10.64.41.0/24  | fdbc:ba6a:38de:41::/64
+10   | wg40 (rtr02)             |                    | 10.64.42.0/24  | fdbc:ba6a:38de:42::/64
+N/A  | wg50 (rtr01)             | prx.nevi.network   | 10.64.51.0/24  | fdbc:ba6a:38de:51::/64
+N/A  | wg50 (rtr02)             | prx.nevi.network   | 10.64.52.0/24  | fdbc:ba6a:38de:52::/64
 11   | GUEST                    | guest.nevi.network | 10.64.11.0/24  | fdbc:ba6a:38de:11::/64
 20   | INFRA                    | inf.nevi.network   | 10.64.20.0/24  | fdbc:ba6a:38de:20::/64
 30   | Kubernetes nodes         | k8s.nevi.network   | 10.64.30.0/24  | fdbc:ba6a:38de:30::/64
 30   | Kubernetes loadbalancers | ---                | 10.64.31.0/24  | fdbc:ba6a:38de:31::/64
+30   | Kubernetes pods          | ---                | 10.32.0.0/16   | fdbc:ba6a:38de:32::/64
 200  | ROUTER                   |                    | 10.64.200.0/24 | fdbc:ba6a:38de:200::/64
 
 DHCP ranges are
@@ -23,8 +28,6 @@ DHCP ranges are
 CIDR                      | Notes
 ---                       | ---
 172.20.0.0/14             | dn42
-10.244.0.0/16             | shared talos default pod range (/24 per node)
-fdbc:ba6a:38de:f400::/56  | shared pod range (/64 per node)
 10.96.0.0/12              | shared talos default service range
 fdbc:ba6a:38de:6000::/108 | shared service range
 
@@ -46,16 +49,16 @@ net01..net03 running
 
 ### Infra subnet
 
-Address  | Host    | Notes
----      | ---     | ---
-.1       | gateway | VRRP
-.2       | rtr01   |
-.3       | rtr02   |
-.4       | net01   | DHCP, DNS, NTP
-.5       | net02   | DHCP, DNS, NTP
-.6       | net03   | quorum
-.7       | relay01 | DHCP relay to net01
-.8       | relay02 | DHCP relay to net02
+Address | Host    | Notes
+---     | ---     | ---
+.1      | gateway | VRRP
+.2      | rtr01   |
+.3      | rtr02   |
+.4      | net01   | DHCP, DNS, NTP
+.5      | net02   | DHCP, DNS, NTP
+.6      | net03   | quorum
+.7      | relay01 | DHCP relay to net01
+.8      | relay02 | DHCP relay to net02
 
 ### Other subnets
 
@@ -74,14 +77,19 @@ Address | Host    | Notes
 .1      | gateway | VRRP
 .2      | rtr01   |
 .3      | rtr02   |
-.4      | relay01 | DHCP relay to net01
-.5      | relay02 | DHCP relay to net02
 
-- controlplane nodes are .x1 ~ .x3, cluster entrypoint at .x0
-- workers are randomly assigned in the DHCP range (.100~.200 and :d6d6::/80)
+Cluster | Endpoint | CP        | Worker     | Pods          | LBs
+---     |          | ---       | ---        | ---           | ---
+capi    | .10      | .10       |            | 10.32.0.0/20  | 10.64.31.0/28
+C20     | .20      | .21 ~ .24 | .101 ~ 109 | 10.32.16.0/20 | 10.64.31.16/28
+C25     | .25      | .26 ~ .29 | .101 ~ 109 | 10.32.32.0/20 | 10.64.31.32/28
+C30     | .30      | .31 ~ .34 | .111 ~ 119 | 10.32.48.0/20 | 10.64.31.48/28
+C35     | .35      | .36 ~ .39 | .111 ~ 119 | 10.32.64.0/20 | 10.64.31.64/28
+
+- There is no DHCP service in the K8S zone
 - ipv4 loadbalancer range assigned in blocks of /27
 - ipv6 loadbalancer range assigned in blocks of /112
-- ipv4 pod range assigned in blocks of /22 (/26 per node) starting from 10.64.32.0/22
+- ipv4 pod range assigned in blocks of /20 (/24 per node) starting from 10.32.0.0/20
 - ipv6 pod range assigned in blocks of /80 (/96 per node) starting from fdbc:ba6a:38de:32::/80
 - non-service clusters (pod IP masquerade, no BGP, etc.) use the shared ranges
   as documented in `Reserved Ranges`.
@@ -115,6 +123,5 @@ Address | Host    | Notes
 
 ## TODOs
 
-- capi
 - ntp with gps
 - aqi

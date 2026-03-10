@@ -1,5 +1,5 @@
 clusterName: capi
-talosVersion: v1.12.4
+talosVersion: v1.12.5
 kubernetesVersion: v1.35.1
 endpoint: https://capi.k8s.nevi.network:6443
 
@@ -9,7 +9,7 @@ cniConfig:
   name: none
 
 clusterPodNets:
-  - 10.64.32.0/22
+  - 10.32.0.0/20
   - fdbc:ba6a:38de:32::/80
 clusterSvcNets:
   - 10.96.0.0/12
@@ -83,7 +83,7 @@ patches:
         enabled: false
       controllerManager:
         extraArgs:
-          node-cidr-mask-size-ipv4: 26
+          node-cidr-mask-size-ipv4: 24
           node-cidr-mask-size-ipv6: 96
     machine:
       network:
