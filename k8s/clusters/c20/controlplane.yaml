@@ -122,7 +122,7 @@ spec:
     spec:
       checks:
         skipCloudInitStatus: true
-      memoryMiB: 3072
+      memoryMiB: 4096
       disks:
         bootVolume:
           disk: virtio0

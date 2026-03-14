@@ -1,0 +1,37 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: le-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    profile: shortlived
+    preferredChain: ISRG Root X2
+    privateKeySecretRef:
+      name: le-prod
+    solvers:
+      - selector:
+          dnsZones: [nevi.network]
+        dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: api-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: gateway
+spec:
+  secretName: gateway
+  issuerRef:
+    kind: ClusterIssuer
+    name: le-prod
+  dnsNames:
+    {{- toYaml .Values.dnsNames | nindent 4 }}
+  privateKey:
+    {{- /* # le does not support ed25519, and envoy only supports P-256 */}}
+    algorithm: ECDSA
+    size: 256

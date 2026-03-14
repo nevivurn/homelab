@@ -1,0 +1,21 @@
+sources: [gateway-httproute]
+provider:
+  name: pdns
+policy: sync
+
+extraArgs:
+  - --pdns-server=https://api.inf.nevi.network/pdns
+  - --pdns-api-key=invalid
+  - --tls-ca=/secrets/tls/ca.crt
+  - --tls-client-cert=/secrets/tls/tls.crt
+  - --tls-client-cert-key=/secrets/tls/tls.key
+
+extraVolumes:
+  - name: tls
+    secret:
+      secretName: external-dns-cert
+
+extraVolumeMounts:
+  - name: tls
+    mountPath: /secrets/tls
+    readOnly: true

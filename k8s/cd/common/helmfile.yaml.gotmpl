@@ -1,0 +1,53 @@
+---
+templates:
+  default:
+    missingFileHandler: Debug
+    installedTemplate: '{{`{{ index .Environment.Values .Release.Name "enabled" }}`}}'
+    version: '{{`{{ index .Environment.Values .Release.Name "version" | default "" }}`}}'
+    values:
+      - "{{`{{ .Release.Name }}`}}/values.yaml"
+      - "{{`{{ .Release.Name }}`}}/values-{{`{{ .Environment.Name }}`}}.yaml"
+
+repositories:
+  - name: external-dns
+    url: https://kubernetes-sigs.github.io/external-dns
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server
+
+releases:
+  - name: envoy-gateway-crds
+    chart: oci://docker.io/envoyproxy/gateway-crds-helm
+    inherit:
+      - template: default
+  - name: envoy-gateway
+    namespace: envoy-gateway-system
+    chart: oci://docker.io/envoyproxy/gateway-helm
+    inherit:
+      - template: default
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    inherit:
+      - template: default
+  - name: external-dns-cert
+    namespace: external-dns
+    chart: ./external-dns-cert
+    inherit:
+      - template: default
+  - name: external-dns
+    namespace: external-dns
+    chart: external-dns/external-dns
+    inherit:
+      - template: default
+  - name: gateway
+    namespace: gateway
+    chart: ./gateway
+    inherit:
+      - template: default
+    values:
+      - {{ index .Values "gateway" "values" | default (dict) | toYaml | nindent 8 }}
+  - name: metrics-server
+    namespace: metrics-server
+    chart: metrics-server/metrics-server
+    inherit:
+      - template: default

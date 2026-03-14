@@ -17,31 +17,33 @@ releases:
     chart: oci://quay.io/cilium/charts/cilium
     inherit:
       - template: default
-
   - name: cilium-preflight
     namespace: kube-system
     chart: oci://quay.io/cilium/charts/cilium
     inherit:
       - template: default
-
   - name: cilium-bgp
     chart: ./cilium-bgp
     inherit:
       - template: default
-
+    values:
+      - {{ index .Values "cilium-bgp" "values" | default (dict) | toYaml | nindent 8 }}
   - name: talos-cloud-controller-manager
     namespace: kube-system
     chart: oci://ghcr.io/siderolabs/charts/talos-cloud-controller-manager
     inherit:
       - template: default
-
   - name: talos-ccm-pdb
     chart: ./talos-ccm-pdb
     inherit:
       - template: default
-
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
+    inherit:
+      - template: default
+  - name: argocd-bootstrap
+    namespace: default
+    chart: ./argocd-bootstrap
     inherit:
       - template: default

@@ -1,0 +1,8 @@
+dnsNames:
+  - "*.k8s.nevi.network"
+
+replicaCount: 2
+
+pdb:
+  enabled: true
+  minAvailable: 1

@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-dns-cert
+spec:
+  secretName: external-dns-cert
+  issuerRef:
+    name: external-dns-ca
+  privateKey:
+    algorithm: Ed25519
+  commonName: pdns-client
+  usages:
+    - digital signature
+    - client auth

@@ -1,3 +1,11 @@
+namespaces:
+  argocd:
+  envoy-gateway-system:
+  cert-manager:
+  gateway:
+  external-dns:
+  metrics-server:
+
 cilium:
   enabled: true
   version: 1.19.1
@@ -19,3 +27,30 @@ talos-ccm-pdb:
 coredns:
   enabled: true
   version: 1.45.2
+
+argocd-bootstrap:
+  enabled: true
+
+envoy-gateway-crds:
+  enabled: true
+  version: v1.7.1
+envoy-gateway:
+  enabled: true
+  version: v1.7.1
+
+cert-manager:
+  enabled: true
+  version: v1.20.0
+
+external-dns:
+  enabled: true
+  version: 1.20.0
+external-dns-cert:
+  enabled: true
+
+gateway:
+  enabled: true
+
+metrics-server:
+  enabled: true
+  version: 3.13.0

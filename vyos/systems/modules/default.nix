@@ -47,5 +47,11 @@ in
       policy.cake."EGRESS-BW".bandwidth = "100mbit";
       interface."eth0.99".egress = "EGRESS-BW";
     };
+
+    # Enable L4 load balancing
+    system.sysctl.parameter = {
+      "net.ipv4.fib_multipath_hash_policy".value = "1";
+      "net.ipv6.fib_multipath_hash_policy".value = "1";
+    };
   };
 }

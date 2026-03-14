@@ -23,6 +23,17 @@ controlPlane:
       systemExtensions:
         officialExtensions:
           - siderolabs/qemu-guest-agent
+  patches:
+    - |
+      # cluster-api compat
+      machine:
+        features:
+          kubernetesTalosAPIAccess:
+            enabled: true
+            allowedRoles:
+              - os:reader
+            allowedKubernetesNamespaces:
+              - kube-system
 
 patches:
   - |
@@ -93,6 +104,9 @@ patches:
         hostDNS:
           enabled: true
           forwardKubeDNSToHost: false
+      kubelet:
+        extraArgs:
+          rotate-server-certificates: true
 
 nodes:
   - hostname: capi.k8s.nevi.network

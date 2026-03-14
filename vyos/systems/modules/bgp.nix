@@ -17,10 +17,17 @@ in
           prefix = "10.64.0.0/16";
           le = "32";
         };
-        AS65001-IN-v4.rule."10" = {
-          action = "permit";
-          prefix = "10.32.0.0/16";
-          le = "32";
+        AS65001-IN-v4.rule = {
+          "10" = {
+            action = "permit";
+            prefix = "10.32.0.0/16";
+            le = "32";
+          };
+          "11" = {
+            action = "permit";
+            prefix = "10.64.31.0/24";
+            le = "32";
+          };
         };
       };
       prefix-list6 = {
@@ -31,10 +38,17 @@ in
             le = "128";
           };
         };
-        AS65001-IN-v6.rule."10" = {
-          action = "permit";
-          prefix = "fdbc:ba6a:38de:32::/64";
-          le = "128";
+        AS65001-IN-v6.rule = {
+          "10" = {
+            action = "permit";
+            prefix = "fdbc:ba6a:38de:32::/64";
+            le = "128";
+          };
+          "11" = {
+            action = "permit";
+            prefix = "fdbc:ba6a:38de:31::/64";
+            le = "128";
+          };
         };
       };
 

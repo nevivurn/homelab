@@ -1,0 +1,23 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httpbun
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateway
+      name: gateway
+  hostnames:
+    - httpbun.c30.k8s.nevi.network
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: httpbun
+          port: 80
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

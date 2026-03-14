@@ -1,0 +1,3 @@
+[submodule "k8s/cd/homelab-cd"]
+	path = k8s/cd/homelab-cd
+	url = git@github.com:nevivurn/homelab-cd.git

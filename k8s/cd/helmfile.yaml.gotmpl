@@ -1,9 +1,9 @@
 ---
 environments:
-  management:
+  capi:
     values:
       - environments/default.yaml
-      - environments/management.yaml
+      - environments/capi.yaml
   c20:
     values:
       - environments/default.yaml
@@ -17,3 +17,21 @@ helmfiles:
   - path: bootstrap/helmfile.yaml.gotmpl
     values:
       - {{ toYaml .Values | nindent 8 }}
+  - path: common/helmfile.yaml.gotmpl
+    values:
+      - {{ toYaml .Values | nindent 8 }}
+{{- if eq .Environment.Name "capi" }}
+  - path: capi/helmfile.yaml.gotmpl
+    values:
+      - {{ toYaml .Values | nindent 8 }}
+{{- end }}
+{{- if ne .Environment.Name "capi" }}
+  - path: service/helmfile.yaml.gotmpl
+    values:
+      - {{ toYaml .Values | nindent 8 }}
+{{- end }}
+releases:
+  - name: namespaces
+    chart: ./namespaces
+    values:
+      - namespaces: {{ toYaml .Values.namespaces | nindent 20 }}

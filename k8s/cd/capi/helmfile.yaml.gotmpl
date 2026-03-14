@@ -1,0 +1,11 @@
+---
+releases:
+  - name: argocd
+    namespace: argocd
+    chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
+    version: 9.4.10
+    values:
+      - argocd/values.yaml
+  - name: argocd-routes
+    namespace: argocd
+    chart: ./argocd-routes

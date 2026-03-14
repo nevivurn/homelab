@@ -1,0 +1,16 @@
+---
+templates:
+  default:
+    missingFileHandler: Debug
+    installedTemplate: '{{`{{ index .Environment.Values .Release.Name "enabled" }}`}}'
+    version: '{{`{{ index .Environment.Values .Release.Name "version" | default "" }}`}}'
+    values:
+      - "{{`{{ .Release.Name }}`}}/values.yaml"
+      - "{{`{{ .Release.Name }}`}}/values-{{`{{ .Environment.Name }}`}}.yaml"
+
+releases:
+  - name: httpbun
+    namespace: httpbun
+    chart: ./httpbun/{{ .Environment.Name }}
+    inherit:
+      - template: default

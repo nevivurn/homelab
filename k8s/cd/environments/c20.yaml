@@ -1,0 +1,15 @@
+namespaces:
+  httpbun:
+
+cilium-bgp:
+  values:
+    ipv4: 10.64.31.16/28
+    ipv6: fdbc:ba6a:38de:31:1::/80
+
+gateway:
+  values:
+    dnsNames:
+      - "*.c20.k8s.nevi.network"
+
+httpbun:
+  enabled: true

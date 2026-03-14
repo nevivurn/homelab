@@ -2,7 +2,10 @@ kustomizations := $(wildcard */kustomization.yaml)
 targets := $(kustomizations:kustomization.yaml=build.yaml)
 
 .PHONY: all
-all: $(targets)
+all: clean generate
+
+.PHONY: generate
+generate: $(targets)
 
 .PHONY: clean
 clean:

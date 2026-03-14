@@ -1,0 +1,9 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: default
+spec:
+  blocks:
+    - cidr: {{ .Values.ipv4 | quote }}
+    - cidr: {{ .Values.ipv6 | quote }}

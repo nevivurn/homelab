@@ -1,0 +1,24 @@
+namespaces: {}
+
+cilium-bgp:
+  values:
+    ipv4: 10.64.31.0/28
+    ipv6: fdbc:ba6a:38de:31::/80
+
+cilium:
+  version: 1.19.1
+
+cilium-preflight:
+  version: 1.19.1
+
+talos-ccm-pdb:
+  enabled: false
+
+# included w/ capi
+cert-manager:
+  enabled: false
+
+gateway:
+  values:
+    dnsNames:
+      - "*.capi.k8s.nevi.network"
