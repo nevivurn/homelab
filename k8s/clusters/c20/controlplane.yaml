@@ -22,7 +22,7 @@ kind: TalosControlPlane
 metadata:
   name: c20-cp
 spec:
-  version: v1.35.1
+  version: v1.35.2
   replicas: 3
   controlPlaneConfig:
     controlplane:
@@ -107,16 +107,16 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.12.5
+      talosVersion: v1.12.6
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: ProxmoxMachineTemplate
-    name: c20-cp-1-12-5
+    name: c20-cp-1-12-6
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-cp-1-12-5
+  name: c20-cp-1-12-6
 spec:
   template:
     spec:
@@ -141,7 +141,7 @@ spec:
             kind: InClusterIPPool
             name: c20-cp-v6
       sourceNode: pve01
-      templateID: 299
+      templateID: 298
       vmIDRange:
         start: 300
         end: 399
