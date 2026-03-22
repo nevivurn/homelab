@@ -12,6 +12,11 @@ gateway:
     dnsNames:
       - "*.c20.k8s.nevi.network"
 
+signoz:
+  enabled: true
+signoz-route:
+  enabled: true
+
 cloudflare-tunnel:
   enabled: true
 cloudflare-tunnel-policy:

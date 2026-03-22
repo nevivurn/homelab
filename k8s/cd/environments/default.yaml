@@ -64,6 +64,12 @@ opentelemetry-kube-stack:
   enabled: true
   version: 0.14.8
 
+signoz:
+  enabled: false
+  version: "0.116.2"
+signoz-route:
+  enabled: false
+
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2 # app version separate

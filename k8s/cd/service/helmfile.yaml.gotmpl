@@ -11,6 +11,8 @@ templates:
 repositories:
   - name: cloudflare
     url: https://cloudflare.github.io/helm-charts
+  - name: signoz
+    url: https://charts.signoz.io
 
 releases:
   - name: cloudflare-tunnel
@@ -32,6 +34,33 @@ releases:
   - name: cloudflare-gateway
     namespace: cloudflare-tunnel
     chart: ./cloudflare-gateway
+    inherit:
+      - template: default
+  - name: signoz
+    namespace: monitoring
+    chart: signoz/signoz
+    inherit:
+      - template: default
+    transformers:
+      - apiVersion: builtin
+        kind: NamespaceTransformer
+        metadata:
+          name: notImportantHere
+          namespace: monitoring
+      - apiVersion: builtin
+        kind: PatchTransformer
+        metadata:
+          name: notImportantHere
+        patch: |-
+          - op: add
+            path: /spec/ipFamilyPolicy
+            value: RequireDualStack
+        target:
+          kind: Service
+          name: signoz-otel-collector
+  - name: signoz-route
+    namespace: monitoring
+    chart: ./signoz-route
     inherit:
       - template: default
   - name: httpbun

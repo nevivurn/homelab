@@ -1,0 +1,24 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: signoz
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateway
+      name: gateway
+  hostnames:
+    - signoz.c20.k8s.nevi.network
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: signoz
+          namespace: monitoring
+          port: 8080
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

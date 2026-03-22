@@ -15,5 +15,45 @@ collectors:
         effect: NoSchedule
     config:
       exporters:
-        debug:
-          verbosity: detailed
+        otlp:
+          endpoint: otlp.c20.k8s.nevi.network:4317
+          tls:
+            insecure: true
+      processors:
+        resource/cluster:
+          attributes:
+            - key: k8s.cluster.name
+              value: unknown
+              action: upsert
+      service:
+        pipelines:
+          traces:
+            receivers:
+              - otlp
+            processors:
+              - resourcedetection/env
+              - resource/hostname
+              - resource/cluster
+              - batch
+            exporters:
+              - otlp
+          metrics:
+            receivers:
+              - otlp
+            processors:
+              - resourcedetection/env
+              - resource/hostname
+              - resource/cluster
+              - batch
+            exporters:
+              - otlp
+          logs:
+            receivers:
+              - otlp
+            processors:
+              - resourcedetection/env
+              - resource/hostname
+              - resource/cluster
+              - batch
+            exporters:
+              - otlp

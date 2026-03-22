@@ -1,0 +1,16 @@
+clickhouse:
+  persistence:
+    enabled: false
+  zookeeper:
+    persistence:
+      enabled: false
+
+signoz:
+  persistence:
+    enabled: false
+
+otelCollector:
+  service:
+    type: LoadBalancer
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: otlp.c20.k8s.nevi.network

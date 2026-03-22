@@ -5,9 +5,13 @@ metadata:
   name: c20
 spec:
   clusterName: c20
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels: null
+  rollout:
+    strategy:
+      rollingUpdate:
+        maxSurge: 100%
   template:
     spec:
       clusterName: c20
@@ -19,7 +23,7 @@ spec:
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: ProxmoxMachineTemplate
-        name: c20-1-12-6
+        name: c20-1-12-6-full
       version: v1.35.2
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
@@ -86,12 +90,14 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-1-12-6
+  name: c20-1-12-6-full
 spec:
   template:
     spec:
       checks:
         skipCloudInitStatus: true
+      numCores: 4
+      memoryMiB: 4096
       disks:
         bootVolume:
           disk: virtio0
