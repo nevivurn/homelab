@@ -52,8 +52,3 @@ releases:
     chart: ./cluster-ca
     inherit:
       - template: default
-  - name: node-feature-discovery
-    namespace: node-feature-discovery
-    chart: oci://registry.k8s.io/nfd/charts/node-feature-discovery
-    inherit:
-      - template: default

@@ -6,9 +6,6 @@ namespaces:
   external-dns:
   monitoring:
   metrics-server:
-  node-feature-discovery:
-    labels:
-      pod-security.kubernetes.io/enforce: privileged
 
 cilium:
   enabled: true
@@ -55,10 +52,6 @@ gateway:
 metrics-server:
   enabled: true
   version: 3.13.0
-
-node-feature-discovery:
-  enabled: true
-  version: 0.18.3
 
 cluster-ca:
   enabled: true
