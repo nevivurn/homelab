@@ -5,6 +5,10 @@ namespaces:
   gateway:
   external-dns:
   monitoring:
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
+      pod-security.kubernetes.io/warn: privileged
+      pod-security.kubernetes.io/audit: privileged
   metrics-server:
 
 cilium:
@@ -55,6 +59,10 @@ metrics-server:
 
 cluster-ca:
   enabled: true
+
+opentelemetry-kube-stack:
+  enabled: true
+  version: 0.14.8
 
 cloudflare-tunnel:
   enabled: false

@@ -4,3 +4,9 @@ image:
 cloudflare:
   tunnelName: ba698f8c-11dc-4720-b5d2-07bff69d04f9
   secretName: cloudflare-tunnel-secret
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65532
+  seccompProfile:
+    type: RuntimeDefault

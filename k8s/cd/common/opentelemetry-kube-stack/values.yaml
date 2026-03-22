@@ -1,0 +1,19 @@
+crds:
+  installPrometheus: false
+
+cleanupJob:
+  enabled: false
+
+collectors:
+  daemon:
+    scrape_configs_file: ""
+    presets:
+      logsCollection:
+        includeCollectorLogs: false
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+    config:
+      exporters:
+        debug:
+          verbosity: detailed
