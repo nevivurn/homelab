@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-ca
+spec:
+  isCA: true
+  commonName: cluster-ca
+  secretName: cluster-ca
+  duration: 87600h
+  privateKey:
+    algorithm: Ed25519
+  issuerRef:
+    name: cluster-ca-selfsigned
+    kind: ClusterIssuer
+    group: cert-manager.io

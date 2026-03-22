@@ -4,6 +4,8 @@ provider:
 policy: sync
 
 extraArgs:
+  - --gateway-name=gateway
+  - --gateway-namespace=gateway
   - --pdns-server=https://api.inf.nevi.network/pdns
   - --pdns-api-key=invalid
   - --tls-ca=/secrets/tls/ca.crt

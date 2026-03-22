@@ -2,8 +2,8 @@
 templates:
   default:
     missingFileHandler: Debug
-    installedTemplate: '{{`{{ index .Environment.Values .Release.Name "enabled" }}`}}'
-    version: '{{`{{ index .Environment.Values .Release.Name "version" | default "" }}`}}'
+    installedTemplate: '{{`{{ index .StateValues .Release.Name "enabled" }}`}}'
+    version: '{{`{{ index .StateValues .Release.Name "version" | default "" }}`}}'
     values:
       - "{{`{{ .Release.Name }}`}}/values.yaml"
       - "{{`{{ .Release.Name }}`}}/values-{{`{{ .Environment.Name }}`}}.yaml"
@@ -15,10 +15,6 @@ repositories:
     url: https://kubernetes-sigs.github.io/metrics-server
 
 releases:
-  - name: envoy-gateway-crds
-    chart: oci://docker.io/envoyproxy/gateway-crds-helm
-    inherit:
-      - template: default
   - name: envoy-gateway
     namespace: envoy-gateway-system
     chart: oci://docker.io/envoyproxy/gateway-helm
@@ -49,5 +45,15 @@ releases:
   - name: metrics-server
     namespace: metrics-server
     chart: metrics-server/metrics-server
+    inherit:
+      - template: default
+  - name: cluster-ca
+    namespace: cert-manager
+    chart: ./cluster-ca
+    inherit:
+      - template: default
+  - name: node-feature-discovery
+    namespace: node-feature-discovery
+    chart: oci://registry.k8s.io/nfd/charts/node-feature-discovery
     inherit:
       - template: default

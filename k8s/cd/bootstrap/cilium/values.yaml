@@ -53,10 +53,24 @@ bgpControlPlane:
   enabled: true
 
 hubble:
-  enabled: false
+  enabled: true
+  relay:
+    enabled: true
+  tls:
+    auto:
+      enabled: true
+      method: certmanager
+      certManagerIssuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: cluster-ca
 
 operator:
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
     maxUnavailable: null
+
+encryption:
+  enabled: true
+  type: wireguard

@@ -1,3 +1,5 @@
 configs:
   params:
     server.insecure: "true"
+  secret:
+    githubSecret: $argocd-webhook-secret:webhook.github.secret

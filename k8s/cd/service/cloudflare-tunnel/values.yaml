@@ -1,0 +1,6 @@
+image:
+  tag: 2026.3.0
+
+cloudflare:
+  tunnelName: ba698f8c-11dc-4720-b5d2-07bff69d04f9
+  secretName: cloudflare-tunnel-secret

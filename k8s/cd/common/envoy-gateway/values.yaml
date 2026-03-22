@@ -1,1 +1,6 @@
 nameOverride: envoy-gateway
+
+config:
+  envoyGateway:
+    extensionApis:
+      enableBackend: true

@@ -4,7 +4,11 @@ namespaces:
   cert-manager:
   gateway:
   external-dns:
+  monitoring:
   metrics-server:
+  node-feature-discovery:
+    labels:
+      pod-security.kubernetes.io/enforce: privileged
 
 cilium:
   enabled: true
@@ -31,9 +35,6 @@ coredns:
 argocd-bootstrap:
   enabled: true
 
-envoy-gateway-crds:
-  enabled: true
-  version: v1.7.1
 envoy-gateway:
   enabled: true
   version: v1.7.1
@@ -54,3 +55,18 @@ gateway:
 metrics-server:
   enabled: true
   version: 3.13.0
+
+node-feature-discovery:
+  enabled: true
+  version: 0.18.3
+
+cluster-ca:
+  enabled: true
+
+cloudflare-tunnel:
+  enabled: false
+  version: 0.3.2 # app version separate
+cloudflare-tunnel-policy:
+  enabled: false
+cloudflare-gateway:
+  enabled: false

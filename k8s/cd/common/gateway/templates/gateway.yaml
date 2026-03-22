@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   name: gateway
 spec:
+  mergeGateways: true
   ipFamily: DualStack
   provider:
     type: Kubernetes

@@ -13,6 +13,8 @@ environments:
       - environments/default.yaml
       - environments/c30.yaml
 ---
+helmDefaults:
+  skipDeps: true
 helmfiles:
   - path: bootstrap/helmfile.yaml.gotmpl
     values:

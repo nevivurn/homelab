@@ -6,9 +6,11 @@
 
   ansible,
   ansible-lint,
+  cilium-cli,
   clusterctl,
   golangci-lint,
   helmfile,
+  hubble,
   kubernetes-helm,
   kubernetes-helmPlugins,
   kustomize,
@@ -39,9 +41,11 @@ mkShell {
   packages = [
     ansible
     ansible-lint
+    cilium-cli
     clusterctl
     golangci-lint
     helmfile'
+    hubble
     kustomize
     sops
     talhelper

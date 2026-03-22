@@ -2,13 +2,38 @@
 templates:
   default:
     missingFileHandler: Debug
-    installedTemplate: '{{`{{ index .Environment.Values .Release.Name "enabled" }}`}}'
-    version: '{{`{{ index .Environment.Values .Release.Name "version" | default "" }}`}}'
+    installedTemplate: '{{`{{ index .StateValues .Release.Name "enabled" }}`}}'
+    version: '{{`{{ index .StateValues .Release.Name "version" | default "" }}`}}'
     values:
       - "{{`{{ .Release.Name }}`}}/values.yaml"
       - "{{`{{ .Release.Name }}`}}/values-{{`{{ .Environment.Name }}`}}.yaml"
 
+repositories:
+  - name: cloudflare
+    url: https://cloudflare.github.io/helm-charts
+
 releases:
+  - name: cloudflare-tunnel
+    namespace: cloudflare-tunnel
+    chart: cloudflare/cloudflare-tunnel
+    inherit:
+      - template: default
+    transformers:
+      - apiVersion: builtin
+        kind: NamespaceTransformer
+        metadata:
+          name: notImportantHere
+          namespace: cloudflare-tunnel
+  - name: cloudflare-tunnel-policy
+    namespace: cloudflare-tunnel
+    chart: ./cloudflare-tunnel-policy
+    inherit:
+      - template: default
+  - name: cloudflare-gateway
+    namespace: cloudflare-tunnel
+    chart: ./cloudflare-gateway
+    inherit:
+      - template: default
   - name: httpbun
     namespace: httpbun
     chart: ./httpbun/{{ .Environment.Name }}

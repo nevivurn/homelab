@@ -1,5 +1,6 @@
 namespaces:
   httpbun:
+  cloudflare-tunnel:
 
 cilium-bgp:
   values:
@@ -10,6 +11,13 @@ gateway:
   values:
     dnsNames:
       - "*.c30.k8s.nevi.network"
+
+cloudflare-tunnel:
+  enabled: true
+cloudflare-tunnel-policy:
+  enabled: true
+cloudflare-gateway:
+  enabled: true
 
 httpbun:
   enabled: true

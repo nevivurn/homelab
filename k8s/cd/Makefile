@@ -1,15 +1,16 @@
 CLUSTERS := capi c20 c30
 
 .PHONY: all
-all: clean generate
+all: generate
 
 .PHONY: generate
 generate: $(CLUSTERS)
+	cd homelab-cd; nix run
 
 .PHONY: clean
 clean:
 	rm -rf homelab-cd/manifests
 
 .PHONY: $(CLUSTERS)
-$(CLUSTERS):
-	helmfile template -e $@ --output-dir $$(pwd)/homelab-cd/manifests/$@ --output-dir-template '{{ .OutputDir }}/{{ .Release.Name }}'
+$(CLUSTERS): clean
+	helmfile template --include-crds -e $@ --output-dir $$(pwd)/homelab-cd/manifests/$@ --output-dir-template '{{ .OutputDir }}/{{ .Release.Name }}'
