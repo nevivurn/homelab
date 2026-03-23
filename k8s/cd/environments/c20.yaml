@@ -1,6 +1,4 @@
-namespaces:
-  httpbun:
-  cloudflare-tunnel:
+namespaces: {}
 
 cilium-bgp:
   values:
@@ -15,14 +13,4 @@ gateway:
 signoz:
   enabled: true
 signoz-route:
-  enabled: true
-
-cloudflare-tunnel:
-  enabled: true
-cloudflare-tunnel-policy:
-  enabled: true
-cloudflare-gateway:
-  enabled: true
-
-httpbun:
   enabled: true

@@ -13,11 +13,11 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.19.1
+  version: 1.19.2
 
 cilium-preflight:
   enabled: false
-  version: 1.19.1
+  version: 1.19.2
 
 cilium-bgp:
   enabled: true
@@ -76,4 +76,7 @@ cloudflare-tunnel:
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
+  enabled: false
+
+httpbun:
   enabled: false
