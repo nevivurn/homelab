@@ -205,9 +205,10 @@ root:
       CNAME: [athebyne.nevi.network.]
     matrix:
       CNAME: [athebyne.nevi.network.]
-    # public zone
+    # re-delegate to public zones
     # NOTE(nevivurn): this breaks DNSSEC only for the public zone...
     # Resolving the public zone is _less_ safe when done from my network vs.
     # from outside.
-    pub:
+    pub: &pub-ns
       NS: [mark.ns.cloudflare.com., mira.ns.cloudflare.com.]
+    hooks: *pub-ns

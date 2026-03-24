@@ -58,6 +58,58 @@ releases:
         target:
           kind: Service
           name: signoz-otel-collector
+      - apiVersion: builtin
+        kind: PatchTransformer
+        metadata:
+          name: notImportantHere2
+        patch: |-
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: signoz-clickhouse-operator
+          spec:
+            template:
+              spec:
+                containers:
+                  - name: operator
+                    env:
+                      - name: OPERATOR_CONTAINER_CPU_REQUEST
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                      - name: OPERATOR_CONTAINER_CPU_LIMIT
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                      - name: OPERATOR_CONTAINER_MEM_REQUEST
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                      - name: OPERATOR_CONTAINER_MEM_LIMIT
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                  - name: metrics-exporter
+                    env:
+                      - name: OPERATOR_CONTAINER_CPU_REQUEST
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                      - name: OPERATOR_CONTAINER_CPU_LIMIT
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                      - name: OPERATOR_CONTAINER_MEM_REQUEST
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+                      - name: OPERATOR_CONTAINER_MEM_LIMIT
+                        valueFrom:
+                          resourceFieldRef:
+                            divisor: '0'
+        target:
+          kind: Deployment
+          name: signoz-clickhouse-operator
   - name: signoz-route
     namespace: monitoring
     chart: ./signoz-route
