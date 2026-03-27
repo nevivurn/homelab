@@ -1,11 +1,21 @@
 ---
+templates:
+  default:
+    missingFileHandler: Debug
+    installedTemplate: '{{`{{ index .StateValues .Release.Name "enabled" }}`}}'
+    version: '{{`{{ index .StateValues .Release.Name "version" | default "" }}`}}'
+    values:
+      - "{{`{{ .Release.Name }}`}}/values.yaml"
+      - "{{`{{ .Release.Name }}`}}/values-{{`{{ .Environment.Name }}`}}.yaml"
+
 releases:
   - name: argocd
     namespace: argocd
     chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
-    version: 9.4.15
-    values:
-      - argocd/values.yaml
+    inherit:
+      - template: default
   - name: argocd-routes
     namespace: argocd
     chart: ./argocd-routes
+    inherit:
+      - template: default

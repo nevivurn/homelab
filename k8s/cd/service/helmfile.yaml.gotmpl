@@ -20,6 +20,9 @@ releases:
     chart: cloudflare/cloudflare-tunnel
     inherit:
       - template: default
+    set:
+      - name: image.tag
+        value: '{{ index .StateValues "cloudflare-tunnel" "imageTag" }}'
     transformers:
       - apiVersion: builtin
         kind: NamespaceTransformer
@@ -113,6 +116,11 @@ releases:
   - name: signoz-route
     namespace: monitoring
     chart: ./signoz-route
+    inherit:
+      - template: default
+  - name: tpeap-cert
+    namespace: tpeap
+    chart: ./tpeap-cert
     inherit:
       - template: default
   - name: httpbun

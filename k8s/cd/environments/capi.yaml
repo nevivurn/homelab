@@ -12,6 +12,11 @@ talos-ccm-pdb:
 cert-manager:
   enabled: false
 
+argocd:
+  enabled: true
+argocd-routes:
+  enabled: true
+
 gateway:
   values:
     dnsNames:

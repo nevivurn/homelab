@@ -33,6 +33,12 @@ coredns:
   enabled: true
   version: 1.45.2
 
+argocd:
+  enabled: false
+  version: 9.4.15
+argocd-routes:
+  enabled: false
+
 argocd-bootstrap:
   enabled: true
 
@@ -72,10 +78,14 @@ signoz-route:
 
 cloudflare-tunnel:
   enabled: false
-  version: 0.3.2 # app version separate
+  version: 0.3.2
+  imageTag: 2026.3.0
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
+  enabled: false
+
+tpeap-cert:
   enabled: false
 
 httpbun:

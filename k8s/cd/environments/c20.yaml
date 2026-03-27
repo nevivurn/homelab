@@ -1,4 +1,5 @@
-namespaces: {}
+namespaces:
+  tpeap:
 
 cilium-bgp:
   values:
@@ -9,6 +10,9 @@ gateway:
   values:
     dnsNames:
       - "*.c20.k8s.nevi.network"
+
+tpeap-cert:
+  enabled: true
 
 signoz:
   enabled: true
