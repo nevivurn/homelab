@@ -8,6 +8,7 @@
   ansible-lint,
   cilium-cli,
   clusterctl,
+  gh,
   golangci-lint,
   helmfile,
   hubble,
@@ -17,6 +18,7 @@
   opentofu,
   python3,
   python3Packages,
+  skopeo,
   sops,
   talhelper,
   talosctl,
@@ -43,10 +45,12 @@ mkShell {
     ansible-lint
     cilium-cli
     clusterctl
+    gh
     golangci-lint
     helmfile'
     hubble
     kustomize
+    skopeo
     sops
     talhelper
     talosctl
