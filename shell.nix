@@ -8,6 +8,7 @@
   ansible-lint,
   cilium-cli,
   clusterctl,
+  crane,
   gh,
   golangci-lint,
   helmfile,
@@ -18,11 +19,11 @@
   opentofu,
   python3,
   python3Packages,
-  skopeo,
   sops,
   talhelper,
   talosctl,
   wrapHelm,
+  yq-go,
 }:
 
 let
@@ -45,15 +46,16 @@ mkShell {
     ansible-lint
     cilium-cli
     clusterctl
+    crane
     gh
     golangci-lint
     helmfile'
     hubble
     kustomize
-    skopeo
     sops
     talhelper
     talosctl
+    yq-go
 
     (opentofu.withPlugins (ps: with ps; [ infra ]))
 
