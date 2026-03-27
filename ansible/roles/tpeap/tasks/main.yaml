@@ -21,6 +21,13 @@
     group: tpeap
     mode: "0o755"
 
+- name: Install iptables-persistent
+  ansible.builtin.apt:
+    name: iptables-persistent
+    state: present
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+
 - name: Redirect port 443 to 8043
   ansible.builtin.iptables:
     table: nat
@@ -30,6 +37,11 @@
     jump: DNAT
     to_destination: ":8043"
     state: present
+  register: iptables_result
+
+- name: Save iptables rules
+  ansible.builtin.command: netfilter-persistent save
+  when: iptables_result.changed
 
 - name: Copy tpeap pod manifest
   ansible.builtin.template:
