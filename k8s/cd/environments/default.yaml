@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.4.15
+  version: 9.4.17
 argocd-routes:
   enabled: false
 
@@ -48,7 +48,7 @@ envoy-gateway:
 
 cert-manager:
   enabled: true
-  version: v1.20.0
+  version: v1.20.1
 
 external-dns:
   enabled: true
@@ -68,11 +68,11 @@ cluster-ca:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.14.8
+  version: 0.14.9
 
 signoz:
   enabled: false
-  version: "0.116.2"
+  version: 0.117.1
 signoz-route:
   enabled: false
 
