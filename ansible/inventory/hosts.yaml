@@ -80,7 +80,6 @@ kubelet:
           - eth1
           - eth10
           - eth11
-          - eth30
       hosts:
         relay01.home.nevi.network:
           dhcrelay_v4: 10.64.20.4
