@@ -128,6 +128,12 @@ in
             protocol = "tcp";
             destination.port = "8006";
           };
+          "221" = {
+            # allow node-exporter
+            action = "accept";
+            protocol = "tcp";
+            destination.port = "9100";
+          };
           "230" = {
             # allow NTP, currently relying on pve01.mgmt for NTP root
             action = "accept";
