@@ -1,5 +1,6 @@
 interfaces ethernet eth0 hw-id
 interfaces ethernet eth0 vif 99 dhcp-options
+interfaces tunnel * source-address
 interfaces wireguard * peer * preshared-key
 interfaces wireguard * private-key
 service dns dynamic name * password

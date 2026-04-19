@@ -94,8 +94,14 @@ in
       parameters.router-id = routerId;
 
       address-family = {
-        ipv4-unicast.redistribute.connected.route-map = "REDISTRIBUTE-INTERNAL";
-        ipv6-unicast.redistribute.connected.route-map = "REDISTRIBUTE-INTERNAL";
+        ipv4-unicast.redistribute = {
+          connected.route-map = "REDISTRIBUTE-INTERNAL";
+          static.route-map = "REDISTRIBUTE-INTERNAL";
+        };
+        ipv6-unicast.redistribute = {
+          connected.route-map = "REDISTRIBUTE-INTERNAL";
+          static.route-map = "REDISTRIBUTE-INTERNAL";
+        };
       };
 
       neighbor.${peerAddr} = {

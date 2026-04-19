@@ -24,7 +24,8 @@
     };
     WAN-INFRA.rules."310" = {
       action = "accept";
-      connection-status.nat = "destination";
+      protocol = "tcp_udp";
+      destination.port = "5555";
       ipv4.destination.address = "10.64.20.20";
       ipv6.destination.address = "fdbc:ba6a:38de:20::20";
     };

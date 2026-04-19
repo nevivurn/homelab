@@ -4,11 +4,22 @@
 }:
 
 {
-  vyosConfig.service.dns.dynamic.name.PUBLIC = {
-    address.interface = "eth0.99";
-    host-name = if config.primary then "rtr01.pub.nevi.network" else "rtr02.pub.nevi.network";
-    ip-version = "both";
-    protocol = "cloudflare";
-    zone = "nevi.network";
-  };
+  vyosConfig.service.dns.dynamic.name =
+    let
+      cfg = {
+        host-name = if config.primary then "rtr01.nevi.ing" else "rtr02.nevi.ing";
+        protocol = "cloudflare";
+        zone = "nevi.ing";
+      };
+    in
+    {
+      PUBLIC4 = cfg // {
+        address.interface = "eth0.99";
+        ip-version = "ipv4";
+      };
+      PUBLIC6 = cfg // {
+        address.interface = "tun99";
+        ip-version = "ipv6";
+      };
+    };
 }
