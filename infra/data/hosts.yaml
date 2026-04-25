@@ -140,7 +140,7 @@ k8s:
     capi:
       ipv4: 10.64.30.10
       ipv6: fdbc:ba6a:38de:30::10
-      hw_address: bc:24:11:c9:60:53
+      hw_address: bc:24:11:e0:9f:f8
     c20: # LB for 21..24
       ipv4: 10.64.30.20
       ipv6: fdbc:ba6a:38de:30::20
@@ -205,10 +205,3 @@ root:
       CNAME: [athebyne.nevi.network.]
     matrix:
       CNAME: [athebyne.nevi.network.]
-    # re-delegate to public zones
-    # NOTE(nevivurn): this breaks DNSSEC only for the public zone...
-    # Resolving the public zone is _less_ safe when done from my network vs.
-    # from outside.
-    pub: &pub-ns
-      NS: [mark.ns.cloudflare.com., mira.ns.cloudflare.com.]
-    hooks: *pub-ns
