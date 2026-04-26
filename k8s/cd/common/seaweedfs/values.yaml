@@ -51,6 +51,15 @@ filer:
 s3:
   replicas: 2
   enabled: true
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "seaweedfs.name" . }}
+              app.kubernetes.io/instance: {{ .Release.Name }}
+              app.kubernetes.io/component: s3
+          topologyKey: kubernetes.io/hostname
   resources:
     requests:
       cpu: 200m

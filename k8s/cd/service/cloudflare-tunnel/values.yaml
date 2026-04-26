@@ -2,6 +2,15 @@ cloudflare:
   tunnelName: f88b6f8d-6d2f-40d1-9dfb-71126b42e081
   secretName: cloudflare-tunnel-secret
 
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: cloudflare-tunnel
+            app.kubernetes.io/instance: cloudflare-tunnel
+        topologyKey: kubernetes.io/hostname
+
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 65532
