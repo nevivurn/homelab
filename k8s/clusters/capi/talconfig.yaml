@@ -106,6 +106,7 @@ patches:
           forwardKubeDNSToHost: false
       kubelet:
         extraArgs:
+          cloud-provider: external
           rotate-server-certificates: true
 
 nodes:
