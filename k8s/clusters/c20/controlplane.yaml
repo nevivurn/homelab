@@ -22,7 +22,7 @@ kind: TalosControlPlane
 metadata:
   name: c20-cp
 spec:
-  version: v1.35.2
+  version: v1.35.3
   replicas: 3
   controlPlaneConfig:
     controlplane:
@@ -99,6 +99,11 @@ spec:
               extraArgs:
                 node-cidr-mask-size-ipv4: 24
                 node-cidr-mask-size-ipv6: 96
+            apiServer:
+              resources:
+                requests:
+                  cpu: 200m
+                  memory: 1Gi
           machine:
             features:
               hostDNS:
@@ -107,16 +112,16 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.12.6
+      talosVersion: v1.12.7
   infrastructureTemplate:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
     kind: ProxmoxMachineTemplate
-    name: c20-cp-1-12-6
+    name: c20-cp-0
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-cp-1-12-6
+  name: c20-cp-0
 spec:
   template:
     spec:
@@ -126,24 +131,23 @@ spec:
       disks:
         bootVolume:
           disk: virtio0
-          sizeGb: 100
+          sizeGb: 20
       network:
-        default:
-          bridge: vmbr0
-          model: virtio
-          vlan: 30
-          ipv4PoolRef:
-            apiGroup: ipam.cluster.x-k8s.io
-            kind: InClusterIPPool
-            name: c20-cp-v4
-          ipv6PoolRef:
-            apiGroup: ipam.cluster.x-k8s.io
-            kind: InClusterIPPool
-            name: c20-cp-v6
+        networkDevices:
+          - bridge: vmbr0
+            model: virtio
+            vlan: 30
+            ipPoolRef:
+              - apiGroup: ipam.cluster.x-k8s.io
+                kind: InClusterIPPool
+                name: c20-cp-v4
+              - apiGroup: ipam.cluster.x-k8s.io
+                kind: InClusterIPPool
+                name: c20-cp-v6
       sourceNode: pve01
-      templateID: 298
+      templateID: 302
       vmIDRange:
-        start: 300
+        start: 310
         end: 399
       metadataSettings:
         providerIDInjection: true

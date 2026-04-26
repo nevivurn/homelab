@@ -13,7 +13,7 @@ spec:
     kind: ProxmoxCluster
     name: c20-pve
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxCluster
 metadata:
   name: c20-pve
@@ -25,11 +25,11 @@ spec:
     - 10.64.20.4
     - 10.64.20.5
   ipv4Config:
-    addresses: [10.64.30.101-10.64.30.109]
+    addresses: [10.64.30.101-10.64.30.199]
     prefix: 24
     gateway: 10.64.30.1
   ipv6Config:
-    addresses: [fdbc:ba6a:38de:30::101-fdbc:ba6a:38de:30::109]
+    addresses: [fdbc:ba6a:38de:30::101-fdbc:ba6a:38de:30::199]
     prefix: 64
     gateway: fdbc:ba6a:38de:30::1
   credentialsRef:

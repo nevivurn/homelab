@@ -2,7 +2,7 @@
 apiVersion: cluster.x-k8s.io/v1beta2
 kind: MachineDeployment
 metadata:
-  name: c20
+  name: c20-disk
 spec:
   clusterName: c20
   replicas: 3
@@ -19,17 +19,17 @@ spec:
         configRef:
           apiGroup: bootstrap.cluster.x-k8s.io
           kind: TalosConfigTemplate
-          name: c20-1-12-6
+          name: c20-disk-1
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: ProxmoxMachineTemplate
-        name: c20-1-12-6-full
-      version: v1.35.2
+        name: c20-disk-1
+      version: v1.35.3
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
 kind: TalosConfigTemplate
 metadata:
-  name: c20-1-12-6
+  name: c20-disk-1
 spec:
   template:
     spec:
@@ -71,6 +71,28 @@ spec:
                 tpm: {}
                 lockToState: true
         - |
+          # zfs disk config
+          ---
+          apiVersion: v1alpha1
+          kind: RawVolumeConfig
+          name: openebs-disk
+          provisioning:
+            diskSelector:
+              match: "!system_disk"
+            minSize: 30GiB
+          encryption:
+            provider: luks2
+            keys:
+              - slot: 0
+                tpm: {}
+          ---
+          machine:
+            kernel:
+              modules:
+                - name: zfs
+            nodeLabels:
+              nevi.network/storage: zfs
+        - |
           machine:
             kubelet:
               extraArgs:
@@ -85,12 +107,12 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.12.6
+      talosVersion: v1.12.7
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-1-12-6-full
+  name: c20-disk-1
 spec:
   template:
     spec:
@@ -101,14 +123,14 @@ spec:
       disks:
         bootVolume:
           disk: virtio0
-          sizeGb: 100
+          sizeGb: 20
       network:
-        default:
-          bridge: vmbr0
-          model: virtio
-          vlan: 30
+        networkDevices:
+          - bridge: vmbr0
+            model: virtio
+            vlan: 30
       sourceNode: pve01
-      templateID: 298
+      templateID: 306
       vmIDRange:
         start: 300
         end: 399
