@@ -11,6 +11,8 @@ master:
       memory: 256Mi
     limits:
       memory: 256Mi
+  extraEnvironmentVars:
+    GOMEMLIMIT: 200MiB
   data:
     type: "persistentVolumeClaim"
     storageClass: openebs-zfs
@@ -23,9 +25,11 @@ volume:
   resources:
     requests:
       cpu: 200m
-      memory: 256Mi
+      memory: 1Gi
     limits:
-      memory: 256Mi
+      memory: 1Gi
+  extraEnvironmentVars:
+    GOMEMLIMIT: 900MiB
   dataDirs:
     - name: data
       type: "persistentVolumeClaim"
@@ -41,6 +45,8 @@ filer:
       memory: 256Mi
     limits:
       memory: 256Mi
+  extraEnvironmentVars:
+    GOMEMLIMIT: 200MiB
   data:
     type: "persistentVolumeClaim"
     storageClass: openebs-zfs
@@ -63,9 +69,11 @@ s3:
   resources:
     requests:
       cpu: 200m
-      memory: 256Mi
+      memory: 1Gi
     limits:
-      memory: 256Mi
+      memory: 1Gi
+  extraEnvironmentVars:
+    GOMEMLIMIT: 900MiB
   logs:
     type: "emptyDir"
 
@@ -77,6 +85,10 @@ admin:
       memory: 128Mi
     limits:
       memory: 128Mi
+  extraEnvironmentVars:
+    GOMEMLIMIT: 100MiB
 
 worker:
   enabled: true
+  extraEnvironmentVars:
+    GOMEMLIMIT: 200MiB
