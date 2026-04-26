@@ -15,45 +15,63 @@ collectors:
         effect: NoSchedule
     config:
       exporters:
+        debug: {}
         otlp:
           endpoint: otlp.c20.k8s.nevi.network:4317
           tls:
             insecure: true
+      extensions:
+        health_check: {}
       processors:
+        memory_limiter:
+          check_interval: 1s
+          limit_percentage: 80
+          spike_limit_percentage: 20
         resource/cluster:
           attributes:
             - key: k8s.cluster.name
               value: unknown
               action: upsert
       service:
+        extensions:
+          - health_check
         pipelines:
           traces:
             receivers:
               - otlp
             processors:
+              - memory_limiter
+              - k8sattributes
               - resourcedetection/env
               - resource/hostname
               - resource/cluster
               - batch
             exporters:
               - otlp
+              - debug
           metrics:
             receivers:
               - otlp
             processors:
+              - memory_limiter
+              - k8sattributes
               - resourcedetection/env
               - resource/hostname
               - resource/cluster
               - batch
             exporters:
               - otlp
+              - debug
           logs:
             receivers:
               - otlp
             processors:
+              - memory_limiter
+              - k8sattributes
               - resourcedetection/env
               - resource/hostname
               - resource/cluster
               - batch
             exporters:
               - otlp
+              - debug
