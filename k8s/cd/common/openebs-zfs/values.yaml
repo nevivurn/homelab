@@ -1,0 +1,4 @@
+zfsNode:
+  nodeSelector:
+    nevi.network/storage: zfs
+  encrKeysDir: /var/lib/openebs/keys

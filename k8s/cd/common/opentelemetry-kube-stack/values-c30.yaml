@@ -1,9 +1,0 @@
-collectors:
-  daemon:
-    config:
-      processors:
-        resource/cluster:
-          attributes:
-            - key: k8s.cluster.name
-              value: c30
-              action: upsert

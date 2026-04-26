@@ -11,8 +11,6 @@ templates:
 repositories:
   - name: cloudflare
     url: https://cloudflare.github.io/helm-charts
-  - name: signoz
-    url: https://charts.signoz.io
 
 releases:
   - name: cloudflare-tunnel
@@ -39,92 +37,8 @@ releases:
     chart: ./cloudflare-gateway
     inherit:
       - template: default
-  - name: signoz
-    namespace: monitoring
-    chart: signoz/signoz
-    inherit:
-      - template: default
-    transformers:
-      - apiVersion: builtin
-        kind: NamespaceTransformer
-        metadata:
-          name: notImportantHere
-          namespace: monitoring
-      - apiVersion: builtin
-        kind: PatchTransformer
-        metadata:
-          name: notImportantHere
-        patch: |-
-          - op: add
-            path: /spec/ipFamilyPolicy
-            value: RequireDualStack
-        target:
-          kind: Service
-          name: signoz-otel-collector
-      - apiVersion: builtin
-        kind: PatchTransformer
-        metadata:
-          name: notImportantHere2
-        patch: |-
-          apiVersion: apps/v1
-          kind: Deployment
-          metadata:
-            name: signoz-clickhouse-operator
-          spec:
-            template:
-              spec:
-                containers:
-                  - name: operator
-                    env:
-                      - name: OPERATOR_CONTAINER_CPU_REQUEST
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                      - name: OPERATOR_CONTAINER_CPU_LIMIT
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                      - name: OPERATOR_CONTAINER_MEM_REQUEST
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                      - name: OPERATOR_CONTAINER_MEM_LIMIT
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                  - name: metrics-exporter
-                    env:
-                      - name: OPERATOR_CONTAINER_CPU_REQUEST
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                      - name: OPERATOR_CONTAINER_CPU_LIMIT
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                      - name: OPERATOR_CONTAINER_MEM_REQUEST
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-                      - name: OPERATOR_CONTAINER_MEM_LIMIT
-                        valueFrom:
-                          resourceFieldRef:
-                            divisor: '0'
-        target:
-          kind: Deployment
-          name: signoz-clickhouse-operator
-  - name: signoz-route
-    namespace: monitoring
-    chart: ./signoz-route
-    inherit:
-      - template: default
   - name: tpeap-cert
     namespace: tpeap
     chart: ./tpeap-cert
-    inherit:
-      - template: default
-  - name: httpbun
-    namespace: httpbun
-    chart: ./httpbun/{{ .Environment.Name }}
     inherit:
       - template: default

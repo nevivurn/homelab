@@ -74,3 +74,8 @@ operator:
 encryption:
   enabled: true
   type: wireguard
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi

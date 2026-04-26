@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: zfs-pool-init
+spec:
+  selector:
+    matchLabels:
+      app: zfs-pool-init
+  template:
+    metadata:
+      labels:
+        app: zfs-pool-init
+    spec:
+      hostPID: true
+      nodeSelector:
+        nevi.network/storage: zfs
+      initContainers:
+        - name: zfs-pool-init
+          image: busybox:stable
+          command:
+            - /bin/sh
+            - -c
+            - |
+              if nsenter -t 1 -m -- zpool list dpool 2>/dev/null; then
+                echo "pool dpool already imported"
+              elif nsenter -t 1 -m -- zpool import dpool 2>/dev/null; then
+                echo "pool dpool imported"
+              else
+                nsenter -t 1 -m -- zpool create \
+                  -o autotrim=on -o ashift=12 \
+                  -O atime=off -O acltype=posix -O xattr=sa \
+                  -O compression=zstd -O dnodesize=auto \
+                  -O mountpoint=none -O normalization=formD \
+                  dpool /dev/mapper/luks2-r-openebs-disk
+              fi
+          securityContext:
+            privileged: true
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10.2

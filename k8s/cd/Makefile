@@ -1,4 +1,4 @@
-CLUSTERS := capi c20 c30
+CLUSTERS := capi c20
 
 .PHONY: all
 all: generate

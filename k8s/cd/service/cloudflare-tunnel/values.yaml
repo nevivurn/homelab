@@ -1,5 +1,5 @@
 cloudflare:
-  tunnelName: ba698f8c-11dc-4720-b5d2-07bff69d04f9
+  tunnelName: f88b6f8d-6d2f-40d1-9dfb-71126b42e081
   secretName: cloudflare-tunnel-secret
 
 podSecurityContext:

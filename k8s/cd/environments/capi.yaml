@@ -8,10 +8,6 @@ cilium-bgp:
 talos-ccm-pdb:
   enabled: false
 
-# included w/ capi
-cert-manager:
-  enabled: false
-
 argocd:
   enabled: true
 argocd-routes:

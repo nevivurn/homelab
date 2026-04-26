@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - gateway.yaml
   - clienttrafficpolicy.yaml
-  - ok.yaml
   - argocd-webhook.yaml

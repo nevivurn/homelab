@@ -1,0 +1,3 @@
+apiVersion: v2
+name: seaweedfs-policy
+version: 0.1.0

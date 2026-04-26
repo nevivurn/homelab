@@ -57,3 +57,37 @@ releases:
     chart: oci://ghcr.io/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack
     inherit:
       - template: default
+  - name: zfs-init
+    namespace: openebs
+    chart: ./zfs-init
+    inherit:
+      - template: default
+  - name: openebs-zfs
+    namespace: openebs
+    chart: oci://ghcr.io/openebs/charts/zfs-localpv
+    inherit:
+      - template: default
+  - name: seaweedfs
+    namespace: seaweedfs
+    chart: oci://ghcr.io/seaweedfs/seaweedfs
+    inherit:
+      - template: default
+    strategicMergePatches:
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          name: seaweedfs-db-secret
+          namespace: seaweedfs
+        stringData:
+          user: "unused"
+          password: "unused"
+  - name: seaweedfs-pdb
+    namespace: seaweedfs
+    chart: ./seaweedfs-pdb
+    inherit:
+      - template: default
+  - name: seaweedfs-policy
+    namespace: seaweedfs
+    chart: ./seaweedfs-policy
+    inherit:
+      - template: default

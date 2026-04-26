@@ -32,7 +32,7 @@ spec:
       kind: Gateway
       name: cloudflare-gateway
   hostnames:
-    - hooks.nevi.network
+    - hooks.nevi.ing
   rules:
     - matches:
         - path:

@@ -1,4 +1,0 @@
-cloudflare:
-  ingress:
-    - hostname: "*.nevi.network"
-      service: http://gateway.c30.k8s.nevi.network:8080

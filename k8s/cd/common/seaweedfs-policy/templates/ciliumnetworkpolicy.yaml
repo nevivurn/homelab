@@ -1,0 +1,54 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: seaweedfs
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: seaweedfs
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: seaweedfs-admin
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: admin
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: envoy-gateway-system
+            k8s:app.kubernetes.io/name: envoy
+            k8s:app.kubernetes.io/component: proxy
+            k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
+      toPorts:
+        - ports:
+            - port: "23646"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: seaweedfs-s3
+  namespace: {{ .Release.Namespace }}
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: s3
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: envoy-gateway-system
+            k8s:app.kubernetes.io/name: envoy
+            k8s:app.kubernetes.io/component: proxy
+            k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
+      toPorts:
+        - ports:
+            - port: "8333"
+              protocol: TCP
