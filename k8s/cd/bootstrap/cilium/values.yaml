@@ -56,6 +56,10 @@ hubble:
   enabled: true
   relay:
     enabled: true
+    tls:
+      server:
+        enabled: true
+        mtls: true
   tls:
     auto:
       enabled: true
