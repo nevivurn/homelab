@@ -19,17 +19,17 @@ spec:
         configRef:
           apiGroup: bootstrap.cluster.x-k8s.io
           kind: TalosConfigTemplate
-          name: c20-disk-1
+          name: c20-disk-b
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: ProxmoxMachineTemplate
-        name: c20-disk-a
-      version: v1.35.3
+        name: c20-disk-b
+      version: v1.36.0
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
 kind: TalosConfigTemplate
 metadata:
-  name: c20-disk-1
+  name: c20-disk-b
 spec:
   template:
     spec:
@@ -107,12 +107,12 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.12.7
+      talosVersion: v1.13.0
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-disk-a
+  name: c20-disk-b
 spec:
   template:
     spec:
@@ -130,7 +130,7 @@ spec:
             model: virtio
             vlan: 30
       sourceNode: pve01
-      templateID: 306
+      templateID: 304
       vmIDRange:
         start: 300
         end: 399
