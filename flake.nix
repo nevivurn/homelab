@@ -33,6 +33,17 @@
     )
     // {
       overlays.default = final: prev: {
+        talhelper = prev.talhelper.overrideAttrs (
+          finalAttrs: prevAttrs: {
+            version = "3.1.9";
+            src = final.fetchFromGitHub {
+              inherit (prevAttrs.src) owner repo;
+              tag = "v${finalAttrs.version}";
+              hash = "sha256-ocZjtinqZylLjUOovazcCkshg71jjmAIe5a4cKLZ9eo=";
+            };
+            vendorHash = "sha256-PzZxQsX4ynjYJUgEkWm2ceMt8mAFIioNVG9hLejq6ns=";
+          }
+        );
         # custom packages
         terraform-providers = prev.terraform-providers // {
           infra = final.callPackage ./pkgs/terraform-provider-infra { };
