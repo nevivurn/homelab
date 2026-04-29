@@ -33,6 +33,17 @@
     )
     // {
       overlays.default = final: prev: {
+        talosctl = prev.talosctl.overrideAttrs (
+          finalAttrs: prevAttrs: {
+            version = "1.13.0";
+            src = final.fetchFromGitHub {
+              inherit (prevAttrs.src) owner repo;
+              tag = "v${finalAttrs.version}";
+              hash = "sha256-dO4GBDhxsiuNn0lJl8RgFwUVxn34+Uks69Cm5J9zJsg=";
+            };
+            vendorHash = "sha256-489ZbRoB7KhvrKfnfGEAw406zdMrkT/3fcw6LcAtFyo";
+          }
+        );
         talhelper = prev.talhelper.overrideAttrs (
           finalAttrs: prevAttrs: {
             version = "3.1.9";
