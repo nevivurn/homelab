@@ -1,6 +1,6 @@
 clusterName: capi
-talosVersion: v1.12.7
-kubernetesVersion: v1.35.4
+talosVersion: v1.13.0
+kubernetesVersion: v1.36.0
 endpoint: https://capi.k8s.nevi.network:6443
 
 allowSchedulingOnControlPlanes: true
