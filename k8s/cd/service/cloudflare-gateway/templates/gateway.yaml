@@ -16,4 +16,4 @@ spec:
         certificateRefs:
           - group: ""
             kind: Secret
-            name: gateway
+            name: cloudflare-gateway

@@ -21,6 +21,28 @@ releases:
     set:
       - name: image.tag
         value: '{{ index .StateValues "cloudflare-tunnel" "imageTag" }}'
+    strategicMergePatches:
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: cloudflare-tunnel
+        spec:
+          template:
+            spec:
+              volumes:
+                - name: ca
+                  secret:
+                    secretName: cloudflare-gateway
+                    items:
+                      - key: ca.crt
+                        path: ca.crt
+              containers:
+                - name: cloudflare-tunnel
+                  volumeMounts:
+                    - name: ca
+                      mountPath: /etc/cloudflared/ca.crt
+                      subPath: ca.crt
+                      readOnly: true
     transformers:
       - apiVersion: builtin
         kind: NamespaceTransformer

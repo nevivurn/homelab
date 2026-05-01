@@ -2,15 +2,13 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: gateway
+  name: cloudflare-gateway
 spec:
-  secretName: gateway
+  secretName: cloudflare-gateway
   issuerRef:
     kind: ClusterIssuer
-    name: le-prod
+    name: cluster-ca
   dnsNames:
     {{- toYaml .Values.dnsNames | nindent 4 }}
   privateKey:
-    {{- /* le does not support ed25519, and envoy only supports P-256 */}}
-    algorithm: ECDSA
-    size: 256
+    algorithm: Ed25519

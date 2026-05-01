@@ -4,3 +4,4 @@ cloudflare:
       service: https://gateway.c20.k8s.nevi.network:8443
       originRequest:
         http2Origin: true
+        caPool: /etc/cloudflared/ca.crt
