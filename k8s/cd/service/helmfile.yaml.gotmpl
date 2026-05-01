@@ -43,12 +43,12 @@ releases:
     inherit:
       - template: default
   - name: loki
-    namespace: loki
+    namespace: monitoring
     chart: oci://ghcr.io/grafana-community/helm-charts/loki
     inherit:
       - template: default
   - name: loki-routes
-    namespace: loki
+    namespace: monitoring
     chart: ./loki-routes
     inherit:
       - template: default

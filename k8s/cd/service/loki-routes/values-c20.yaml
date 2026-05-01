@@ -1,0 +1,3 @@
+hostnames:
+  - otlp.c20.k8s.nevi.network
+  - otlp.k8s.nevi.network

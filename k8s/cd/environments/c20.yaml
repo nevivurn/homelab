@@ -2,7 +2,6 @@ namespaces:
   cloudflare-tunnel:
   tpeap:
   seaweedfs:
-  loki:
   openebs:
     labels:
       pod-security.kubernetes.io/enforce: privileged
@@ -18,6 +17,7 @@ gateway:
   values:
     dnsNames:
       - "*.c20.k8s.nevi.network"
+      - "*.k8s.nevi.network"
 
 cloudflare-tunnel:
   enabled: true

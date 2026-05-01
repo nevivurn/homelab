@@ -16,8 +16,8 @@ collectors:
     config:
       exporters:
         debug: {}
-        otlphttp/loki:
-          endpoint: https://loki.c20.k8s.nevi.network/otlp
+        otlphttp/logs:
+          endpoint: https://otlp.k8s.nevi.network/logs
       extensions:
         health_check: {}
       processors:
@@ -69,5 +69,4 @@ collectors:
               - resource/cluster
               - batch
             exporters:
-              - otlphttp/loki
-              - debug
+              - otlphttp/logs

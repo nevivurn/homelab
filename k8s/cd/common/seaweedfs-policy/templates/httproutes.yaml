@@ -11,7 +11,7 @@ spec:
       namespace: gateway
       name: gateway
   hostnames:
-    - {{ .Values.adminHostname | quote }}
+    {{- toYaml .Values.adminHostnames | nindent 4 }}
   rules:
     - matches:
         - path:
@@ -36,7 +36,7 @@ spec:
       namespace: gateway
       name: gateway
   hostnames:
-    - {{ .Values.s3Hostname | quote }}
+    {{- toYaml .Values.s3Hostnames | nindent 4 }}
   rules:
     - matches:
         - path:

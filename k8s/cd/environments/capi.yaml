@@ -17,3 +17,4 @@ gateway:
   values:
     dnsNames:
       - "*.capi.k8s.nevi.network"
+      - "*.k8s.nevi.network"

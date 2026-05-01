@@ -1,2 +1,2 @@
-adminHostname: ""
-s3Hostname: ""
+adminHostnames: []
+s3Hostnames: []

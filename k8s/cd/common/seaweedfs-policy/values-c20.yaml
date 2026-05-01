@@ -1,2 +1,6 @@
-adminHostname: seaweedfs.c20.k8s.nevi.network
-s3Hostname: s3.c20.k8s.nevi.network
+adminHostnames:
+  - seaweedfs.c20.k8s.nevi.network
+  - seaweedfs.k8s.nevi.network
+s3Hostnames:
+  - s3.c20.k8s.nevi.network
+  - s3.k8s.nevi.network
