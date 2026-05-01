@@ -96,3 +96,9 @@ seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
   enabled: false
+
+loki:
+  enabled: false
+  version: 13.5.0
+loki-routes:
+  enabled: false

@@ -16,10 +16,8 @@ collectors:
     config:
       exporters:
         debug: {}
-        otlp:
-          endpoint: otlp.c20.k8s.nevi.network:4317
-          tls:
-            insecure: true
+        otlphttp/loki:
+          endpoint: https://loki.c20.k8s.nevi.network/otlp
       extensions:
         health_check: {}
       processors:
@@ -47,7 +45,6 @@ collectors:
               - resource/cluster
               - batch
             exporters:
-              - otlp
               - debug
           metrics:
             receivers:
@@ -60,7 +57,6 @@ collectors:
               - resource/cluster
               - batch
             exporters:
-              - otlp
               - debug
           logs:
             receivers:
@@ -73,5 +69,5 @@ collectors:
               - resource/cluster
               - batch
             exporters:
-              - otlp
+              - otlphttp/loki
               - debug

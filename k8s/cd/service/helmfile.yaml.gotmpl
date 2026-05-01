@@ -42,3 +42,13 @@ releases:
     chart: ./tpeap-cert
     inherit:
       - template: default
+  - name: loki
+    namespace: loki
+    chart: oci://ghcr.io/grafana-community/helm-charts/loki
+    inherit:
+      - template: default
+  - name: loki-routes
+    namespace: loki
+    chart: ./loki-routes
+    inherit:
+      - template: default

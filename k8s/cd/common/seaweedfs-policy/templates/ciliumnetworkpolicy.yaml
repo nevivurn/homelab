@@ -48,6 +48,10 @@ spec:
             k8s:app.kubernetes.io/name: envoy
             k8s:app.kubernetes.io/component: proxy
             k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: loki
+            k8s:app.kubernetes.io/name: loki
+            k8s:app.kubernetes.io/instance: loki
       toPorts:
         - ports:
             - port: "8333"

@@ -1,0 +1,74 @@
+deploymentMode: Monolithic
+
+loki:
+  auth_enabled: false
+  commonConfig:
+    replication_factor: 1
+  limits_config:
+    allow_structured_metadata: true
+  schemaConfig:
+    configs:
+      - from: "2024-01-01"
+        store: tsdb
+        object_store: s3
+        schema: v13
+        index:
+          prefix: loki_index_
+          period: 24h
+  storage:
+    type: s3
+    bucketNames:
+      chunks: loki-chunks
+      ruler: loki-ruler
+    s3:
+      endpoint: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+      accessKeyId: ${AWS_ACCESS_KEY_ID}
+      secretAccessKey: ${AWS_SECRET_ACCESS_KEY}
+      s3ForcePathStyle: true
+
+singleBinary:
+  replicas: 1
+  persistence:
+    storageClass: openebs-zfs
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      memory: 512Mi
+  extraEnv:
+    - name: GOMEMLIMIT
+      value: 400MiB
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: loki-s3
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: loki-s3
+          key: AWS_SECRET_ACCESS_KEY
+
+# Disable microservice components
+read:
+  replicas: 0
+write:
+  replicas: 0
+backend:
+  replicas: 0
+
+# Disable built-in gateway
+gateway:
+  enabled: false
+
+test:
+  enabled: false
+lokiCanary:
+  enabled: false
+
+# Disable caches for simplicity
+chunksCache:
+  enabled: false
+resultsCache:
+  enabled: false

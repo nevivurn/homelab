@@ -2,6 +2,7 @@ namespaces:
   cloudflare-tunnel:
   tpeap:
   seaweedfs:
+  loki:
   openebs:
     labels:
       pod-security.kubernetes.io/enforce: privileged
@@ -39,4 +40,9 @@ seaweedfs:
 seaweedfs-pdb:
   enabled: true
 seaweedfs-policy:
+  enabled: true
+
+loki:
+  enabled: true
+loki-routes:
   enabled: true
