@@ -33,5 +33,5 @@ spec:
             k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
       toPorts:
         - ports:
-            - port: "8080"
+            - port: "8443"
               protocol: TCP

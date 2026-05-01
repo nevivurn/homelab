@@ -2,6 +2,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend
 metadata:
+  namespace: {{ .Release.Namespace }}
   name: argocd-webhook
 spec:
   endpoints:
@@ -12,6 +13,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1alpha3
 kind: BackendTLSPolicy
 metadata:
+  namespace: {{ .Release.Namespace }}
   name: argocd-webhook
 spec:
   targetRefs:
@@ -25,6 +27,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
+  namespace: {{ .Release.Namespace }}
   name: argocd-webhook
 spec:
   parentRefs:

@@ -1,6 +1,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
 metadata:
+  namespace: {{ .Release.Namespace }}
   name: cloudflare-gateway
 spec:
   targetRefs:
@@ -10,3 +11,4 @@ spec:
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 1
+  http3: {}
