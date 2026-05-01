@@ -11,6 +11,7 @@ extraArgs:
   - --tls-ca=/secrets/tls/ca.crt
   - --tls-client-cert=/secrets/tls/tls.crt
   - --tls-client-cert-key=/secrets/tls/tls.key
+  - --min-ttl=60s
 
 extraVolumes:
   - name: tls
