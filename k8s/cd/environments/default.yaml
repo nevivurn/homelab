@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.4
+  version: 9.5.10
 argocd-routes:
   enabled: false
 
@@ -52,7 +52,7 @@ cert-manager:
 
 external-dns:
   enabled: true
-  version: 1.20.0
+  version: 1.21.1
 external-dns-cert:
   enabled: true
 
@@ -91,7 +91,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.21.0
+  version: 4.22.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
