@@ -6,8 +6,8 @@ metadata:
 spec:
   secretName: cloudflare-gateway
   issuerRef:
-    kind: ClusterIssuer
-    name: cluster-ca
+    kind: Issuer
+    name: cloudflare-gateway-ca
   dnsNames:
     {{- toYaml .Values.dnsNames | nindent 4 }}
   privateKey:

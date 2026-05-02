@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: cloudflare-gateway-ca
+spec:
+  isCA: true
+  commonName: cloudflare-gateway-ca
+  secretName: cloudflare-gateway-ca
+  duration: 87600h
+  privateKey:
+    algorithm: Ed25519
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-ca-selfsigned
