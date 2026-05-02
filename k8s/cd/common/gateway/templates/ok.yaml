@@ -8,6 +8,9 @@ spec:
   directResponse:
     statusCode: 200
 ---
+# This "empty response" route is load-bearing; it is processed by external-dns
+# to create gateway.$cluster which is used as the canonical address for the
+# gateway itself (eg. from cloudflare-tunnel).
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
