@@ -1,0 +1,28 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: lldap
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: lldap
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: envoy-gateway-system
+            k8s:app.kubernetes.io/name: envoy
+            k8s:app.kubernetes.io/component: proxy
+            k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
+      toPorts:
+        - ports:
+            - port: "17170"
+              protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: authelia
+            k8s:app.kubernetes.io/name: authelia
+            k8s:app.kubernetes.io/instance: authelia
+      toPorts:
+        - ports:
+            - port: "3890"
+              protocol: TCP
