@@ -1,0 +1,17 @@
+{{- if .Values.seaweedfs.enabled }}
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: seaweedfs-envoy-auth-oidc
+  namespace: gateway
+spec:
+  from:
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: seaweedfs
+  to:
+    - group: ""
+      kind: Secret
+      name: envoy-auth-oidc
+{{- end }}

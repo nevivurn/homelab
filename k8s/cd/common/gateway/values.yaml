@@ -6,3 +6,6 @@ replicaCount: 2
 pdb:
   enabled: true
   minAvailable: 1
+
+seaweedfs:
+  enabled: false
