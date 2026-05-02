@@ -3,9 +3,7 @@ kind: CiliumNetworkPolicy
 metadata:
   name: cloudflare-tunnel
 spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/name: cloudflare-tunnel
+  endpointSelector: {}
   egress:
     - toEndpoints:
         - matchLabels:
