@@ -1,0 +1,32 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-db
+spec:
+  instances: 2
+  postgresql:
+    pg_hba:
+      - hostnossl all all all reject
+      - hostssl all all all cert
+  certificates:
+    serverTLSSecret: cluster-db-server
+    serverCASecret: cluster-db-server
+    clientCASecret: cluster-db-replication
+    replicationTLSSecret: cluster-db-replication
+  managed:
+    roles:
+      - name: lldap
+        ensure: present
+        login: true
+        inherit: true
+        disablePassword: true
+        connectionLimit: -1
+      - name: authelia
+        ensure: present
+        login: true
+        inherit: true
+        disablePassword: true
+        connectionLimit: -1
+  storage:
+    storageClass: openebs-zfs
+    size: 10Gi

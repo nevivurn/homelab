@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lldap
+spec:
+  selector:
+    app.kubernetes.io/name: lldap
+    app.kubernetes.io/instance: lldap
+  ports:
+    - name: ldap
+      port: 3890
+      targetPort: 3890
+    - name: http
+      port: 17170
+      targetPort: 17170

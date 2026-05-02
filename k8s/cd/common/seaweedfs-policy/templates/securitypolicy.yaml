@@ -1,0 +1,50 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: seaweedfs-admin
+  namespace: gateway
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: seaweedfs-admin
+  oidc:
+    provider:
+      issuer: https://auth.k8s.nevi.network
+    clientID: envoy-auth
+    clientSecret:
+      name: envoy-auth-oidc
+    redirectURL: "https://seaweedfs.k8s.nevi.network/oauth2/callback"
+    cookieConfig:
+      sameSite: Lax
+    cookieNames:
+      idToken: Auth-IdToken
+    scopes:
+      - openid
+      - profile
+      - email
+      - groups
+  jwt:
+    providers:
+      - name: auth
+        issuer: https://auth.k8s.nevi.network
+        remoteJWKS:
+          uri: https://auth.k8s.nevi.network/jwks.json
+          cacheDuration: 300s
+        audiences: [envoy-auth]
+        extractFrom:
+          cookies:
+            - Auth-IdToken
+  authorization:
+    defaultAction: Deny
+    rules:
+      - principal:
+          jwt:
+            provider: auth
+            claims:
+              - name: groups
+                valueType: StringArray
+                values:
+                  - admin:group
+        action: Allow

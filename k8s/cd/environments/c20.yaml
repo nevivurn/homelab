@@ -2,11 +2,15 @@ namespaces:
   cloudflare-tunnel:
   tpeap:
   seaweedfs:
+  cnpg-system:
+  cluster-db:
   openebs:
     labels:
       pod-security.kubernetes.io/enforce: privileged
       pod-security.kubernetes.io/warn: privileged
       pod-security.kubernetes.io/audit: privileged
+  lldap:
+  authelia:
 
 cilium-bgp:
   values:
@@ -45,4 +49,23 @@ seaweedfs-policy:
 loki:
   enabled: true
 loki-routes:
+  enabled: true
+
+cloudnative-pg:
+  enabled: true
+
+cluster-db-ca:
+  enabled: true
+
+cluster-db:
+  enabled: true
+
+lldap:
+  enabled: true
+
+authelia:
+  enabled: true
+authelia-routes:
+  enabled: true
+authelia-cert:
   enabled: true

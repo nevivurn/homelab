@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-db-lldap
+spec:
+  secretName: cluster-db-lldap
+  usages:
+    - client auth
+  commonName: lldap
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+  issuerRef:
+    name: cluster-db
+    kind: ClusterIssuer

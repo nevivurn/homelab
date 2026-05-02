@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lldap-config
+data:
+  lldap_config.toml: |
+    ldap_base_dn = "dc=nevi,dc=network"
+    database_url = "postgres://lldap@cluster-db-rw.cluster-db.svc/lldap?sslmode=verify-full&sslrootcert=/certs/ca.crt&sslcert=/certs/tls.crt&sslkey=/certs/tls.key"
+    key_file = "/run/lldap/server_key"

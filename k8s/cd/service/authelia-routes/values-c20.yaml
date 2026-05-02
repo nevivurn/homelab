@@ -1,0 +1,3 @@
+hostnames:
+  - auth.k8s.nevi.network
+  - auth.c20.k8s.nevi.network

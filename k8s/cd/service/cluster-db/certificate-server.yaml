@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-db-server
+spec:
+  secretName: cluster-db-server
+  secretTemplate:
+    labels:
+      cnpg.io/reload: ""
+  usages:
+    - server auth
+  dnsNames:
+    - cluster-db-rw
+    - cluster-db-rw.cluster-db.svc
+    - cluster-db-rw.cluster-db.svc.cluster.local
+    - cluster-db-r
+    - cluster-db-r.cluster-db.svc
+    - cluster-db-r.cluster-db.svc.cluster.local
+    - cluster-db-ro
+    - cluster-db-ro.cluster-db.svc
+    - cluster-db-ro.cluster-db.svc.cluster.local
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+  issuerRef:
+    name: cluster-db
+    kind: ClusterIssuer

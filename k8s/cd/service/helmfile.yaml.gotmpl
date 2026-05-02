@@ -74,3 +74,38 @@ releases:
     chart: ./loki-routes
     inherit:
       - template: default
+  - name: cloudnative-pg
+    namespace: cnpg-system
+    chart: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg
+    inherit:
+      - template: default
+  - name: cluster-db-ca
+    namespace: cert-manager
+    chart: ./cluster-db-ca
+    inherit:
+      - template: default
+  - name: cluster-db
+    namespace: cluster-db
+    chart: ./cluster-db
+    inherit:
+      - template: default
+  - name: lldap
+    namespace: lldap
+    chart: ./lldap
+    inherit:
+      - template: default
+  - name: authelia
+    namespace: authelia
+    chart: oci://ghcr.io/authelia/chartrepo/authelia
+    inherit:
+      - template: default
+  - name: authelia-routes
+    namespace: authelia
+    chart: ./authelia-routes
+    inherit:
+      - template: default
+  - name: authelia-cert
+    namespace: authelia
+    chart: ./authelia-cert
+    inherit:
+      - template: default

@@ -102,3 +102,24 @@ loki:
   version: 13.5.0
 loki-routes:
   enabled: false
+
+cloudnative-pg:
+  enabled: false
+  version: 0.28.0
+
+cluster-db-ca:
+  enabled: false
+
+cluster-db:
+  enabled: false
+
+lldap:
+  enabled: false
+
+authelia:
+  enabled: false
+  version: 0.11.4
+authelia-routes:
+  enabled: false
+authelia-cert:
+  enabled: false

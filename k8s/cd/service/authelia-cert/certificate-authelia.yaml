@@ -1,0 +1,33 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-db-authelia
+spec:
+  commonName: authelia
+  usages:
+    - client auth
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+  secretName: cluster-db-authelia
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-db
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: authelia-jwk
+spec:
+  commonName: authelia-jwk
+  usages:
+    - server auth
+  duration: 87600h
+  privateKey:
+    algorithm: RSA
+    size: 4096
+  secretName: authelia-jwk
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-ca-selfsigned

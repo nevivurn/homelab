@@ -1,5 +1,18 @@
+global:
+  domain: argocd.capi.k8s.nevi.network
+
 configs:
   params:
     server.insecure: "true"
   secret:
     githubSecret: $argocd-webhook-secret:webhook.github.secret
+  cm:
+    oidc.config: |
+      name: Authelia
+      issuer: https://auth.k8s.nevi.network
+      clientID: argocd
+      clientSecret: $argocd-oidc:argocd
+      enablePKCEAuthentication: true
+  rbac:
+    policy.csv: |
+      g, admin:group, role:admin
