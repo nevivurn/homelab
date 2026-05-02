@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.10
+  version: 9.5.11
 argocd-routes:
   enabled: false
 
