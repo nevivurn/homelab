@@ -47,5 +47,5 @@ spec:
               - name: groups
                 valueType: StringArray
                 values:
-                  - admin:group
+                  - seaweedfs:admin
         action: Allow

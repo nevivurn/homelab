@@ -1,3 +1,7 @@
+.PHONY: update-check
+update-check:
+	bash scripts/scan.sh
+
 .PHONY: lint
 lint: lint-ansible lint-infra lint-pkgs lint-nix
 

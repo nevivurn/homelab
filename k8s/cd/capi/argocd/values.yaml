@@ -15,4 +15,4 @@ configs:
       enablePKCEAuthentication: true
   rbac:
     policy.csv: |
-      g, admin:group, role:admin
+      g, argocd:admin, role:admin
