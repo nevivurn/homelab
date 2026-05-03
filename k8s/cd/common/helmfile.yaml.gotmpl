@@ -13,6 +13,8 @@ repositories:
     url: https://kubernetes-sigs.github.io/external-dns
   - name: metrics-server
     url: https://kubernetes-sigs.github.io/metrics-server
+  - name: nats
+    url: https://nats-io.github.io/k8s/helm/charts
 
 releases:
   - name: envoy-gateway
@@ -91,3 +93,24 @@ releases:
     chart: ./seaweedfs-policy
     inherit:
       - template: default
+  - name: nats-ca
+    namespace: cert-manager
+    chart: ./nats-ca
+    inherit:
+      - template: default
+  - name: nats-certs
+    namespace: nats
+    chart: ./nats-certs
+    inherit:
+      - template: default
+  - name: nats
+    namespace: nats
+    chart: nats/nats
+    inherit:
+      - template: default
+    transformers:
+      - apiVersion: builtin
+        kind: NamespaceTransformer
+        metadata:
+          name: notImportantHere
+          namespace: nats

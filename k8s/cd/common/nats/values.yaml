@@ -1,0 +1,70 @@
+tlsCA:
+  enabled: true
+  secretName: nats-server
+
+config:
+  cluster:
+    enabled: true
+    replicas: 2
+    routeURLs:
+      useFQDN: true
+    tls:
+      enabled: true
+      secretName: nats-cluster
+      merge:
+        verify_cert_and_check_known_urls: true
+  nats:
+    tls:
+      enabled: true
+      secretName: nats-server
+      merge:
+        verify: true
+        verify_and_map: true
+
+  merge:
+    accounts:
+      SYS:
+        users:
+          - user: nats-system
+    system_account: SYS
+
+container:
+  # NOTE(nevivurn): upstream these changes, hopefully
+  image:
+    repository: ghcr.io/nevivurn/nats-server
+    tag: v2.12.8-p1
+  env:
+    GOMEMLIMIT: 768MiB
+  merge:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 1Gi
+      limits:
+        cpu: 2000m
+        memory: 1Gi
+
+natsBox:
+  contexts:
+    default:
+      tls:
+        secretName: nats-system-client
+
+podDisruptionBudget:
+  merge:
+    spec:
+      maxUnavailable: null
+      minAvailable: 1
+
+podTemplate:
+  merge:
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: nats
+                  app.kubernetes.io/instance: nats
+                  app.kubernetes.io/name: nats
+              topologyKey: kubernetes.io/hostname

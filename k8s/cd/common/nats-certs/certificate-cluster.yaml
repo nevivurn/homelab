@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nats-cluster
+spec:
+  secretName: nats-cluster
+  issuerRef:
+    kind: ClusterIssuer
+    name: nats-ca
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - "*.nats-headless.nats.svc.cluster.local"
+  privateKey:
+    algorithm: Ed25519

@@ -123,3 +123,11 @@ authelia-routes:
   enabled: false
 authelia-cert:
   enabled: false
+
+nats-ca:
+  enabled: false
+nats-certs:
+  enabled: false
+nats:
+  enabled: false
+  version: 2.12.6

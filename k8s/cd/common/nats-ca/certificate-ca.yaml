@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nats-ca
+spec:
+  isCA: true
+  commonName: nats-ca
+  secretName: nats-ca
+  duration: 87600h
+  privateKey:
+    algorithm: Ed25519
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-ca-selfsigned

@@ -1,0 +1,7 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: nats-ca
+spec:
+  ca:
+    secretName: nats-ca

@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nats-system-client
+spec:
+  secretName: nats-system-client
+  issuerRef:
+    kind: ClusterIssuer
+    name: nats-ca
+  dnsNames:
+    - nats-system
+  usages:
+    - client auth
+  privateKey:
+    algorithm: Ed25519
