@@ -131,3 +131,5 @@ nats-certs:
 nats:
   enabled: false
   version: 2.12.6
+nats-routes:
+  enabled: false

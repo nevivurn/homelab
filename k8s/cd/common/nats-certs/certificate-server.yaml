@@ -13,5 +13,6 @@ spec:
     - nats
     - nats.nats.svc
     - nats.nats.svc.cluster.local
+    - nats.k8s.nevi.network
   privateKey:
     algorithm: Ed25519

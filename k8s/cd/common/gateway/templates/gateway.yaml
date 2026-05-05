@@ -67,6 +67,14 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+    - name: tls
+      port: 6443
+      protocol: TLS
+      tls:
+        mode: Passthrough
+      allowedRoutes:
+        namespaces:
+          from: All
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
@@ -84,7 +92,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: tls-redirect
+  name: https-redirect
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io

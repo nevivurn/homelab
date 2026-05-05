@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: nats
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateway
+      name: gateway
+  hostnames:
+    - nats.k8s.nevi.network
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: nats
+          port: 4222
+          weight: 1

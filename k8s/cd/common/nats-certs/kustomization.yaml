@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - certificate-server.yaml
   - certificate-cluster.yaml
-  - certificate-system-client.yaml
+  - certificate-clients.yaml

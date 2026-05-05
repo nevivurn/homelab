@@ -114,3 +114,8 @@ releases:
         metadata:
           name: notImportantHere
           namespace: nats
+  - name: nats-routes
+    namespace: nats
+    chart: ./nats-routes
+    inherit:
+      - template: default
