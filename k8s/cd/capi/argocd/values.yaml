@@ -1,6 +1,9 @@
 global:
   domain: argocd.capi.k8s.nevi.network
 
+dex:
+  enabled: false
+
 configs:
   params:
     server.insecure: "true"
