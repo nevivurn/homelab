@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.11
+  version: 9.5.12
 argocd-routes:
   enabled: false
 
@@ -68,7 +68,7 @@ cluster-ca:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.14.12
+  version: 0.14.13
 
 cloudflare-tunnel:
   enabled: false
