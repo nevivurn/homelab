@@ -74,6 +74,36 @@ releases:
     chart: ./loki-routes
     inherit:
       - template: default
+  - name: thanos
+    namespace: monitoring
+    chart: oci://ghcr.io/thanos-community/helm-charts/thanos
+    inherit:
+      - template: default
+    transformers:
+      - apiVersion: builtin
+        kind: NamespaceTransformer
+        metadata:
+          name: notImportantHere
+          namespace: monitoring
+      - apiVersion: builtin
+        kind: PatchTransformer
+        metadata:
+          name: notImportantHere
+        patch: |-
+          - op: add
+            path: /spec/volumeClaimTemplates/0/apiVersion
+            value: v1
+          - op: add
+            path: /spec/volumeClaimTemplates/0/kind
+            value: PersistentVolumeClaim
+        target:
+          kind: StatefulSet
+          labelSelector: "app.kubernetes.io/instance=thanos"
+  - name: thanos-routes
+    namespace: monitoring
+    chart: ./thanos-routes
+    inherit:
+      - template: default
   - name: grafana
     namespace: monitoring
     chart: oci://ghcr.io/grafana-community/helm-charts/grafana

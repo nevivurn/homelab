@@ -18,6 +18,8 @@ collectors:
         debug: {}
         otlphttp/logs:
           endpoint: https://otlp.k8s.nevi.network/logs
+        otlphttp/metrics:
+          endpoint: https://otlp.k8s.nevi.network/metrics
       extensions:
         health_check: {}
       processors:
@@ -57,7 +59,7 @@ collectors:
               - resource/cluster
               - batch
             exporters:
-              - debug
+              - otlphttp/metrics
           logs:
             receivers:
               - otlp

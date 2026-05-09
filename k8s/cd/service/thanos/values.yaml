@@ -1,0 +1,39 @@
+global:
+  thanosRules:
+    enabled: false
+
+query:
+  extraArgs:
+    - --log.level=info
+    - --enable-feature=promql-experimental-functions
+
+compactor:
+  persistence:
+    storageClass: openebs-zfs
+storegateway:
+  persistence:
+    storageClass: openebs-zfs
+receive:
+  persistence:
+    storageClass: openebs-zfs
+  extraArgs:
+    # ref: https://prometheus.io/docs/guides/opentelemetry/#promoting-resource-attributes
+    - --receive.otlp-promote-resource-attributes=service.instance.id
+    - --receive.otlp-promote-resource-attributes=service.name
+    - --receive.otlp-promote-resource-attributes=service.namespace
+    - --receive.otlp-promote-resource-attributes=service.version
+    - --receive.otlp-promote-resource-attributes=cloud.availability_zone
+    - --receive.otlp-promote-resource-attributes=cloud.region
+    - --receive.otlp-promote-resource-attributes=container.name
+    - --receive.otlp-promote-resource-attributes=deployment.environment
+    - --receive.otlp-promote-resource-attributes=deployment.environment.name
+    - --receive.otlp-promote-resource-attributes=k8s.cluster.name
+    - --receive.otlp-promote-resource-attributes=k8s.container.name
+    - --receive.otlp-promote-resource-attributes=k8s.cronjob.name
+    - --receive.otlp-promote-resource-attributes=k8s.daemonset.name
+    - --receive.otlp-promote-resource-attributes=k8s.deployment.name
+    - --receive.otlp-promote-resource-attributes=k8s.job.name
+    - --receive.otlp-promote-resource-attributes=k8s.namespace.name
+    - --receive.otlp-promote-resource-attributes=k8s.pod.name
+    - --receive.otlp-promote-resource-attributes=k8s.replicaset.name
+    - --receive.otlp-promote-resource-attributes=k8s.statefulset.name

@@ -103,6 +103,12 @@ loki:
 loki-routes:
   enabled: false
 
+thanos:
+  enabled: false
+  version: 0.10.1
+thanos-routes:
+  enabled: false
+
 grafana:
   enabled: false
   version: 12.3.0

@@ -13,13 +13,24 @@ spec:
         - sinks:
             - type: OpenTelemetry
               openTelemetry:
-                port: 4317
                 backendRefs:
                   - group: gateway.envoyproxy.io
                     kind: Backend
                     name: otelcol-local
                     port: 4317
                     weight: 1
+                port: 4317
+    metrics:
+      sinks:
+        - type: OpenTelemetry
+          openTelemetry:
+            backendRefs:
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: otelcol-local
+                port: 4317
+                weight: 1
+            port: 4317
   provider:
     type: Kubernetes
     kubernetes:
