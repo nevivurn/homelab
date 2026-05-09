@@ -55,6 +55,7 @@ in
                 "dhcp"
                 "dhcpv6"
               ];
+              dhcp-options.vendor-class-id = "KT_PR_HH_A_A";
               # WAN interface, adjust MTU & clamp
               mtu = "1500";
               ip.adjust-mss = "clamp-mss-to-pmtu";
