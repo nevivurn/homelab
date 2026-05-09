@@ -113,14 +113,6 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
-    - name: tls
-      port: 6443
-      protocol: TLS
-      tls:
-        mode: Passthrough
-      allowedRoutes:
-        namespaces:
-          from: All
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
