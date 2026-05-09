@@ -106,6 +106,8 @@ loki-routes:
 grafana:
   enabled: false
   version: 12.3.0
+grafana-config:
+  enabled: false
 grafana-routes:
   enabled: false
 

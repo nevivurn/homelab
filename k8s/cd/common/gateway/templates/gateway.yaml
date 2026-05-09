@@ -7,6 +7,19 @@ metadata:
 spec:
   mergeGateways: true
   ipFamily: DualStack
+  telemetry:
+    accessLog:
+      settings:
+        - sinks:
+            - type: OpenTelemetry
+              openTelemetry:
+                port: 4317
+                backendRefs:
+                  - group: gateway.envoyproxy.io
+                    kind: Backend
+                    name: otelcol-local
+                    port: 4317
+                    weight: 1
   provider:
     type: Kubernetes
     kubernetes:
@@ -17,6 +30,14 @@ spec:
           rollingUpdate:
             maxUnavailable: 1
             maxSurge: 1
+        container:
+          resources:
+            limits:
+              cpu: "2"
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
         pod:
           topologySpreadConstraints:
             - maxSkew: 1
@@ -32,6 +53,17 @@ spec:
       envoyService:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: {{ index .Values.dnsNames 0 | replace "*" "gateway" | quote }}
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: otelcol-local
+spec:
+  endpoints:
+    - fqdn:
+        hostname: opentelemetry-kube-stack-daemon-collector.monitoring.svc.cluster.local
+        port: 4317
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass

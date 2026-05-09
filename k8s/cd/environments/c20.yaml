@@ -58,6 +58,8 @@ loki-routes:
 
 grafana:
   enabled: true
+grafana-config:
+  enabled: true
 grafana-routes:
   enabled: true
 

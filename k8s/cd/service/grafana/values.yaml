@@ -1,3 +1,10 @@
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    memory: 512Mi
+
 persistence:
   enabled: false
 
@@ -10,11 +17,13 @@ sidecar:
     label: grafana_dashboard
     labelValue: "1"
     searchNamespace: monitoring
+    skipReload: true
   datasources:
     enabled: true
     label: grafana_datasource
     labelValue: "1"
     searchNamespace: monitoring
+    skipReload: true
 
 extraSecretMounts:
   - name: auth-generic-oauth-secret

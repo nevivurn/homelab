@@ -79,6 +79,11 @@ releases:
     chart: oci://ghcr.io/grafana-community/helm-charts/grafana
     inherit:
       - template: default
+  - name: grafana-config
+    namespace: monitoring
+    chart: ./grafana-config
+    inherit:
+      - template: default
   - name: grafana-routes
     namespace: monitoring
     chart: ./grafana-routes
