@@ -80,5 +80,3 @@ nats-certs:
   enabled: true
 nats:
   enabled: true
-nats-routes:
-  enabled: true

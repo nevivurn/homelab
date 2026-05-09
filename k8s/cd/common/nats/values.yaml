@@ -1,3 +1,14 @@
+service:
+  merge:
+    metadata:
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: nats.k8s.nevi.network
+    spec:
+      type: LoadBalancer
+      externalTrafficPolicy: Local
+      ipFamilyPolicy: RequireDualStack
+      ipFamilies: [IPv4, IPv6]
+
 tlsCA:
   enabled: true
   secretName: nats-server
@@ -20,7 +31,6 @@ config:
       merge:
         verify: true
         verify_and_map: true
-        handshake_first: auto
 
   merge:
     accounts:

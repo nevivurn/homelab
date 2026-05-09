@@ -1,4 +1,4 @@
-sources: [gateway-httproute, gateway-tlsroute]
+sources: [gateway-httproute, service]
 provider:
   name: pdns
 policy: sync
