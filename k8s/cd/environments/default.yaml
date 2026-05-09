@@ -99,7 +99,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 13.5.0
+  version: 13.6.2
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ lldap:
 
 authelia:
   enabled: false
-  version: 0.11.4
+  version: 0.11.5
 authelia-routes:
   enabled: false
 authelia-cert:
