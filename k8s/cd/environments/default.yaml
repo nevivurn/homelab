@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.12
+  version: 9.5.13
 argocd-routes:
   enabled: false
 
@@ -105,7 +105,7 @@ loki-routes:
 
 grafana:
   enabled: false
-  version: 8.11.4
+  version: 12.3.0
 grafana-routes:
   enabled: false
 

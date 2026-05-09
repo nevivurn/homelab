@@ -29,6 +29,9 @@ spec:
       envoyPDB:
         minAvailable: {{ .Values.pdb.minAvailable }}
       {{- end }}
+      envoyService:
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: {{ index .Values.dnsNames 0 | replace "*" "gateway" | quote }}
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass

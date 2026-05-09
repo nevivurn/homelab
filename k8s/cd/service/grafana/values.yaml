@@ -1,6 +1,9 @@
 persistence:
   enabled: false
 
+env:
+  GF_SECURITY_DISABLE_INITIAL_ADMIN_CREATION: "true"
+
 sidecar:
   dashboards:
     enabled: true
