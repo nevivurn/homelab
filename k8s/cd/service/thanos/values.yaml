@@ -3,17 +3,19 @@ global:
     enabled: false
 
 query:
-  extraArgs:
-    - --log.level=info
-    - --enable-feature=promql-experimental-functions
+  replicaCount: 1
 
 compactor:
   persistence:
     storageClass: openebs-zfs
+
 storegateway:
+  replicaCount: 1
   persistence:
     storageClass: openebs-zfs
+
 receive:
+  replicaCount: 1
   persistence:
     storageClass: openebs-zfs
   extraArgs:
