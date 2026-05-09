@@ -103,6 +103,12 @@ loki:
 loki-routes:
   enabled: false
 
+grafana:
+  enabled: false
+  version: 8.11.4
+grafana-routes:
+  enabled: false
+
 cloudnative-pg:
   enabled: false
   version: 0.28.0

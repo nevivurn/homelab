@@ -74,6 +74,16 @@ releases:
     chart: ./loki-routes
     inherit:
       - template: default
+  - name: grafana
+    namespace: monitoring
+    chart: oci://ghcr.io/grafana-community/helm-charts/grafana
+    inherit:
+      - template: default
+  - name: grafana-routes
+    namespace: monitoring
+    chart: ./grafana-routes
+    inherit:
+      - template: default
   - name: cloudnative-pg
     namespace: cnpg-system
     chart: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg

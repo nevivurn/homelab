@@ -56,6 +56,11 @@ loki:
 loki-routes:
   enabled: true
 
+grafana:
+  enabled: true
+grafana-routes:
+  enabled: true
+
 cloudnative-pg:
   enabled: true
 

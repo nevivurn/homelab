@@ -1,0 +1,43 @@
+persistence:
+  enabled: false
+
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "1"
+    searchNamespace: monitoring
+  datasources:
+    enabled: true
+    label: grafana_datasource
+    labelValue: "1"
+    searchNamespace: monitoring
+
+extraSecretMounts:
+  - name: auth-generic-oauth-secret
+    secretName: grafana-oidc
+    defaultMode: 0440
+    mountPath: /etc/secrets/auth_generic_oauth
+    readOnly: true
+
+grafana.ini:
+  server:
+    root_url: https://grafana.k8s.nevi.network
+  auth:
+    oauth_auto_login: true
+    disable_login_form: false
+  auth.anonymous:
+    enabled: true
+    org_role: Viewer
+  auth.generic_oauth:
+    enabled: true
+    name: Authelia
+    client_id: grafana
+    client_secret: $__file{/etc/secrets/auth_generic_oauth/client-secret}
+    scopes: openid profile email groups
+    auth_url: https://auth.k8s.nevi.network/api/oidc/authorization
+    token_url: https://auth.k8s.nevi.network/api/oidc/token
+    api_url: https://auth.k8s.nevi.network/api/oidc/userinfo
+    role_attribute_path: "contains(groups[*], 'grafana:admin') && 'Admin' || 'Viewer'"
+    allow_sign_up: true
+    use_pkce: true
