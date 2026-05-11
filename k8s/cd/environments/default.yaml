@@ -44,7 +44,7 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.7.2
+  version: v1.7.3
 
 cert-manager:
   enabled: true
@@ -119,7 +119,7 @@ grafana-routes:
 
 cloudnative-pg:
   enabled: false
-  version: 0.28.0
+  version: 0.28.1
 
 cluster-db-ca:
   enabled: false
