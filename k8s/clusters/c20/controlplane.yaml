@@ -64,6 +64,12 @@ spec:
                 tpm: {}
                 lockToState: true
         - |
+          # zfs disk config
+          machine:
+            kernel:
+              modules:
+                - name: zfs
+        - |
           # cluster-api compat
           machine:
             kubelet:
@@ -112,16 +118,16 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.13.0
+      talosVersion: v1.13.2
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
     kind: ProxmoxMachineTemplate
-    name: c20-cp-1
+    name: c20-cp-a
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-cp-1
+  name: c20-cp-a
 spec:
   template:
     spec:
@@ -145,7 +151,7 @@ spec:
                 kind: InClusterIPPool
                 name: c20-cp-v6
       sourceNode: pve01
-      templateID: 303
+      templateID: 302
       vmIDRange:
         start: 310
         end: 399

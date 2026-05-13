@@ -1,6 +1,6 @@
 pod:
   kind: Deployment
-  replicas: 2
+  replicas: 1
   securityContext:
     pod:
       runAsNonRoot: true
@@ -25,10 +25,6 @@ pod:
       value: /certificates/tls.crt
     - name: AUTHELIA_STORAGE_POSTGRES_TLS_PRIVATE_KEY_FILE
       value: /certificates/tls.key
-
-podDisruptionBudget:
-  enabled: true
-  minAvailable: 1
 
 secret:
   existingSecret: authelia-secret

@@ -52,6 +52,12 @@
               tag = "v${finalAttrs.version}";
               hash = "sha256-ocZjtinqZylLjUOovazcCkshg71jjmAIe5a4cKLZ9eo=";
             };
+            patches = [
+              (final.fetchurl {
+                url = "https://github.com/budimanjojo/talhelper/commit/d66b8e513cc7db09d1625a81381e6775cf32791e.patch?full_index=1";
+                hash = "sha256-y2uWsqJ4VNXibLshokLLTLCLfOoK1QHAAYIcDz+PrtU=";
+              })
+            ];
             vendorHash = "sha256-PzZxQsX4ynjYJUgEkWm2ceMt8mAFIioNVG9hLejq6ns=";
           }
         );
