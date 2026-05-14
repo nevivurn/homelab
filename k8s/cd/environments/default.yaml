@@ -16,7 +16,7 @@ cilium:
   version: 1.19.4
 
 cilium-preflight:
-  enabled: true
+  enabled: false
   version: 1.19.4
 
 cilium-bgp:
