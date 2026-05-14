@@ -13,11 +13,11 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.19.3
+  version: 1.19.4
 
 cilium-preflight:
-  enabled: false
-  version: 1.19.3
+  enabled: true
+  version: 1.19.4
 
 cilium-bgp:
   enabled: true
@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.13
+  version: 9.5.14
 argocd-routes:
   enabled: false
 
@@ -44,7 +44,7 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.7.3
+  version: v1.8.0
 
 cert-manager:
   enabled: true
@@ -73,7 +73,7 @@ opentelemetry-kube-stack:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.3.0
+  imageTag: 2026.5.0
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -91,7 +91,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.23.0
+  version: 4.24.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -99,7 +99,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 13.6.2
+  version: 14.0.0
 loki-routes:
   enabled: false
 
@@ -111,7 +111,7 @@ thanos-routes:
 
 grafana:
   enabled: false
-  version: 12.3.0
+  version: 12.3.2
 grafana-config:
   enabled: false
 grafana-routes:
@@ -119,7 +119,7 @@ grafana-routes:
 
 cloudnative-pg:
   enabled: false
-  version: 0.28.1
+  version: 0.28.2
 
 cluster-db-ca:
   enabled: false
