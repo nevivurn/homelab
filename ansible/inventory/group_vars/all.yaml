@@ -105,7 +105,7 @@ caddy_client_cert_sans:
   - DNS:localhost
 caddy_config_dir: /etc/caddy
 caddy_image: docker.io/caddy
-caddy_version: 2.11.2
+caddy_version: 2.11.3
 caddy_extra_sans:
   - DNS:api.inf.nevi.network
 

@@ -91,7 +91,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.24.0
+  version: 4.25.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -99,13 +99,13 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 14.0.0
+  version: 14.2.0
 loki-routes:
   enabled: false
 
 thanos:
   enabled: false
-  version: 0.10.1
+  version: 0.11.0
 thanos-routes:
   enabled: false
 
