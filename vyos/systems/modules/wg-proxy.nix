@@ -46,6 +46,7 @@ in
         }) peers;
       };
       dummy.dum50 = {
+        mtu = "1420";
         address = [
           "${v4addr}/32"
           "${v6addr}/128"
