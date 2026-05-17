@@ -99,7 +99,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 14.2.1
+  version: 16.0.0
 loki-routes:
   enabled: false
 
