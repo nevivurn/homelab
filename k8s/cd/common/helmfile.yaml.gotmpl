@@ -59,6 +59,11 @@ releases:
     chart: oci://ghcr.io/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack
     inherit:
       - template: default
+  - name: otel-scrapeconfigs
+    namespace: monitoring
+    chart: ./otel-scrapeconfigs
+    inherit:
+      - template: default
   - name: zfs-init
     namespace: openebs
     chart: ./zfs-init

@@ -82,6 +82,9 @@ authelia-routes:
 authelia-cert:
   enabled: true
 
+otel-scrapeconfigs:
+  enabled: true
+
 nats-ca:
   enabled: true
 nats-certs:

@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: external-nodes
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - athebyne.inf.nevi.network:9100
+        - pve01.mgmt.nevi.network:9100
+        - rtr01.k8s.nevi.network:9100
+        - rtr02.k8s.nevi.network:9100
+  metricsPath: /metrics

@@ -7,3 +7,44 @@ collectors:
             - key: k8s.cluster.name
               value: c20
               action: upsert
+  deploy:
+    enabled: true
+    mode: statefulset
+    replicas: 2
+    targetAllocator:
+      enabled: true
+      prometheusCR:
+        enabled: true
+        scrapeInterval: 10s
+        serviceMonitorSelector: {}
+        scrapeConfigSelector: {}
+    config:
+      extensions:
+        health_check: {}
+      receivers:
+        prometheus:
+          config:
+            scrape_configs: []
+      processors:
+        memory_limiter:
+          check_interval: 1s
+          limit_percentage: 80
+          spike_limit_percentage: 20
+        batch: {}
+      exporters:
+        otlp/daemon:
+          endpoint: opentelemetry-kube-stack-daemon-collector.monitoring:4317
+          tls:
+            insecure: true
+      service:
+        extensions:
+          - health_check
+        pipelines:
+          metrics:
+            receivers:
+              - prometheus
+            processors:
+              - memory_limiter
+              - batch
+            exporters:
+              - otlp/daemon

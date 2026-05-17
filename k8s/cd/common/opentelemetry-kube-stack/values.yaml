@@ -1,25 +1,13 @@
-crds:
-  installPrometheus: false
-
 cleanupJob:
   enabled: false
 
 collectors:
   daemon:
     scrape_configs_file: ""
-    presets:
-      logsCollection:
-        includeCollectorLogs: false
     tolerations:
       - key: node-role.kubernetes.io/control-plane
         effect: NoSchedule
     config:
-      exporters:
-        debug: {}
-        otlphttp/logs:
-          endpoint: https://otlp.k8s.nevi.network/logs
-        otlphttp/metrics:
-          endpoint: https://otlp.k8s.nevi.network/metrics
       extensions:
         health_check: {}
       processors:
@@ -32,6 +20,12 @@ collectors:
             - key: k8s.cluster.name
               value: unknown
               action: upsert
+      exporters:
+        debug: {}
+        otlphttp/logs:
+          endpoint: https://otlp.k8s.nevi.network/logs
+        otlphttp/metrics:
+          endpoint: https://otlp.k8s.nevi.network/metrics
       service:
         extensions:
           - health_check

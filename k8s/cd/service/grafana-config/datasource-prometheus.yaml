@@ -11,3 +11,6 @@ data:
       - name: Thanos
         type: prometheus
         url: http://thanos-query.monitoring.svc:9090
+        isDefault: true
+        jsonData:
+          timeInterval: 10s

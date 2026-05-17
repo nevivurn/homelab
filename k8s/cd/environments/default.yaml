@@ -70,6 +70,9 @@ opentelemetry-kube-stack:
   enabled: true
   version: 0.14.13
 
+otel-scrapeconfigs:
+  enabled: false
+
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
