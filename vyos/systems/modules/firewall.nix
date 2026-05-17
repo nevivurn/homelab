@@ -276,6 +276,7 @@ in
       HOME.INFRA = "LAN-INFRA";
       K8S.INFRA = "LAN-INFRA";
 
+      MGMT.K8S = "LAN-K8S";
       HOME.K8S = "LAN-K8S";
       INFRA.K8S = "LAN-K8S";
     };
