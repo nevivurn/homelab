@@ -171,6 +171,7 @@ in
           };
           "200" = rules.allow-ssh;
           "210" = {
+            # allow node-exporter
             action = "accept";
             protocol = "tcp";
             destination.port = "9100";
@@ -210,6 +211,12 @@ in
         rules = rulesets.infra-services // {
           "10" = rules.allow-ping;
           "200" = rules.allow-ssh;
+          "210" = {
+            # allow node-exporter
+            action = "accept";
+            protocol = "tcp";
+            destination.port = "9100";
+          };
           "220" = {
             # allow Caddy (infra proxy)
             action = "accept";
