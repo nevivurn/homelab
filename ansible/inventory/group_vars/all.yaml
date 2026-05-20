@@ -83,7 +83,7 @@ pdns_config_dir: /etc/powerdns
 pdns_recursor_image: docker.io/powerdns/pdns-recursor-54
 pdns_recursor_version: 5.4.1
 pdns_server_image: docker.io/powerdns/pdns-auth-50
-pdns_server_version: 5.0.4
+pdns_server_version: 5.0.5
 pdns_recursor_forwards: "{{ (lookup('file', 'files/infra_zones.json') | from_json) | dict2items | map('combine', {'value': ['127.0.0.1:5301']}) | items2dict }}"
 pdns_recursor_trustanchors: "{{ lookup('file', 'files/infra_zones.json') | from_json }}"
 pdns_recursor_rpz_zone: hosts.zone

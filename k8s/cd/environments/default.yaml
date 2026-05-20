@@ -68,7 +68,7 @@ cluster-ca:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.14.13
+  version: 0.15.0
 
 otel-scrapeconfigs:
   enabled: false
@@ -90,11 +90,11 @@ zfs-init:
 
 openebs-zfs:
   enabled: false
-  version: 2.9.1
+  version: 2.10.0
 
 seaweedfs:
   enabled: false
-  version: 4.25.1
+  version: 4.27.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -102,13 +102,13 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 16.0.0
+  version: 16.0.1
 loki-routes:
   enabled: false
 
 thanos:
   enabled: false
-  version: 0.11.0
+  version: 0.13.0
 thanos-routes:
   enabled: false
 
