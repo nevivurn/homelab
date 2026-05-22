@@ -220,6 +220,14 @@ in
           "10" = rules.allow-ping;
           "200" = rules.allow-ssh;
           "210" = rules.allow-exporters;
+          "220" = {
+            # allow Caddy (infra proxy)
+            action = "accept";
+            protocol = "tcp_udp";
+            destination.port = "443";
+            ipv4.destination.group.address-group = "INFRA-addr4";
+            ipv6.destination.group.address-group = "INFRA-addr6";
+          };
         };
       };
 
