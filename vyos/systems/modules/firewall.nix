@@ -32,6 +32,14 @@ let
       protocol = "tcp";
       destination.port = "22";
     };
+
+    allow-exporters = {
+      action = "accept";
+      protocol = "tcp";
+      destination.group.port-group = "EXPORTERS-port";
+      ipv4.source.group.network-group = "K8S-net4";
+      ipv6.source.group.network-group = "K8S-net6";
+    };
   };
 
   rulesets = {
@@ -72,10 +80,20 @@ in
           "fdbc:ba6a:38de:30::-fdbc:ba6a:38de:30:ffff:ffff:ffff:ffff"
         ];
       };
+      network-group = {
+        K8S-net4 = [ "10.32.0.0/16" ];
+      };
+      ipv6-network-group = {
+        K8S-net6 = [ "fdbc:ba6a:38de:32::/64" ];
+      };
       port-group = {
         INFRA-port = [
           "53"
           "123"
+        ];
+        EXPORTERS-port = [
+          "9100"
+          "9633"
         ];
       };
     };
@@ -128,12 +146,7 @@ in
             protocol = "tcp";
             destination.port = "8006";
           };
-          "221" = {
-            # allow node-exporter
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "9100";
-          };
+          "221" = rules.allow-exporters;
           "230" = {
             # allow NTP, currently relying on pve01.mgmt for NTP root
             action = "accept";
@@ -170,12 +183,7 @@ in
             };
           };
           "200" = rules.allow-ssh;
-          "210" = {
-            # allow node-exporter
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "9100";
-          };
+          "210" = rules.allow-exporters;
         };
       };
 
@@ -211,20 +219,7 @@ in
         rules = rulesets.infra-services // {
           "10" = rules.allow-ping;
           "200" = rules.allow-ssh;
-          "210" = {
-            # allow node-exporter
-            action = "accept";
-            protocol = "tcp";
-            destination.port = "9100";
-          };
-          "220" = {
-            # allow Caddy (infra proxy)
-            action = "accept";
-            protocol = "tcp_udp";
-            destination.port = "443";
-            ipv4.destination.group.address-group = "INFRA-addr4";
-            ipv6.destination.group.address-group = "INFRA-addr6";
-          };
+          "210" = rules.allow-exporters;
         };
       };
 

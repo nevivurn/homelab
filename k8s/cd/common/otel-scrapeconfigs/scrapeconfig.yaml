@@ -1,3 +1,4 @@
+---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
@@ -10,4 +11,16 @@ spec:
         - pve01.mgmt.nevi.network:9100
         - rtr01.k8s.nevi.network:9100
         - rtr02.k8s.nevi.network:9100
+  metricsPath: /metrics
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: external-smartctl
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - athebyne.inf.nevi.network:9633
+        - pve01.mgmt.nevi.network:9633
   metricsPath: /metrics

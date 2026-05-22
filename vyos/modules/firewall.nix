@@ -15,6 +15,12 @@ let
       ipv6-address-group = lib.mapAttrs (_: addrs: {
         address = addrs;
       }) cfg.groups.ipv6-address-group;
+      network-group = lib.mapAttrs (_: networks: {
+        network = networks;
+      }) cfg.groups.network-group;
+      ipv6-network-group = lib.mapAttrs (_: networks: {
+        network = networks;
+      }) cfg.groups.ipv6-network-group;
       port-group = lib.mapAttrs (_: ports: { port = ports; }) cfg.groups.port-group;
       interface-group = lib.mapAttrs (_: interface: { inherit interface; }) cfg.groups.interface-group;
     };
@@ -90,6 +96,14 @@ in
         default = { };
       };
       port-group = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.listOf lib.types.str);
+        default = { };
+      };
+      network-group = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.listOf lib.types.str);
+        default = { };
+      };
+      ipv6-network-group = lib.mkOption {
         type = lib.types.attrsOf (lib.types.listOf lib.types.str);
         default = { };
       };
