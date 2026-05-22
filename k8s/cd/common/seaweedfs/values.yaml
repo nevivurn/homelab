@@ -34,7 +34,7 @@ volume:
     - name: data
       type: "persistentVolumeClaim"
       storageClass: openebs-zfs
-      size: 10Gi
+      size: 50Gi
       maxVolumes: 100
 
 filer:
