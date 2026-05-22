@@ -52,6 +52,11 @@ loki:
 loki-routes:
   enabled: true
 
+tempo:
+  enabled: true
+tempo-routes:
+  enabled: true
+
 thanos:
   enabled: true
 thanos-routes:

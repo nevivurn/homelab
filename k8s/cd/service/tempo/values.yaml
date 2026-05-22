@@ -1,0 +1,32 @@
+tempo:
+  storage:
+    trace:
+      backend: s3
+      s3:
+        bucket: tempo-traces
+        endpoint: s3.k8s.nevi.network
+        access_key: ${AWS_ACCESS_KEY_ID}
+        secret_key: ${AWS_SECRET_ACCESS_KEY}
+        forcepathstyle: true
+  extraArgs:
+    config.expand-env: true
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "0.0.0.0:4317"
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: tempo-s3
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: tempo-s3
+          key: AWS_SECRET_ACCESS_KEY
+
+persistence:
+  enabled: true
+  storageClassName: openebs-zfs

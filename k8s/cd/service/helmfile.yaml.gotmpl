@@ -74,6 +74,16 @@ releases:
     chart: ./loki-routes
     inherit:
       - template: default
+  - name: tempo
+    namespace: monitoring
+    chart: oci://ghcr.io/grafana-community/helm-charts/tempo
+    inherit:
+      - template: default
+  - name: tempo-routes
+    namespace: monitoring
+    chart: ./tempo-routes
+    inherit:
+      - template: default
   - name: thanos
     namespace: monitoring
     chart: oci://ghcr.io/thanos-community/helm-charts/thanos

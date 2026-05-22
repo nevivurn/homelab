@@ -106,6 +106,12 @@ loki:
 loki-routes:
   enabled: false
 
+tempo:
+  enabled: false
+  version: 2.1.2
+tempo-routes:
+  enabled: false
+
 thanos:
   enabled: false
   version: 0.13.1

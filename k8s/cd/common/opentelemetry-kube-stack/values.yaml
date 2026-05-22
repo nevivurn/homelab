@@ -29,6 +29,8 @@ collectors:
           endpoint: https://otlp.k8s.nevi.network/logs
         otlphttp/metrics:
           endpoint: https://otlp.k8s.nevi.network/metrics
+        otlp/traces:
+          endpoint: otlp.k8s.nevi.network:443
       service:
         extensions:
           - health_check
@@ -45,6 +47,7 @@ collectors:
               - batch
             exporters:
               - debug
+              - otlp/traces
           metrics:
             receivers:
               - otlp

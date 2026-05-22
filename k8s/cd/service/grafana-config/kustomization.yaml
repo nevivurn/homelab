@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - datasource-loki.yaml
   - datasource-prometheus.yaml
+  - datasource-tempo.yaml
