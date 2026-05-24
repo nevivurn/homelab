@@ -24,7 +24,6 @@ collectors:
               value: unknown
               action: upsert
       exporters:
-        debug: {}
         otlphttp/logs:
           endpoint: https://otlp.k8s.nevi.network/logs
         otlphttp/metrics:
@@ -46,7 +45,6 @@ collectors:
               - resource/cluster
               - batch
             exporters:
-              - debug
               - otlp/traces
           metrics:
             receivers:
