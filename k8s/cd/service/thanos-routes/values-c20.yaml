@@ -1,1 +1,4 @@
 hostnames: [otlp.k8s.nevi.network]
+
+bucketweb:
+  hostnames: [bucketweb.k8s.nevi.network]

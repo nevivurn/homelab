@@ -1,0 +1,50 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: thanos-bucketweb
+  namespace: {{ .Release.Namespace }}
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: thanos-bucketweb
+  oidc:
+    provider:
+      issuer: https://auth.k8s.nevi.network
+    clientID: envoy-auth
+    clientSecret:
+      name: envoy-auth-oidc
+      namespace: gateway
+    redirectURL: "https://bucketweb.k8s.nevi.network/oauth2/callback"
+    cookieConfig:
+      sameSite: Lax
+    cookieNames:
+      idToken: Auth-IdToken
+    scopes:
+      - openid
+      - profile
+      - email
+      - groups
+  jwt:
+    providers:
+      - name: auth
+        issuer: https://auth.k8s.nevi.network
+        remoteJWKS:
+          uri: https://auth.k8s.nevi.network/jwks.json
+          cacheDuration: 300s
+        audiences: [envoy-auth]
+        extractFrom:
+          cookies:
+            - Auth-IdToken
+  authorization:
+    defaultAction: Deny
+    rules:
+      - principal:
+          jwt:
+            provider: auth
+            claims:
+              - name: groups
+                valueType: StringArray
+                values:
+                  - thanos:admin
+        action: Allow

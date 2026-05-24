@@ -117,6 +117,8 @@ thanos:
   version: 0.13.1
 thanos-routes:
   enabled: false
+monitoring-policy:
+  enabled: false
 
 grafana:
   enabled: false

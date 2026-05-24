@@ -1,5 +1,3 @@
-{{- if .Values.seaweedfs.enabled }}
----
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
@@ -14,4 +12,3 @@ spec:
     - group: ""
       kind: Secret
       name: envoy-auth-oidc
-{{- end }}

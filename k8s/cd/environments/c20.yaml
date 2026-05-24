@@ -61,6 +61,8 @@ thanos:
   enabled: true
 thanos-routes:
   enabled: true
+monitoring-policy:
+  enabled: true
 
 grafana:
   enabled: true

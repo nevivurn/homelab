@@ -2,6 +2,10 @@ global:
   thanosRules:
     enabled: false
 
+bucket:
+  bucketweb:
+    enabled: true
+
 query:
   replicaCount: 1
 
