@@ -98,11 +98,6 @@ releases:
     chart: ./seaweedfs-policy
     inherit:
       - template: default
-  - name: nats-ca
-    namespace: cert-manager
-    chart: ./nats-ca
-    inherit:
-      - template: default
   - name: nats-certs
     namespace: nats
     chart: ./nats-certs
@@ -122,3 +117,17 @@ releases:
         metadata:
           name: notImportantHere
           namespace: nats
+      - apiVersion: builtin
+        kind: PatchTransformer
+        metadata:
+          name: notImportantHere
+        patch: |-
+          - op: add
+            path: /spec/volumeClaimTemplates/0/apiVersion
+            value: v1
+          - op: add
+            path: /spec/volumeClaimTemplates/0/kind
+            value: PersistentVolumeClaim
+        target:
+          kind: StatefulSet
+          labelSelector: "app.kubernetes.io/instance=nats"

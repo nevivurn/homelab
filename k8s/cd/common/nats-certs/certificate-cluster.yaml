@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: nats-cluster
   issuerRef:
-    kind: ClusterIssuer
+    kind: Issuer
     name: nats-ca
   usages:
     - server auth

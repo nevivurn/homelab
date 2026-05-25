@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - certificate-ca.yaml
+  - issuer.yaml
   - certificate-server.yaml
   - certificate-cluster.yaml
-  - certificate-clients.yaml

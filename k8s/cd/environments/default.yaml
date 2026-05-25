@@ -149,8 +149,6 @@ authelia-routes:
 authelia-cert:
   enabled: false
 
-nats-ca:
-  enabled: false
 nats-certs:
   enabled: false
 nats:

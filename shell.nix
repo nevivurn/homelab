@@ -16,6 +16,8 @@
   kubernetes-helm,
   kubernetes-helmPlugins,
   kustomize,
+  natscli,
+  nsc,
   opentofu,
   python3,
   python3Packages,
@@ -52,6 +54,8 @@ mkShell {
     helmfile'
     hubble
     kustomize
+    natscli
+    nsc
     sops
     talhelper
     talosctl

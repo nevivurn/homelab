@@ -6,13 +6,9 @@ spec:
   secretName: nats-server
   issuerRef:
     kind: ClusterIssuer
-    name: nats-ca
-  usages:
-    - server auth
+    name: le-prod
   dnsNames:
-    - nats
-    - nats.nats.svc
-    - nats.nats.svc.cluster.local
     - nats.k8s.nevi.network
   privateKey:
-    algorithm: Ed25519
+    algorithm: ECDSA
+    size: 384

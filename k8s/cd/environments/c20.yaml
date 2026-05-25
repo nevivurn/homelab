@@ -92,8 +92,6 @@ authelia-cert:
 otel-scrapeconfigs:
   enabled: true
 
-nats-ca:
-  enabled: true
 nats-certs:
   enabled: true
 nats:
