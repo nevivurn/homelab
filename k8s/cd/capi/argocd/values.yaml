@@ -19,3 +19,47 @@ configs:
   rbac:
     policy.csv: |
       g, argocd:admin, role:admin
+  gpg:
+    keys:
+      # Yongun Seong (alsafi)
+      "8E3032515785D8F2": |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+        mDMEZ3UCmxYJKwYBBAHaRw8BAQdAyCWYTxiG8APyDvjEKKwVtEP9xoAxDRztRX2z
+        iFOV0ZO0KVlvbmd1biBTZW9uZyAoYWxzYWZpKSA8bmV2aXZ1cm5AbmV2aS5kZXY+
+        iJQEExYKADwWIQRZKV4yxEO392LdgwqOMDJRV4XY8gUCZ3UCxQIbAwUJBaOagAQL
+        CQgHBBUKCQgFFgIDAQACHgUCF4AACgkQjjAyUVeF2PJEfQD+J0fEAkfCNaMJNcnR
+        h7713OZMCCSU0t0kF8kWFtO9iCoA/2kqU/Zw/iU81D+XkVPGDEgS7O9lL0ggkcDt
+        /uKy/u0P
+        =OYA3
+        -----END PGP PUBLIC KEY BLOCK-----
+      # Yongun Seong (taiyi)
+      "E20595D143F7DC96": |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+        mDMEY5YVpRYJKwYBBAHaRw8BAQdAtQ2vV8yHWX+EJ+z+GN5PcCEERIJWrdBeBtCH
+        9xNVFLe0KFlvbmd1biBTZW9uZyAodGFpeWkpIDxuZXZpdnVybkBuZXZpLmRldj6I
+        lAQTFgoAPAIbAwQLCQgHBBUKCQgFFgIDAQACHgUCF4AWIQSySfcPLbntOhbav4Li
+        BZXRQ/fclgUCZ0wEOgUJB3hVlQAKCRDiBZXRQ/fclsUrAQDoz94i1CBcWgVUCfB9
+        6oBKFRmItuHZv7JyaKA26YcnDwEAm+vkUCT4ew/X018RnGj6o9kOo97mCU1dJqGa
+        6yC4xAo=
+        =Hsy3
+        -----END PGP PUBLIC KEY BLOCK-----
+extraObjects:
+  - apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: homelab
+      namespace: argocd
+    spec:
+      sourceRepos:
+        - https://github.com/nevivurn/homelab-cd
+      destinations:
+        - name: "*"
+          namespace: "*"
+      clusterResourceWhitelist:
+        - group: "*"
+          kind: "*"
+      signatureKeys:
+        - keyID: "8E3032515785D8F2"
+        - keyID: "E20595D143F7DC96"
