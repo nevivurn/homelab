@@ -40,10 +40,6 @@ config:
     system_account: SYS
 
 container:
-  # NOTE(nevivurn): upstream these changes, hopefully
-  image:
-    repository: ghcr.io/nevivurn/nats-server
-    tag: v2.12.8-p1
   env:
     GOMEMLIMIT: 768MiB
   merge:

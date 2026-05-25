@@ -155,4 +155,5 @@ nats-certs:
   enabled: false
 nats:
   enabled: false
-  version: 2.12.6
+  version: 2.14.0
+  imageTag: 2.14.1
