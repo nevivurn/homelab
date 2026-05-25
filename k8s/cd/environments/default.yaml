@@ -117,7 +117,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.13.1
+  version: 0.18.0
 thanos-routes:
   enabled: false
 monitoring-policy:

@@ -70,6 +70,14 @@ hubble:
         name: hubble-ca
 
 operator:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: DoesNotExist
   podDisruptionBudget:
     enabled: true
     minAvailable: 1
