@@ -66,6 +66,9 @@ metrics-server:
 cluster-ca:
   enabled: true
 
+hubble-certs:
+  enabled: true
+
 opentelemetry-kube-stack:
   enabled: true
   version: 0.15.1

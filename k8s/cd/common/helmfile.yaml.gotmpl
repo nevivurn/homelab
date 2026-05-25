@@ -54,6 +54,11 @@ releases:
     chart: ./cluster-ca
     inherit:
       - template: default
+  - name: hubble-certs
+    namespace: kube-system
+    chart: ./hubble-certs
+    inherit:
+      - template: default
   - name: opentelemetry-kube-stack
     namespace: monitoring
     chart: oci://ghcr.io/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack
