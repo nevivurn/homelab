@@ -79,7 +79,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.5.0
+  imageTag: 2026.5.2
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -97,7 +97,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.28.0
+  version: 4.29.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -111,7 +111,7 @@ loki-routes:
 
 tempo:
   enabled: false
-  version: 2.1.2
+  version: 2.2.0
 tempo-routes:
   enabled: false
 
@@ -146,7 +146,7 @@ lldap:
 
 authelia:
   enabled: false
-  version: 0.11.5
+  version: 0.11.6
 authelia-routes:
   enabled: false
 authelia-cert:
