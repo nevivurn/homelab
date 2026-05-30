@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.15
+  version: 9.5.17
 argocd-routes:
   enabled: false
 
@@ -71,7 +71,7 @@ hubble-certs:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.15.1
+  version: 0.15.2
 
 otel-scrapeconfigs:
   enabled: false
@@ -105,7 +105,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 17.1.1
+  version: 17.1.5
 loki-routes:
   enabled: false
 
