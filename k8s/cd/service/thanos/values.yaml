@@ -5,24 +5,63 @@ global:
 bucket:
   bucketweb:
     enabled: true
+    extraArgs:
+      - --enable-auto-gomemlimit
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 128Mi
 
 query:
   replicaCount: 1
+  extraArgs:
+    - --enable-auto-gomemlimit
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 128Mi
 
 compactor:
+  extraArgs:
+    - --enable-auto-gomemlimit
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 1Gi
   persistence:
     storageClass: openebs-zfs
 
 storegateway:
   replicaCount: 1
+  extraArgs:
+    - --enable-auto-gomemlimit
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 512Mi
   persistence:
     storageClass: openebs-zfs
 
 receive:
   replicaCount: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 256Mi
   persistence:
     storageClass: openebs-zfs
   extraArgs:
+    - --enable-auto-gomemlimit
     # ref: https://prometheus.io/docs/guides/opentelemetry/#promoting-resource-attributes
     - --receive.otlp-promote-resource-attributes=service.instance.id
     - --receive.otlp-promote-resource-attributes=service.name
