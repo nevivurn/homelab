@@ -114,11 +114,6 @@ releases:
     chart: ./thanos-routes
     inherit:
       - template: default
-  - name: monitoring-policy
-    namespace: monitoring
-    chart: ./monitoring-policy
-    inherit:
-      - template: default
   - name: grafana
     namespace: monitoring
     chart: oci://ghcr.io/grafana-community/helm-charts/grafana

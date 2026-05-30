@@ -1,12 +1,13 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: lldap
+  name: tempo-routes
+  namespace: {{ .Release.Namespace }}
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: lldap
-      app.kubernetes.io/instance: lldap
+      app.kubernetes.io/name: tempo
+      app.kubernetes.io/instance: tempo
   ingress:
     - fromEndpoints:
         - matchLabels:
@@ -16,14 +17,5 @@ spec:
             k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
       toPorts:
         - ports:
-            - port: "17170"
-              protocol: TCP
-    - fromEndpoints:
-        - matchLabels:
-            k8s:io.kubernetes.pod.namespace: authelia
-            k8s:app.kubernetes.io/name: authelia
-            k8s:app.kubernetes.io/instance: authelia
-      toPorts:
-        - ports:
-            - port: "3890"
+            - port: "4317"
               protocol: TCP

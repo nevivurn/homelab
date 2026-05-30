@@ -1,13 +1,14 @@
----
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: seaweedfs-admin
+  name: thanos-routes-receive
   namespace: {{ .Release.Namespace }}
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/component: admin
+      app.kubernetes.io/name: thanos
+      app.kubernetes.io/instance: thanos
+      app.kubernetes.io/component: receive
   ingress:
     - fromEndpoints:
         - matchLabels:
@@ -17,18 +18,20 @@ spec:
             k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
       toPorts:
         - ports:
-            - port: "23646"
+            - port: "10908"
               protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: seaweedfs-s3
+  name: thanos-routes-bucketweb
   namespace: {{ .Release.Namespace }}
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/component: s3
+      app.kubernetes.io/name: thanos
+      app.kubernetes.io/instance: thanos
+      app.kubernetes.io/component: bucketweb
   ingress:
     - fromEndpoints:
         - matchLabels:
@@ -38,5 +41,5 @@ spec:
             k8s:gateway.envoyproxy.io/owning-gatewayclass: envoy-gateway
       toPorts:
         - ports:
-            - port: "8333"
+            - port: "10902"
               protocol: TCP

@@ -22,6 +22,11 @@ releases:
     chart: oci://docker.io/envoyproxy/gateway-helm
     inherit:
       - template: default
+  - name: envoy-gateway-policy
+    namespace: envoy-gateway-system
+    chart: ./envoy-gateway-policy
+    inherit:
+      - template: default
   - name: cert-manager
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
@@ -59,9 +64,24 @@ releases:
     chart: ./hubble-certs
     inherit:
       - template: default
+  - name: coredns-policy
+    namespace: kube-system
+    chart: ./coredns-policy
+    inherit:
+      - template: default
+  - name: cluster-policy
+    namespace: kube-system
+    chart: ./cluster-policy
+    inherit:
+      - template: default
   - name: opentelemetry-kube-stack
     namespace: monitoring
     chart: oci://ghcr.io/open-telemetry/opentelemetry-helm-charts/opentelemetry-kube-stack
+    inherit:
+      - template: default
+  - name: monitoring-policy
+    namespace: monitoring
+    chart: ./monitoring-policy
     inherit:
       - template: default
   - name: otel-scrapeconfigs

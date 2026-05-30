@@ -6,3 +6,4 @@ resources:
   - cluster.yaml
   - database-lldap.yaml
   - database-authelia.yaml
+  - ciliumnetworkpolicy.yaml

@@ -1,0 +1,11 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-apiserver-ingress
+spec:
+  endpointSelector: {}
+  enableDefaultDeny:
+    ingress: false
+  ingress:
+    - fromEntities:
+        - kube-apiserver

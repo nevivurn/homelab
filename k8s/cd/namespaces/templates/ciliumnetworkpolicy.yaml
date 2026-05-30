@@ -1,0 +1,14 @@
+{{- range $name, $val := .Values.namespaces }}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: namespace-isolation
+  namespace: {{ $name }}
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: {{ $name }}
+{{- end }}

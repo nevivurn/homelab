@@ -1,5 +1,4 @@
 namespaces:
-  argocd:
   envoy-gateway-system:
   cert-manager:
   gateway:
@@ -46,6 +45,9 @@ envoy-gateway:
   enabled: true
   version: v1.8.0
 
+envoy-gateway-policy:
+  enabled: true
+
 cert-manager:
   enabled: true
   version: v1.20.2
@@ -67,6 +69,12 @@ cluster-ca:
   enabled: true
 
 hubble-certs:
+  enabled: true
+
+coredns-policy:
+  enabled: true
+
+cluster-policy:
   enabled: true
 
 opentelemetry-kube-stack:
@@ -121,7 +129,7 @@ thanos:
 thanos-routes:
   enabled: false
 monitoring-policy:
-  enabled: false
+  enabled: true
 
 grafana:
   enabled: false
