@@ -2,6 +2,10 @@ incoming:
   listen: !override
     - 0.0.0.0:53
     - '[::]:53'
+outgoing:
+  source_address:
+    - 0.0.0.0
+    - '::'
 webservice:
   webserver: true
 
