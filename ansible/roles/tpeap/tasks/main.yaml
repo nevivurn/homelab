@@ -25,23 +25,31 @@
   ansible.builtin.apt:
     name: iptables-persistent
     state: present
-  environment:
-    DEBIAN_FRONTEND: noninteractive
 
-- name: Redirect port 443 to 8043
+- name: Block external access to tpeap port 8043
   ansible.builtin.iptables:
-    table: nat
-    chain: PREROUTING
+    chain: INPUT
     protocol: tcp
-    destination_port: "443"
-    jump: DNAT
-    to_destination: ":8043"
+    destination_port: "8043"
+    in_interface: "!lo"
+    jump: REJECT
     state: present
-  register: iptables_result
+  register: tpeap_iptables_8043
+
+- name: Block external access to tpeap port 8088
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "8088"
+    in_interface: "!lo"
+    jump: REJECT
+    state: present
+  register: tpeap_iptables_8088
 
 - name: Save iptables rules
   ansible.builtin.command: netfilter-persistent save
-  when: iptables_result.changed
+  changed_when: true
+  when: tpeap_iptables_8043.changed or tpeap_iptables_8088.changed
 
 - name: Copy tpeap pod manifest
   ansible.builtin.template:

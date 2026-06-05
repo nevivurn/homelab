@@ -22,6 +22,7 @@ all:
     relay02.home.nevi.network:
 
     tpeap.mgmt.nevi.network:
+      ip: 10.64.1.90
 
 vyos:
   vars:
@@ -41,6 +42,9 @@ patroni_ca:
   hosts:
     localhost:
 caddy_ca:
+  hosts:
+    localhost:
+tpeap_ca:
   hosts:
     localhost:
 

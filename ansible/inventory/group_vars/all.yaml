@@ -6,7 +6,7 @@ etcd_ca_cn: etcd-ca
 etcd_data_dir: /var/lib/etcd
 etcd_config_dir: /etc/etcd
 etcd_image: gcr.io/etcd-development/etcd
-etcd_version: v3.6.11
+etcd_version: v3.6.12
 
 patroni_ca_host: localhost
 patroni_ca_basedir: pki/patroni
@@ -23,7 +23,7 @@ patroni_version: 4.1.2-0650457
 
 patroni_haproxy_config_dir: /etc/haproxy
 patroni_haproxy_image: docker.io/library/haproxy
-patroni_haproxy_version: "3.3"
+patroni_haproxy_version: "3.4"
 
 kea_config_dir: /etc/kea
 kea_data_dir: /var/lib/kea
@@ -81,7 +81,7 @@ kea_subnets:
 
 pdns_config_dir: /etc/powerdns
 pdns_recursor_image: docker.io/powerdns/pdns-recursor-54
-pdns_recursor_version: 5.4.1
+pdns_recursor_version: 5.4.2
 pdns_server_image: docker.io/powerdns/pdns-auth-50
 pdns_server_version: 5.0.5
 pdns_recursor_forwards: "{{ (lookup('file', 'files/infra_zones.json') | from_json) | dict2items | map('combine', {'value': ['127.0.0.1:5301']}) | items2dict }}"
@@ -105,9 +105,23 @@ caddy_client_cert_sans:
   - DNS:localhost
 caddy_config_dir: /etc/caddy
 caddy_image: docker.io/caddy
-caddy_version: 2.11.3
+caddy_version: 2.11.4
 caddy_extra_sans:
   - DNS:api.inf.nevi.network
+
+tpeap_ca_basedir: pki/tpeap
+tpeap_ca_cn: tpeap-ca
+tpeap_client_cert_sans:
+  - DNS:localhost
+
+tpeap_caddy_ca_host: localhost
+tpeap_caddy_ca_basedir: pki/tpeap
+tpeap_caddy_ca_cn: tpeap-ca
+tpeap_caddy_client_cert_sans:
+  - DNS:localhost
+tpeap_caddy_config_dir: /etc/caddy
+tpeap_caddy_extra_sans:
+  - DNS:tpeap.mgmt.nevi.network
 
 tpeap_data_dir: /var/lib/tpeap
 tpeap_image: ghcr.io/nevivurn/homelab-images/tpeap

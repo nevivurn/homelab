@@ -23,7 +23,7 @@ query:
       cpu: 100m
       memory: 128Mi
     limits:
-      memory: 128Mi
+      memory: 1Gi
 
 compactor:
   extraArgs:
@@ -46,7 +46,7 @@ storegateway:
       cpu: 100m
       memory: 512Mi
     limits:
-      memory: 512Mi
+      memory: 1Gi
   persistence:
     storageClass: openebs-zfs
 

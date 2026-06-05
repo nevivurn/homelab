@@ -1,0 +1,7 @@
+- name: Generate tpeap CA
+  ansible.builtin.import_role:
+    name: pki_ca
+  vars:
+    pki_ca_basedir: "{{ tpeap_ca_basedir }}"
+    pki_ca_cn: "{{ tpeap_ca_cn }}"
+    pki_ca_algo: ECC # NOTE(nevivurn): envoy does not support Ed25519

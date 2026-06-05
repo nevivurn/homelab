@@ -103,9 +103,21 @@
     - role: caddy
       tags: caddy
 
+- name: Generate tpeap CA
+  hosts: tpeap_ca
+  gather_facts: false
+  roles:
+    - role: tpeap_ca
+      tags: tpeap
 - name: Install tpeap
   hosts: tpeap
   gather_facts: false
   roles:
     - role: tpeap
+      tags: tpeap
+- name: Install tpeap caddy
+  hosts: tpeap
+  gather_facts: false
+  roles:
+    - role: tpeap_caddy
       tags: tpeap

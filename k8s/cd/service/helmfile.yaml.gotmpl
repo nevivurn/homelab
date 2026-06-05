@@ -64,6 +64,11 @@ releases:
     chart: ./tpeap-cert
     inherit:
       - template: default
+  - name: tpeap-proxy
+    namespace: tpeap
+    chart: ./tpeap-proxy
+    inherit:
+      - template: default
   - name: loki
     namespace: monitoring
     chart: oci://ghcr.io/grafana-community/helm-charts/loki

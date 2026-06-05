@@ -30,11 +30,11 @@ talos-ccm-pdb:
 
 coredns:
   enabled: true
-  version: 1.45.2
+  version: 1.46.0
 
 argocd:
   enabled: false
-  version: 9.5.17
+  version: 9.5.19
 argocd-routes:
   enabled: false
 
@@ -43,7 +43,7 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.8.0
+  version: v1.8.1
 
 envoy-gateway-policy:
   enabled: true
@@ -95,6 +95,8 @@ cloudflare-gateway:
 
 tpeap-cert:
   enabled: false
+tpeap-proxy:
+  enabled: false
 
 zfs-init:
   enabled: false
@@ -105,7 +107,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.29.0
+  version: 4.31.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -113,7 +115,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 17.1.5
+  version: 17.1.7
 loki-routes:
   enabled: false
 
@@ -133,7 +135,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.4.1
+  version: 12.4.2
 grafana-config:
   enabled: false
 grafana-routes:

@@ -1,0 +1,55 @@
+- name: Create Caddy group
+  ansible.builtin.group:
+    name: caddy
+    system: true
+  register: tpeap_caddy_group
+- name: Create Caddy user
+  ansible.builtin.user:
+    name: caddy
+    group: caddy
+    home: "{{ tpeap_caddy_config_dir }}"
+    create_home: false
+    shell: /usr/sbin/nologin
+    system: true
+  register: tpeap_caddy_user
+
+- name: Generate Caddy configuration directory
+  ansible.builtin.file:
+    path: "{{ tpeap_caddy_config_dir }}"
+    state: directory
+    owner: caddy
+    group: caddy
+    mode: "0o755"
+
+- name: Generate Caddy certs
+  ansible.builtin.import_role:
+    name: pki_certs
+  vars:
+    pki_certs_user: caddy
+    pki_certs_group: caddy
+    pki_certs_dir: "{{ tpeap_caddy_config_dir }}/ssl"
+    pki_certs_id: server
+    pki_certs_ekus:
+      - serverAuth
+    pki_certs_ca_host: "{{ tpeap_caddy_ca_host }}"
+    pki_certs_ca_basedir: "{{ tpeap_caddy_ca_basedir }}"
+    pki_certs_extra_sans: "{{ tpeap_caddy_extra_sans }}"
+    pki_certs_algo: ECC # NOTE(nevivurn): envoy does not support Ed25519
+    pki_certs_curve: secp256r1
+
+- name: Copy Caddy configuration
+  ansible.builtin.template:
+    src: templates/Caddyfile.j2
+    dest: "{{ tpeap_caddy_config_dir }}/Caddyfile"
+    owner: caddy
+    group: caddy
+    mode: "0o600"
+  register: tpeap_caddy_config
+
+- name: Copy Caddy pod manifest
+  ansible.builtin.template:
+    src: templates/caddy-pod.yaml.j2
+    dest: /etc/kubernetes/manifests/caddy.yaml
+    owner: root
+    group: root
+    mode: "0o644"

@@ -15,6 +15,7 @@
   community.crypto.openssl_privatekey:
     path: '{{ pki_certs_dir }}/{{ pki_certs_id }}.key'
     type: '{{ pki_certs_algo | default("Ed25519") }}'
+    curve: '{{ pki_certs_curve | default("secp256r1") }}'
     owner: '{{ pki_certs_user }}'
     group: '{{ pki_certs_group }}'
 - name: Generate CSR

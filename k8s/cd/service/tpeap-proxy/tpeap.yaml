@@ -1,0 +1,59 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: tpeap
+spec:
+  endpoints:
+    - fqdn:
+        hostname: tpeap.mgmt.nevi.network
+        port: 443
+  tls:
+    caCertificateRefs:
+      - group: ""
+        kind: Secret
+        name: tpeap-proxy-cert
+    sni: tpeap.mgmt.nevi.network
+    clientCertificateRef:
+      group: ""
+      kind: Secret
+      name: tpeap-proxy-cert
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: tpeap
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: tpeap
+  mergeType: StrategicMerge
+  useClientProtocol: true
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tpeap
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateway
+      name: gateway
+  hostnames:
+    - tpeap.k8s.nevi.network
+  rules:
+    - backendRefs:
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: tpeap
+          weight: 1
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: tpeap.mgmt.nevi.network
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

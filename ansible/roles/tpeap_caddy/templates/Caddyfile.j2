@@ -1,0 +1,15 @@
+https:// {
+	tls /etc/caddy/ssl/server.crt /etc/caddy/ssl/server.key {
+		client_auth {
+			mode require_and_verify
+			trust_pool file /etc/caddy/ssl/ca.crt
+		}
+	}
+	log
+
+	reverse_proxy https://localhost:8043 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}

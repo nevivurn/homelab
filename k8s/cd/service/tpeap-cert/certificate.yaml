@@ -1,18 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: tpeap-cert
+  name: tpeap-proxy-cert
 spec:
-  secretName: tpeap-cert
+  secretName: tpeap-proxy-cert
   issuerRef:
-    kind: ClusterIssuer
-    name: le-prod
-  dnsNames:
-    - tpeap.mgmt.nevi.network
+    name: tpeap-proxy-ca
   privateKey:
-    algorithm: ECDSA
-    size: 256
-  keystores:
-    jks:
-      create: true
-      password: tplink
+    algorithm: Ed25519
+  commonName: tpeap-client
+  usages:
+    - digital signature
+    - client auth
