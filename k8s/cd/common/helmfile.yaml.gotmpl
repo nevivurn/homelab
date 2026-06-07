@@ -32,6 +32,11 @@ releases:
     chart: oci://quay.io/jetstack/charts/cert-manager
     inherit:
       - template: default
+  - name: external-secrets
+    namespace: external-secrets
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    inherit:
+      - template: default
   - name: external-dns-cert
     namespace: external-dns
     chart: ./external-dns-cert
@@ -121,6 +126,15 @@ releases:
   - name: seaweedfs-policy
     namespace: seaweedfs
     chart: ./seaweedfs-policy
+    inherit:
+      - template: default
+  - name: gateway-certs-share
+    chart: ./gateway-certs-share
+    inherit:
+      - template: default
+  - name: nats-policy
+    namespace: nats
+    chart: ./nats-policy
     inherit:
       - template: default
   - name: nats-certs

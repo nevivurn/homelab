@@ -9,6 +9,7 @@ namespaces:
       pod-security.kubernetes.io/warn: privileged
       pod-security.kubernetes.io/audit: privileged
   metrics-server:
+  external-secrets:
 
 cilium:
   enabled: true
@@ -51,6 +52,10 @@ envoy-gateway-policy:
 cert-manager:
   enabled: true
   version: v1.20.2
+
+external-secrets:
+  enabled: true
+  version: 2.5.0
 
 external-dns:
   enabled: true
@@ -162,6 +167,11 @@ authelia-routes:
 authelia-cert:
   enabled: false
 
+gateway-certs-share:
+  enabled: false
+
+nats-policy:
+  enabled: false
 nats-certs:
   enabled: false
 nats:

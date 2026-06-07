@@ -94,6 +94,10 @@ authelia-cert:
 otel-scrapeconfigs:
   enabled: true
 
+gateway-certs-share:
+  enabled: true
+nats-policy:
+  enabled: true
 nats-certs:
   enabled: true
 nats:

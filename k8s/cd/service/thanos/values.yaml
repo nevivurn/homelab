@@ -62,7 +62,6 @@ receive:
     storageClass: openebs-zfs
   extraArgs:
     - --enable-auto-gomemlimit
-    - --log.level=debug
     # ref: https://prometheus.io/docs/guides/opentelemetry/#promoting-resource-attributes
     - --receive.otlp-promote-resource-attributes=service.instance.id
     - --receive.otlp-promote-resource-attributes=service.name

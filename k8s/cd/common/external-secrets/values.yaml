@@ -1,0 +1,16 @@
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+webhook:
+  certManager:
+    enabled: true
+    cert:
+      issuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: cluster-ca-selfsigned

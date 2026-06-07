@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: nats
+  namespace: nats
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: nats
+      app.kubernetes.io/instance: nats
+      app.kubernetes.io/name: nats
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "4222"
+              protocol: TCP
