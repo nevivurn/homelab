@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openbao
+  namespace: openbao
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: openbao
+      app.kubernetes.io/instance: openbao
+      component: server
+  ingress:
+    - fromEntities:
+        - world
+      toPorts:
+        - ports:
+            - port: "8200"
+              protocol: TCP

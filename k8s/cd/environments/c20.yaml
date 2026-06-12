@@ -1,4 +1,5 @@
 namespaces:
+  openbao:
   cloudflare-tunnel:
   tpeap:
   seaweedfs:
@@ -101,4 +102,9 @@ nats-policy:
 nats-certs:
   enabled: true
 nats:
+  enabled: true
+
+openbao-policy:
+  enabled: true
+openbao:
   enabled: true

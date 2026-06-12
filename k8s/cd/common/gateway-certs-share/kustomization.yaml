@@ -5,3 +5,5 @@ resources:
   - rbac.yaml
   - secretstore.yaml
   - pushsecret.yaml
+  - secretstore-openbao.yaml
+  - pushsecret-openbao.yaml

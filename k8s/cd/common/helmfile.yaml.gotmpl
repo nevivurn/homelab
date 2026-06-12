@@ -147,9 +147,6 @@ releases:
     chart: nats/nats
     inherit:
       - template: default
-    set:
-      - name: container.image.tag
-        value: '{{ index .StateValues "nats" "imageTag" }}'
     transformers:
       - apiVersion: builtin
         kind: NamespaceTransformer

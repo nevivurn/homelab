@@ -1,0 +1,112 @@
+global:
+  tlsDisable: false
+
+injector:
+  enabled: false
+
+server:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: true
+      setNodeId: true
+      config: |
+        ui = true
+
+        listener "tcp" {
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+          tls_cert_file = "/openbao/tls/tls.crt"
+          tls_key_file  = "/openbao/tls/tls.key"
+        }
+
+        storage "raft" {
+          path = "/openbao/data"
+          retry_join {
+            leader_api_addr = "https://openbao-active.openbao.svc.cluster.local:8200"
+            leader_tls_servername = "openbao.k8s.nevi.network"
+          }
+        }
+
+        seal "gcpckms" {
+          project    = "nevi-dev-playground-3"
+          region     = "global"
+          key_ring   = "test-keypring"
+          crypto_key = "test-key"
+        }
+
+        service_registration "kubernetes" {}
+
+  dataStorage:
+    storageClass: openebs-zfs
+
+  extraEnvironmentVars:
+    GOOGLE_APPLICATION_CREDENTIALS: /etc/workload-identity/credential-configuration.json
+
+  volumes:
+    - name: workload-identity-token
+      projected:
+        sources:
+          - serviceAccountToken:
+              audience: https://iam.googleapis.com/projects/602801416654/locations/global/workloadIdentityPools/k8s-c20/providers/k8s-c20
+              path: token
+    - name: workload-identity-credential-configuration
+      configMap:
+        name: openbao-gcp-credentials
+    - name: openbao-tls
+      secret:
+        secretName: openbao-tls
+
+  volumeMounts:
+    - name: workload-identity-token
+      mountPath: /var/run/service-account
+      readOnly: true
+    - name: workload-identity-credential-configuration
+      mountPath: /etc/workload-identity
+      readOnly: true
+    - name: openbao-tls
+      mountPath: /openbao/tls
+      readOnly: true
+
+extraObjects:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: openbao-gcp-credentials
+      namespace: openbao
+    data:
+      credential-configuration.json: |
+        {
+          "universe_domain": "googleapis.com",
+          "type": "external_account",
+          "audience": "//iam.googleapis.com/projects/602801416654/locations/global/workloadIdentityPools/k8s-c20/providers/k8s-c20",
+          "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+          "token_url": "https://sts.googleapis.com/v1/token",
+          "credential_source": {
+            "file": "/var/run/service-account/token",
+            "format": {
+              "type": "text"
+            }
+          },
+          "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/example@nevi-dev-playground-3.iam.gserviceaccount.com:generateAccessToken"
+        }
+
+ui:
+  enabled: true
+  activeOpenbaoPodOnly: true
+  serviceType: LoadBalancer
+  externalPort: 443
+  serviceIPFamilyPolicy: RequireDualStack
+  serviceIPFamilies: [IPv4, IPv6]
+  externalTrafficPolicy: Local
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: openbao.k8s.nevi.network

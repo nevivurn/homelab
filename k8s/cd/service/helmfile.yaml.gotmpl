@@ -169,3 +169,13 @@ releases:
     chart: ./authelia-cert
     inherit:
       - template: default
+  - name: openbao-policy
+    namespace: openbao
+    chart: ./openbao-policy
+    inherit:
+      - template: default
+  - name: openbao
+    namespace: openbao
+    chart: oci://ghcr.io/openbao/charts/openbao
+    inherit:
+      - template: default

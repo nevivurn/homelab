@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.19
+  version: 9.5.21
 argocd-routes:
   enabled: false
 
@@ -55,7 +55,7 @@ cert-manager:
 
 external-secrets:
   enabled: true
-  version: 2.5.0
+  version: 2.6.0
 
 external-dns:
   enabled: true
@@ -68,7 +68,7 @@ gateway:
 
 metrics-server:
   enabled: true
-  version: 3.13.0
+  version: 3.13.1
 
 cluster-ca:
   enabled: true
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.5.2
+  imageTag: 2026.6.0
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -108,11 +108,11 @@ zfs-init:
 
 openebs-zfs:
   enabled: false
-  version: 2.10.0
+  version: 2.10.1
 
 seaweedfs:
   enabled: false
-  version: 4.31.0
+  version: 4.33.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,13 +120,13 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 17.1.7
+  version: 17.3.2
 loki-routes:
   enabled: false
 
 tempo:
   enabled: false
-  version: 2.2.0
+  version: 2.2.2
 tempo-routes:
   enabled: false
 
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.4.2
+  version: 12.4.4
 grafana-config:
   enabled: false
 grafana-routes:
@@ -148,7 +148,7 @@ grafana-routes:
 
 cloudnative-pg:
   enabled: false
-  version: 0.28.2
+  version: 0.28.3
 
 cluster-db-ca:
   enabled: false
@@ -176,5 +176,10 @@ nats-certs:
   enabled: false
 nats:
   enabled: false
-  version: 2.14.0
-  imageTag: 2.14.1
+  version: 2.14.2
+
+openbao-policy:
+  enabled: false
+openbao:
+  enabled: false
+  version: 0.28.3
