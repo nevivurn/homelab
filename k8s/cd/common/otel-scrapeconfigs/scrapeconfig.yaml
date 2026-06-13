@@ -24,3 +24,54 @@ spec:
         - athebyne.inf.nevi.network:9633
         - pve01.mgmt.nevi.network:9633
   metricsPath: /metrics
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: blackbox-icmp
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - alrakis.priv.nevi.network
+        - alrakis.prx.nevi.network
+        - giausar.priv.nevi.network
+        - giausar.prx.nevi.network
+  metricsPath: /probe
+  params:
+    module:
+      - icmp
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: prometheus-blackbox-exporter.monitoring.svc:9115
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: blackbox-http
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - https://ping.nevi.ing
+  metricsPath: /probe
+  params:
+    module:
+      - http_2xx
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: prometheus-blackbox-exporter.monitoring.svc:9115

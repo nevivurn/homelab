@@ -179,3 +179,8 @@ releases:
     chart: oci://ghcr.io/openbao/charts/openbao
     inherit:
       - template: default
+  - name: prometheus-blackbox-exporter
+    namespace: monitoring
+    chart: oci://ghcr.io/prometheus-community/charts/prometheus-blackbox-exporter
+    inherit:
+      - template: default

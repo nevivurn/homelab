@@ -108,3 +108,6 @@ openbao-policy:
   enabled: true
 openbao:
   enabled: true
+
+prometheus-blackbox-exporter:
+  enabled: true

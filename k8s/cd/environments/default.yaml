@@ -183,3 +183,7 @@ openbao-policy:
 openbao:
   enabled: false
   version: 0.28.3
+
+prometheus-blackbox-exporter:
+  enabled: false
+  version: 11.12.0
