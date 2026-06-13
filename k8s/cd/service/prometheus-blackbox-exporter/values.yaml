@@ -9,3 +9,13 @@ config:
       prober: http
     icmp:
       prober: icmp
+    icmp_v4:
+      prober: icmp
+      icmp:
+        preferred_ip_protocol: "ip4"
+        ip_protocol_fallback: false
+    icmp_v6:
+      prober: icmp
+      icmp:
+        preferred_ip_protocol: "ip6"
+        ip_protocol_fallback: false

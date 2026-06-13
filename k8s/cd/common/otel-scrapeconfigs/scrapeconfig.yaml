@@ -33,14 +33,62 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - alrakis.priv.nevi.network
         - alrakis.prx.nevi.network
-        - giausar.priv.nevi.network
         - giausar.prx.nevi.network
   metricsPath: /probe
   params:
     module:
       - icmp
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: prometheus-blackbox-exporter.monitoring.svc:9115
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: blackbox-icmp-v4
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - alrakis.priv.nevi.network
+        - giausar.priv.nevi.network
+  metricsPath: /probe
+  params:
+    module:
+      - icmp_v4
+  relabelings:
+    - action: replace
+      sourceLabels: [__address__]
+      targetLabel: __param_target
+    - action: replace
+      sourceLabels: [__param_target]
+      targetLabel: instance
+    - action: replace
+      targetLabel: __address__
+      replacement: prometheus-blackbox-exporter.monitoring.svc:9115
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: blackbox-icmp-v6
+  namespace: monitoring
+spec:
+  staticConfigs:
+    - targets:
+        - alrakis.priv.nevi.network
+        - giausar.priv.nevi.network
+  metricsPath: /probe
+  params:
+    module:
+      - icmp_v6
   relabelings:
     - action: replace
       sourceLabels: [__address__]
