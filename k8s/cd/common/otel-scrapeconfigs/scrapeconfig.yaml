@@ -33,6 +33,9 @@ metadata:
 spec:
   staticConfigs:
     - targets:
+        - gateway.k8s.nevi.network
+        - rtr01.k8s.nevi.network
+        - rtr02.k8s.nevi.network
         - alrakis.prx.nevi.network
         - giausar.prx.nevi.network
   metricsPath: /probe

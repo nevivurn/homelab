@@ -13,11 +13,11 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.19.4
+  version: 1.19.5
 
 cilium-preflight:
   enabled: false
-  version: 1.19.4
+  version: 1.19.5
 
 cilium-bgp:
   enabled: true
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.15.2
+  version: 0.16.0
 
 otel-scrapeconfigs:
   enabled: false
@@ -112,7 +112,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.33.0
+  version: 4.34.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,19 +120,19 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 17.3.2
+  version: 17.4.4
 loki-routes:
   enabled: false
 
 tempo:
   enabled: false
-  version: 2.2.2
+  version: 2.2.3
 tempo-routes:
   enabled: false
 
 thanos:
   enabled: false
-  version: 0.18.0
+  version: 0.18.2
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.4.4
+  version: 12.4.5
 grafana-config:
   enabled: false
 grafana-routes:

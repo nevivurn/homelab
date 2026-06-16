@@ -3,6 +3,10 @@ securityContext:
     add:
       - NET_RAW
 
+replicas: 2
+podDisruptionBudget:
+  minAvailable: 1
+
 config:
   modules:
     http_2xx:
