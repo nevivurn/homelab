@@ -35,7 +35,7 @@ volume:
       type: "persistentVolumeClaim"
       storageClass: openebs-zfs
       size: 50Gi
-      maxVolumes: 100
+      maxVolumes: 1000
 
 filer:
   replicas: 2
@@ -69,11 +69,11 @@ s3:
   resources:
     requests:
       cpu: 200m
-      memory: 1Gi
+      memory: 2Gi
     limits:
-      memory: 1Gi
+      memory: 2Gi
   extraEnvironmentVars:
-    GOMEMLIMIT: 900MiB
+    GOMEMLIMIT: 1536MiB
   logs:
     type: "emptyDir"
 

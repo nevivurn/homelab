@@ -57,7 +57,7 @@ receive:
       cpu: 100m
       memory: 256Mi
     limits:
-      memory: 256Mi
+      memory: 512Mi
   persistence:
     storageClass: openebs-zfs
   extraArgs:
