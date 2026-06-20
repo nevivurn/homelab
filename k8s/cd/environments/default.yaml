@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.5.21
+  version: 9.5.22
 argocd-routes:
   enabled: false
 
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.6.0
+  imageTag: 2026.6.1
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 17.4.4
+  version: 17.4.9
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.18.2
+  version: 0.20.0
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.4.5
+  version: 12.4.8
 grafana-config:
   enabled: false
 grafana-routes:
