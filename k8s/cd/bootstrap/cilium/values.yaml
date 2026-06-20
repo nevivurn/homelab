@@ -29,6 +29,9 @@ bpf:
   distributedLRU:
     enabled: true
   datapathMode: netkit
+  events:
+    trace:
+      enabled: false
 bpfClockProbe: true
 enableIPv4Masquerade: false
 enableIPv6Masquerade: false
