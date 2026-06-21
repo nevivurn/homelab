@@ -38,10 +38,10 @@ server:
         }
 
         seal "gcpckms" {
-          project    = "nevi-dev-playground-3"
+          project    = "nevi-dev-kms"
           region     = "global"
-          key_ring   = "test-keypring"
-          crypto_key = "test-key"
+          key_ring   = "kms"
+          crypto_key = "kms"
         }
 
         service_registration "kubernetes" {}
@@ -97,7 +97,7 @@ extraObjects:
               "type": "text"
             }
           },
-          "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/example@nevi-dev-playground-3.iam.gserviceaccount.com:generateAccessToken"
+          "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/openbao-kms@nevi-dev-kms.iam.gserviceaccount.com:generateAccessToken"
         }
 
 ui:
