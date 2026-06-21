@@ -1,0 +1,73 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: ReferenceGrant
+metadata:
+  namespace: seaweedfs
+  name: cloudflare-static
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: {{ .Release.Namespace }}
+  to:
+    - group: ""
+      kind: Service
+      name: seaweedfs-s3
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: HTTPRouteFilter
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: cloudflare-static
+spec:
+  urlRewrite:
+    path:
+      type: ReplaceRegexMatch
+      replaceRegexMatch:
+        pattern: "(.*)"
+        substitution: "/s.nevi.ing\\1"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: cloudflare-static
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: cloudflare-gateway
+  hostnames:
+    - s.nevi.ing
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: s3.k8s.nevi.network
+        - type: ExtensionRef
+          extensionRef:
+            group: gateway.envoyproxy.io
+            kind: HTTPRouteFilter
+            name: cloudflare-static
+        - type: CORS
+          cors:
+            allowOrigins: ["*"]
+            maxAge: 3600
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: x-content-type-options
+                value: nosniff
+              - name: x-frame-options
+                value: DENY
+      backendRefs:
+        - group: ""
+          kind: Service
+          namespace: seaweedfs
+          name: seaweedfs-s3
+          port: 8333
+          weight: 1

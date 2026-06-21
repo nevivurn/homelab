@@ -1,5 +1,5 @@
 global:
-  domain: argocd.capi.k8s.nevi.network
+  domain: argocd.k8s.nevi.network
 
 dex:
   enabled: false

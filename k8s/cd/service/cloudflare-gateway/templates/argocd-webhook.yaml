@@ -7,7 +7,7 @@ metadata:
 spec:
   endpoints:
     - fqdn:
-        hostname: argocd.capi.k8s.nevi.network
+        hostname: argocd.k8s.nevi.network
         port: 443
 ---
 apiVersion: gateway.networking.k8s.io/v1alpha3
@@ -22,7 +22,7 @@ spec:
       name: argocd-webhook
   validation:
     wellKnownCACertificates: System
-    hostname: argocd.capi.k8s.nevi.network
+    hostname: argocd.k8s.nevi.network
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -44,7 +44,7 @@ spec:
       filters:
         - type: URLRewrite
           urlRewrite:
-            hostname: argocd.capi.k8s.nevi.network
+            hostname: argocd.k8s.nevi.network
             path:
               type: ReplaceFullPath
               replaceFullPath: /api/webhook

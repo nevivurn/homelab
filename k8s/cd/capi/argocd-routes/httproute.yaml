@@ -9,7 +9,7 @@ spec:
       namespace: gateway
       name: gateway
   hostnames:
-    - argocd.capi.k8s.nevi.network
+    - argocd.k8s.nevi.network
   rules:
     - backendRefs:
         - group: ""
