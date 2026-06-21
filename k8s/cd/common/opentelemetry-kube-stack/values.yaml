@@ -13,6 +13,31 @@ collectors:
       receivers:
         kubeletstats:
           collection_interval: 10s
+        prometheus/cadvisor:
+          config:
+            scrape_configs:
+              - job_name: cadvisor
+                scrape_interval: 10s
+                scheme: https
+                tls_config:
+                  insecure_skip_verify: true
+                bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+                static_configs:
+                  - targets:
+                      - "${env:OTEL_K8S_NODE_IP}:10250"
+                metrics_path: /metrics/cadvisor
+                metric_relabel_configs:
+                  - source_labels: [__name__]
+                    regex: 'container_cpu_cfs_(throttled_periods|periods|throttled_seconds)_total'
+                    action: keep
+                  - source_labels: [namespace]
+                    target_label: k8s_namespace_name
+                  - source_labels: [pod]
+                    target_label: k8s_pod_name
+                  - source_labels: [container]
+                    target_label: k8s_container_name
+                  - action: labelkeep
+                    regex: '__name__|k8s_(namespace|pod|container)_name'
       processors:
         memory_limiter:
           check_interval: 1s
@@ -49,6 +74,7 @@ collectors:
           metrics:
             receivers:
               - otlp
+              - prometheus/cadvisor
             processors:
               - memory_limiter
               - k8sattributes

@@ -5,6 +5,9 @@ injector:
   enabled: false
 
 server:
+  podManagementPolicy: Parallel
+  updateStrategyType: RollingUpdate
+
   resources:
     requests:
       cpu: 100m
