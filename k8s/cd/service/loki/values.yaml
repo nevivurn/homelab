@@ -37,9 +37,9 @@ singleBinary:
   resources:
     requests:
       cpu: 200m
-      memory: 1Gi
+      memory: 2Gi
     limits:
-      memory: 1Gi
+      memory: 2Gi
   extraEnv:
     - name: GOMEMLIMIT
       value: 768MiB

@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 9.6.0
+  version: 10.0.0
 argocd-routes:
   enabled: false
 
@@ -51,11 +51,11 @@ envoy-gateway-policy:
 
 cert-manager:
   enabled: true
-  version: v1.20.2
+  version: v1.20.3
 
 external-secrets:
   enabled: true
-  version: 2.6.0
+  version: 2.7.0
 
 external-dns:
   enabled: true
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.16.0
+  version: 0.17.1
 
 otel-scrapeconfigs:
   enabled: false
@@ -112,7 +112,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.34.0
+  version: 4.36.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 17.4.9
+  version: 18.1.1
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.20.0
+  version: 0.23.1
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.4.8
+  version: 12.7.1
 grafana-config:
   enabled: false
 grafana-routes:

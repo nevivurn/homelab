@@ -31,13 +31,29 @@ metadata:
   name: blackbox-icmp
   namespace: monitoring
 spec:
-  staticConfigs:
-    - targets:
+  dnsSDConfigs:
+    - names:
         - gateway.k8s.nevi.network
         - rtr01.k8s.nevi.network
         - rtr02.k8s.nevi.network
         - alrakis.prx.nevi.network
         - giausar.prx.nevi.network
+        - alrakis.priv.nevi.network
+        - giausar.priv.nevi.network
+      type: A
+      port: 80
+      refreshInterval: 30s
+    - names:
+        - gateway.k8s.nevi.network
+        - rtr01.k8s.nevi.network
+        - rtr02.k8s.nevi.network
+        - alrakis.prx.nevi.network
+        - giausar.prx.nevi.network
+        - alrakis.priv.nevi.network
+        - giausar.priv.nevi.network
+      type: AAAA
+      port: 80
+      refreshInterval: 30s
   metricsPath: /probe
   params:
     module:
@@ -45,60 +61,20 @@ spec:
   relabelings:
     - action: replace
       sourceLabels: [__address__]
+      regex: '(.+):\d+'
+      replacement: '$1'
       targetLabel: __param_target
     - action: replace
       sourceLabels: [__param_target]
-      targetLabel: instance
-    - action: replace
-      targetLabel: __address__
-      replacement: prometheus-blackbox-exporter.monitoring.svc:9115
----
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: ScrapeConfig
-metadata:
-  name: blackbox-icmp-v4
-  namespace: monitoring
-spec:
-  staticConfigs:
-    - targets:
-        - alrakis.priv.nevi.network
-        - giausar.priv.nevi.network
-  metricsPath: /probe
-  params:
-    module:
-      - icmp_v4
-  relabelings:
-    - action: replace
-      sourceLabels: [__address__]
+      regex: '\[(.+)\]'
+      replacement: '$1'
       targetLabel: __param_target
     - action: replace
-      sourceLabels: [__param_target]
+      sourceLabels: [__meta_dns_name]
       targetLabel: instance
     - action: replace
-      targetLabel: __address__
-      replacement: prometheus-blackbox-exporter.monitoring.svc:9115
----
-apiVersion: monitoring.coreos.com/v1alpha1
-kind: ScrapeConfig
-metadata:
-  name: blackbox-icmp-v6
-  namespace: monitoring
-spec:
-  staticConfigs:
-    - targets:
-        - alrakis.priv.nevi.network
-        - giausar.priv.nevi.network
-  metricsPath: /probe
-  params:
-    module:
-      - icmp_v6
-  relabelings:
-    - action: replace
-      sourceLabels: [__address__]
-      targetLabel: __param_target
-    - action: replace
       sourceLabels: [__param_target]
-      targetLabel: instance
+      targetLabel: address
     - action: replace
       targetLabel: __address__
       replacement: prometheus-blackbox-exporter.monitoring.svc:9115
