@@ -18,6 +18,7 @@ query:
   replicaCount: 1
   extraArgs:
     - --enable-auto-gomemlimit
+    - --query.auto-downsampling
   resources:
     requests:
       cpu: 100m

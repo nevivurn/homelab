@@ -24,7 +24,7 @@ cilium-bgp:
 
 talos-cloud-controller-manager:
   enabled: true
-  version: 0.5.4
+  version: 0.5.5
 
 talos-ccm-pdb:
   enabled: true
@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 10.0.0
+  version: 10.1.2
 argocd-routes:
   enabled: false
 
@@ -44,14 +44,14 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.8.1
+  version: v1.8.2
 
 envoy-gateway-policy:
   enabled: true
 
 cert-manager:
   enabled: true
-  version: v1.20.3
+  version: v1.21.0
 
 external-secrets:
   enabled: true
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.17.1
+  version: 0.18.0
 
 otel-scrapeconfigs:
   enabled: false
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.6.1
+  imageTag: 2026.7.1
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -112,7 +112,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.36.0
+  version: 4.38.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.1.1
+  version: 18.4.2
 loki-routes:
   enabled: false
 
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.7.1
+  version: 12.7.2
 grafana-config:
   enabled: false
 grafana-routes:
@@ -148,7 +148,7 @@ grafana-routes:
 
 cloudnative-pg:
   enabled: false
-  version: 0.28.3
+  version: 0.29.0
 
 cluster-db-ca:
   enabled: false

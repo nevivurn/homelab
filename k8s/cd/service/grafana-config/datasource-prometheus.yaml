@@ -14,3 +14,5 @@ data:
         isDefault: true
         jsonData:
           timeInterval: 10s
+          prometheusType: Thanos
+          prometheusVersion: 0.31.1
