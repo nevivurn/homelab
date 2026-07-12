@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 10.1.2
+  version: 10.1.3
 argocd-routes:
   enabled: false
 
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.18.0
+  version: 0.19.0
 
 otel-scrapeconfigs:
   enabled: false
@@ -112,7 +112,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.38.0
+  version: 4.39.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.4.2
+  version: 18.4.4
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.23.1
+  version: 0.24.0
 thanos-routes:
   enabled: false
 monitoring-policy:
