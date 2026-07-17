@@ -13,11 +13,11 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.19.5
+  version: 1.19.6
 
 cilium-preflight:
   enabled: false
-  version: 1.19.5
+  version: 1.19.6
 
 cilium-bgp:
   enabled: true
@@ -31,11 +31,11 @@ talos-ccm-pdb:
 
 coredns:
   enabled: true
-  version: 1.46.0
+  version: 1.46.1
 
 argocd:
   enabled: false
-  version: 10.1.3
+  version: 10.1.4
 argocd-routes:
   enabled: false
 
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.19.0
+  version: 0.19.1
 
 otel-scrapeconfigs:
   enabled: false
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.7.1
+  imageTag: 2026.7.2
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.4.4
+  version: 18.5.0
 loki-routes:
   enabled: false
 
