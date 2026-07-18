@@ -55,7 +55,7 @@ cert-manager:
 
 external-secrets:
   enabled: true
-  version: 2.7.0
+  version: 2.8.0
 
 external-dns:
   enabled: true
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.19.1
+  version: 0.19.2
 
 otel-scrapeconfigs:
   enabled: false
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.5.0
+  version: 18.5.1
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.24.0
+  version: 0.25.0
 thanos-routes:
   enabled: false
 monitoring-policy:
