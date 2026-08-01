@@ -20,6 +20,12 @@ spec:
         runAsGroup: {{ kea_group.gid }}
         runAsNonRoot: true
       image: "{{ kea_dhcp6_image }}:{{ kea_version }}"
+      args:
+        - /usr/sbin/kea-dhcp6
+        - -c
+        - /etc/kea/kea-dhcp6.conf
+        # HTTP controlsocket is safe, localhost
+        - -X
       volumeMounts:
         - name: config
           mountPath: /etc/kea

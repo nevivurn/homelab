@@ -29,7 +29,7 @@ kea_config_dir: /etc/kea
 kea_data_dir: /var/lib/kea
 kea_dhcp4_image: docker.cloudsmith.io/isc/docker/kea-dhcp4
 kea_dhcp6_image: docker.cloudsmith.io/isc/docker/kea-dhcp6
-kea_version: 3.0.4
+kea_version: 3.2.0
 
 kea_subnets:
   1:

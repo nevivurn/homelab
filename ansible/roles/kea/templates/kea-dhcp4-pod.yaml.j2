@@ -21,6 +21,12 @@ spec:
         runAsGroup: {{ kea_group.gid }}
         runAsNonRoot: true
       image: "{{ kea_dhcp4_image }}:{{ kea_version }}"
+      args:
+        - /usr/sbin/kea-dhcp4
+        - -c
+        - /etc/kea/kea-dhcp4.conf
+        # HTTP controlsocket is safe, localhost
+        - -X
       volumeMounts:
         - name: config
           mountPath: /etc/kea
