@@ -37,6 +37,8 @@ in
     interfaces = {
       wireguard.wg50 = {
         address = [ "${prefix}1/64" ];
+        ip.adjust-mss = "clamp-mss-to-pmtu";
+        ipv6.adjust-mss = "clamp-mss-to-pmtu";
 
         peer = lib.mapAttrs (_: peer: {
           allowed-ips = [ "${prefix}${peer.index}/128" ];
