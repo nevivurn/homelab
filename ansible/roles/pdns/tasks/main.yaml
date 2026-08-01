@@ -28,6 +28,21 @@
     group: pdns
     mode: '0o755'
 
+- name: Generate PowerDNS TLS directory
+  ansible.builtin.file:
+    path: "{{ pdns_config_dir }}/ssl"
+    state: directory
+    owner: pdns
+    group: pdns
+    mode: "0o755"
+- name: Copy Postgres CA certificate
+  ansible.builtin.copy:
+    src: "{{ patroni_postgres_ca_basedir }}/ca.crt"
+    dest: "{{ pdns_config_dir }}/ssl/postgres-ca.crt"
+    owner: pdns
+    group: pdns
+    mode: "0o644"
+
 - name: Copy PowerDNS configuration
   ansible.builtin.template:
     src: templates/pdns.conf.j2
