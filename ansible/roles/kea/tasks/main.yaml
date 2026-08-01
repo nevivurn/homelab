@@ -29,6 +29,21 @@
     group: kea
     mode: "0o755"
 
+- name: Generate Kea TLS directory
+  ansible.builtin.file:
+    path: "{{ kea_config_dir }}/ssl"
+    state: directory
+    owner: kea
+    group: kea
+    mode: "0o755"
+- name: Copy Postgres CA certificate
+  ansible.builtin.copy:
+    src: "{{ patroni_postgres_ca_basedir }}/ca.crt"
+    dest: "{{ kea_config_dir }}/ssl/postgres-ca.crt"
+    owner: kea
+    group: kea
+    mode: "0o644"
+
 - name: Copy Kea DHCPv4 configuration
   ansible.builtin.copy:
     content: '{{ lookup("template", "kea-dhcp4.conf.j2") | from_yaml | to_nice_json }}'
