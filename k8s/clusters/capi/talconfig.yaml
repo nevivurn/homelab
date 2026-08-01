@@ -93,9 +93,18 @@ patches:
       discovery:
         enabled: false
       controllerManager:
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
         extraArgs:
           node-cidr-mask-size-ipv4: 24
           node-cidr-mask-size-ipv6: 96
+      apiServer:
+        resources:
+          requests:
+            cpu: 200m
+            memory: 2Gi
     machine:
       network:
         kubespan:
