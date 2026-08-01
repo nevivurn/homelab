@@ -13,29 +13,29 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.19.6
+  version: 1.20.0
 
 cilium-preflight:
   enabled: false
-  version: 1.19.6
+  version: 1.20.0
 
 cilium-bgp:
   enabled: true
 
 talos-cloud-controller-manager:
   enabled: true
-  version: 0.5.5
+  version: 0.5.6
 
 talos-ccm-pdb:
   enabled: true
 
 coredns:
   enabled: true
-  version: 1.46.1
+  version: 1.47.0
 
 argocd:
   enabled: false
-  version: 10.1.4
+  version: 10.2.2
 argocd-routes:
   enabled: false
 
@@ -44,14 +44,14 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.8.2
+  version: v1.8.3
 
 envoy-gateway-policy:
   enabled: true
 
 cert-manager:
   enabled: true
-  version: v1.21.0
+  version: v1.21.1
 
 external-secrets:
   enabled: true
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.19.2
+  version: 0.20.0
 
 otel-scrapeconfigs:
   enabled: false
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.7.2
+  imageTag: 2026.7.3
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -112,7 +112,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.39.0
+  version: 4.40.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.5.1
+  version: 18.7.1
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.25.0
+  version: 0.29.0
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.7.2
+  version: 12.10.1
 grafana-config:
   enabled: false
 grafana-routes:
@@ -186,4 +186,4 @@ openbao:
 
 prometheus-blackbox-exporter:
   enabled: false
-  version: 11.12.0
+  version: 11.16.0

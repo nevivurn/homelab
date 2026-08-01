@@ -1,5 +1,5 @@
 clusterName: capi
-talosVersion: v1.13.5
+talosVersion: v1.13.7
 kubernetesVersion: v1.36.2
 endpoint: https://capi.k8s.nevi.network:6443
 
