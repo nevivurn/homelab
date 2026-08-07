@@ -104,16 +104,16 @@ spec:
               kubePrism:
                 enabled: true
                 port: 7445
-      talosVersion: v1.13.7
+      talosVersion: v1.13.8
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
     kind: ProxmoxMachineTemplate
-    name: c20-cp-b
+    name: c20-cp-a
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha2
 kind: ProxmoxMachineTemplate
 metadata:
-  name: c20-cp-b
+  name: c20-cp-a
 spec:
   template:
     spec:
@@ -131,7 +131,7 @@ spec:
             vlan: 30
         zone: cp
       sourceNode: pve01
-      templateID: 203
+      templateID: 204
       vmIDRange:
         start: 300
         end: 399
