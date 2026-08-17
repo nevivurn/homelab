@@ -11,4 +11,5 @@ spec:
   dnsNames:
     {{- toYaml .Values.dnsNames | nindent 4 }}
   privateKey:
-    algorithm: Ed25519
+    algorithm: ECDSA
+    size: 256

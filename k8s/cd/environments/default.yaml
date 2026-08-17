@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 10.3.0
+  version: 10.3.3
 argocd-routes:
   enabled: false
 
@@ -44,7 +44,7 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.8.3
+  version: v1.9.0
 
 envoy-gateway-policy:
   enabled: true
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.7.3
+  imageTag: 2026.8.2
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -112,7 +112,7 @@ openebs-zfs:
 
 seaweedfs:
   enabled: false
-  version: 4.41.0
+  version: 4.42.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,19 +120,19 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.7.6
+  version: 18.9.0
 loki-routes:
   enabled: false
 
 tempo:
   enabled: false
-  version: 2.2.3
+  version: 2.2.4
 tempo-routes:
   enabled: false
 
 thanos:
   enabled: false
-  version: 0.31.0
+  version: 0.35.0
 thanos-routes:
   enabled: false
 monitoring-policy:
