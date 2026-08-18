@@ -13,11 +13,11 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.20.0
+  version: 1.20.1
 
 cilium-preflight:
   enabled: false
-  version: 1.20.0
+  version: 1.20.1
 
 cilium-bgp:
   enabled: true
