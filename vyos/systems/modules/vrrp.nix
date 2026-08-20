@@ -40,6 +40,7 @@ in
           v.v6address
           "fe80::1/64"
         ];
+        no-preempt = { };
       }) groups;
     };
 
