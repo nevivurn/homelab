@@ -35,7 +35,7 @@ coredns:
 
 argocd:
   enabled: false
-  version: 10.3.3
+  version: 10.4.0
 argocd-routes:
   enabled: false
 
@@ -68,7 +68,7 @@ gateway:
 
 metrics-server:
   enabled: true
-  version: 3.13.1
+  version: 3.14.0
 
 cluster-ca:
   enabled: true
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.20.1
+  version: 0.20.3
 
 otel-scrapeconfigs:
   enabled: false
@@ -108,11 +108,11 @@ zfs-init:
 
 openebs-zfs:
   enabled: false
-  version: 2.10.1
+  version: 2.11.0
 
 seaweedfs:
   enabled: false
-  version: 4.42.0
+  version: 4.44.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,7 +120,7 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.9.0
+  version: 18.11.0
 loki-routes:
   enabled: false
 
@@ -132,7 +132,7 @@ tempo-routes:
 
 thanos:
   enabled: false
-  version: 0.35.0
+  version: 0.38.0
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.10.4
+  version: 12.11.1
 grafana-config:
   enabled: false
 grafana-routes:
@@ -176,7 +176,7 @@ nats-certs:
   enabled: false
 nats:
   enabled: false
-  version: 2.14.4
+  version: 2.14.5
 
 openbao-policy:
   enabled: false

@@ -109,15 +109,6 @@ releases:
     chart: oci://ghcr.io/seaweedfs/seaweedfs
     inherit:
       - template: default
-    strategicMergePatches:
-      - apiVersion: v1
-        kind: Secret
-        metadata:
-          name: seaweedfs-db-secret
-          namespace: seaweedfs
-        stringData:
-          user: "unused"
-          password: "unused"
   - name: seaweedfs-pdb
     namespace: seaweedfs
     chart: ./seaweedfs-pdb
