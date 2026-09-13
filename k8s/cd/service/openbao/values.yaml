@@ -112,4 +112,4 @@ ui:
   serviceIPFamilies: [IPv4, IPv6]
   externalTrafficPolicy: Local
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: openbao.k8s.nevi.network
+    external-dns.kubernetes.io/hostname: openbao.k8s.nevi.network

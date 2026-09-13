@@ -2,7 +2,7 @@ service:
   merge:
     metadata:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: nats.k8s.nevi.network
+        external-dns.kubernetes.io/hostname: nats.k8s.nevi.network
     spec:
       type: LoadBalancer
       externalTrafficPolicy: Local

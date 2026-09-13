@@ -75,7 +75,7 @@ spec:
       {{- end }}
       envoyService:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: {{ index .Values.dnsNames 0 | replace "*" "gateway" | quote }}
+          external-dns.kubernetes.io/hostname: {{ index .Values.dnsNames 0 | replace "*" "gateway" | quote }}
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: Backend

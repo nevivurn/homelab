@@ -3,7 +3,7 @@ resources:
     cpu: 100m
     memory: 512Mi
   limits:
-    memory: 512Mi
+    memory: 1Gi
 
 persistence:
   enabled: false

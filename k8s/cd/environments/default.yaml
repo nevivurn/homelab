@@ -24,18 +24,18 @@ cilium-bgp:
 
 talos-cloud-controller-manager:
   enabled: true
-  version: 0.5.6
+  version: 0.5.7
 
 talos-ccm-pdb:
   enabled: true
 
 coredns:
   enabled: true
-  version: 1.47.0
+  version: 1.47.1
 
 argocd:
   enabled: false
-  version: 10.4.0
+  version: 10.9.0
 argocd-routes:
   enabled: false
 
@@ -44,22 +44,22 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.9.0
+  version: v1.9.1
 
 envoy-gateway-policy:
   enabled: true
 
 cert-manager:
   enabled: true
-  version: v1.21.1
+  version: v1.21.2
 
 external-secrets:
   enabled: true
-  version: 2.9.0
+  version: 2.10.0
 
 external-dns:
   enabled: true
-  version: 1.21.1
+  version: 1.22.0
 external-dns-cert:
   enabled: true
 
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.20.3
+  version: 0.20.9
 
 otel-scrapeconfigs:
   enabled: false
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.8.2
+  imageTag: 2026.9.1
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -108,11 +108,11 @@ zfs-init:
 
 openebs-zfs:
   enabled: false
-  version: 2.11.0
+  version: 2.11.1
 
 seaweedfs:
   enabled: false
-  version: 4.44.0
+  version: 4.46.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,19 +120,19 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.11.0
+  version: 18.13.0
 loki-routes:
   enabled: false
 
 tempo:
   enabled: false
-  version: 2.2.4
+  version: 3.0.0
 tempo-routes:
   enabled: false
 
 thanos:
   enabled: false
-  version: 0.38.0
+  version: 0.43.0
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 12.11.1
+  version: 13.2.4
 grafana-config:
   enabled: false
 grafana-routes:
@@ -161,7 +161,7 @@ lldap:
 
 authelia:
   enabled: false
-  version: 0.11.6
+  version: 0.11.22
 authelia-routes:
   enabled: false
 authelia-cert:
@@ -176,7 +176,7 @@ nats-certs:
   enabled: false
 nats:
   enabled: false
-  version: 2.14.5
+  version: 2.14.6
 
 openbao-policy:
   enabled: false
@@ -186,4 +186,4 @@ openbao:
 
 prometheus-blackbox-exporter:
   enabled: false
-  version: 11.16.0
+  version: 11.18.0
