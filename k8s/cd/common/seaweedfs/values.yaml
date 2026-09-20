@@ -79,6 +79,7 @@ s3:
 
 admin:
   enabled: true
+  ip: ::1
   resources:
     requests:
       cpu: 200m
