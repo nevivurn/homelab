@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.9.1
+  imageTag: 2026.10.2
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
