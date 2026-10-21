@@ -33,6 +33,13 @@ let
         "aAPN4n7CnWckL+uAdxktDsMS2me+r9bRv5gZp8gJ5EE="
       ];
     };
+    aldhibah = {
+      index = "5";
+      public-key = [
+        "5AasbpIJbFAV8Z6wWs/YximGvB57LeznxcQ45ZqasSQ="
+        "VInG53fisWN/nK+39QKmdsaKpmxDu5WYzSqidWeReBw="
+      ];
+    };
   };
 in
 
