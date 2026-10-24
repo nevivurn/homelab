@@ -1,7 +1,5 @@
 global:
   domain: argocd.k8s.nevi.network
-  image:
-    tag: v3.5.6
 
 dex:
   enabled: false

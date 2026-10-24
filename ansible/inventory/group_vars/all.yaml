@@ -1,4 +1,4 @@
-kubelet_kubernetes_version: v1.35
+kubelet_kubernetes_version: v1.37
 
 etcd_ca_host: localhost
 etcd_ca_basedir: pki/etcd
@@ -6,7 +6,7 @@ etcd_ca_cn: etcd-ca
 etcd_data_dir: /var/lib/etcd
 etcd_config_dir: /etc/etcd
 etcd_image: gcr.io/etcd-development/etcd
-etcd_version: v3.7.1
+etcd_version: v3.7.3
 
 patroni_ca_host: localhost
 patroni_ca_basedir: pki/patroni
@@ -19,7 +19,7 @@ patroni_scope: netbox
 patroni_config_dir: /etc/patroni
 patroni_postgres_data_dir: /var/lib/postgresql
 patroni_image: ghcr.io/nevivurn/homelab-images/patroni
-patroni_version: 4.1.5-0bcc2ec
+patroni_version: 4.1.5-85a9761
 
 patroni_haproxy_config_dir: /etc/haproxy
 patroni_haproxy_image: docker.io/library/haproxy
@@ -29,7 +29,7 @@ kea_config_dir: /etc/kea
 kea_data_dir: /var/lib/kea
 kea_dhcp4_image: docker.cloudsmith.io/isc/docker/kea-dhcp4
 kea_dhcp6_image: docker.cloudsmith.io/isc/docker/kea-dhcp6
-kea_version: 3.2.0
+kea_version: 3.2.1
 
 kea_subnets:
   1:
@@ -81,22 +81,22 @@ kea_subnets:
 
 pdns_config_dir: /etc/powerdns
 pdns_recursor_image: docker.io/powerdns/pdns-recursor-54
-pdns_recursor_version: 5.4.6
+pdns_recursor_version: 5.4.8
 pdns_server_image: docker.io/powerdns/pdns-auth-50
-pdns_server_version: 5.0.7
+pdns_server_version: 5.0.8
 pdns_recursor_forwards: "{{ (lookup('file', 'files/infra_zones.json') | from_json) | dict2items | map('combine', {'value': ['127.0.0.1:5301']}) | items2dict }}"
 pdns_recursor_trustanchors: "{{ lookup('file', 'files/infra_zones.json') | from_json }}"
 pdns_recursor_rpz_zone: hosts.zone
 
 chrony_config_dir: /etc/chrony
 chrony_image: ghcr.io/nevivurn/homelab-images/chrony
-chrony_version: 4.9-0bcc2ec
+chrony_version: 4.9-85a9761
 # rely on pve01 for now, until we get better clocks
 chrony_config: |
   server 10.64.1.11 iburst
 
 dhcrelay_image: ghcr.io/nevivurn/homelab-images/isc-dhcp-dhcrelay
-dhcrelay_version: 4.4.3-0bcc2ec
+dhcrelay_version: 4.4.3-031bd97
 
 caddy_ca_host: localhost
 caddy_ca_basedir: pki/caddy
@@ -105,7 +105,7 @@ caddy_client_cert_sans:
   - DNS:localhost
 caddy_config_dir: /etc/caddy
 caddy_image: docker.io/caddy
-caddy_version: 2.11.4
+caddy_version: 2.11.7
 caddy_extra_sans:
   - DNS:api.inf.nevi.network
 
@@ -125,4 +125,4 @@ tpeap_caddy_extra_sans:
 
 tpeap_data_dir: /var/lib/tpeap
 tpeap_image: ghcr.io/nevivurn/homelab-images/tpeap
-tpeap_version: 6.3.0.45-0bcc2ec
+tpeap_version: 6.3.0.111-85a9761

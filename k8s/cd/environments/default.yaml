@@ -13,11 +13,11 @@ namespaces:
 
 cilium:
   enabled: true
-  version: 1.20.2
+  version: 1.20.4
 
 cilium-preflight:
   enabled: false
-  version: 1.20.2
+  version: 1.20.4
 
 cilium-bgp:
   enabled: true
@@ -31,11 +31,11 @@ talos-ccm-pdb:
 
 coredns:
   enabled: true
-  version: 1.47.1
+  version: 1.49.0
 
 argocd:
   enabled: false
-  version: 10.9.2
+  version: 10.11.1
 argocd-routes:
   enabled: false
 
@@ -44,22 +44,22 @@ argocd-bootstrap:
 
 envoy-gateway:
   enabled: true
-  version: v1.9.1
+  version: v1.9.2
 
 envoy-gateway-policy:
   enabled: true
 
 cert-manager:
   enabled: true
-  version: v1.21.2
+  version: v1.21.3
 
 external-secrets:
   enabled: true
-  version: 2.10.0
+  version: 2.14.0
 
 external-dns:
   enabled: true
-  version: 1.22.0
+  version: 1.23.0
 external-dns-cert:
   enabled: true
 
@@ -84,7 +84,7 @@ cluster-policy:
 
 opentelemetry-kube-stack:
   enabled: true
-  version: 0.23.0
+  version: 0.25.1
 
 otel-scrapeconfigs:
   enabled: false
@@ -92,7 +92,7 @@ otel-scrapeconfigs:
 cloudflare-tunnel:
   enabled: false
   version: 0.3.2
-  imageTag: 2026.10.2
+  imageTag: 2026.10.3
 cloudflare-tunnel-policy:
   enabled: false
 cloudflare-gateway:
@@ -108,11 +108,11 @@ zfs-init:
 
 openebs-zfs:
   enabled: false
-  version: 2.11.1
+  version: 2.11.2
 
 seaweedfs:
   enabled: false
-  version: 4.47.0
+  version: 4.48.0
 seaweedfs-pdb:
   enabled: false
 seaweedfs-policy:
@@ -120,19 +120,19 @@ seaweedfs-policy:
 
 loki:
   enabled: false
-  version: 18.13.4
+  version: 19.2.1
 loki-routes:
   enabled: false
 
 tempo:
   enabled: false
-  version: 3.0.0
+  version: 3.2.1
 tempo-routes:
   enabled: false
 
 thanos:
   enabled: false
-  version: 0.44.0
+  version: 0.48.0
 thanos-routes:
   enabled: false
 monitoring-policy:
@@ -140,7 +140,7 @@ monitoring-policy:
 
 grafana:
   enabled: false
-  version: 13.2.5
+  version: 14.0.1
 grafana-config:
   enabled: false
 grafana-routes:
@@ -148,7 +148,7 @@ grafana-routes:
 
 cloudnative-pg:
   enabled: false
-  version: 0.29.0
+  version: 0.29.1
 
 cluster-db-ca:
   enabled: false
@@ -176,7 +176,7 @@ nats-certs:
   enabled: false
 nats:
   enabled: false
-  version: 2.14.6
+  version: 2.15.1
 
 openbao-policy:
   enabled: false
@@ -186,4 +186,4 @@ openbao:
 
 prometheus-blackbox-exporter:
   enabled: false
-  version: 11.18.0
+  version: 11.20.2

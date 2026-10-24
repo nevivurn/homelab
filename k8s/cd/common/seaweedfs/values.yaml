@@ -79,7 +79,7 @@ s3:
 
 admin:
   enabled: true
-  ip: ::1
+  allowInsecureBind: true
   resources:
     requests:
       cpu: 200m
