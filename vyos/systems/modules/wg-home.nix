@@ -12,13 +12,6 @@ let
   port = "51820";
 
   peers = {
-    altais = {
-      index = "2";
-      public-key = [
-        "0xsPcmKTLsF68NtaTDh45m5lbBr3AyMLZVgckNxT1UM="
-        "mtrjUEpeiulV7ltHPAoXcLuRkDy2b7UZKgC6UmxgtXw="
-      ];
-    };
     edasich = {
       index = "3";
       public-key = [
