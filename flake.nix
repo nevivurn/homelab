@@ -33,34 +33,6 @@
     )
     // {
       overlays.default = final: prev: {
-        talosctl = prev.talosctl.overrideAttrs (
-          finalAttrs: prevAttrs: {
-            version = "1.13.0";
-            src = final.fetchFromGitHub {
-              inherit (prevAttrs.src) owner repo;
-              tag = "v${finalAttrs.version}";
-              hash = "sha256-dO4GBDhxsiuNn0lJl8RgFwUVxn34+Uks69Cm5J9zJsg=";
-            };
-            vendorHash = "sha256-489ZbRoB7KhvrKfnfGEAw406zdMrkT/3fcw6LcAtFyo";
-          }
-        );
-        talhelper = prev.talhelper.overrideAttrs (
-          finalAttrs: prevAttrs: {
-            version = "3.1.9";
-            src = final.fetchFromGitHub {
-              inherit (prevAttrs.src) owner repo;
-              tag = "v${finalAttrs.version}";
-              hash = "sha256-ocZjtinqZylLjUOovazcCkshg71jjmAIe5a4cKLZ9eo=";
-            };
-            patches = [
-              (final.fetchurl {
-                url = "https://github.com/budimanjojo/talhelper/commit/d66b8e513cc7db09d1625a81381e6775cf32791e.patch?full_index=1";
-                hash = "sha256-y2uWsqJ4VNXibLshokLLTLCLfOoK1QHAAYIcDz+PrtU=";
-              })
-            ];
-            vendorHash = "sha256-PzZxQsX4ynjYJUgEkWm2ceMt8mAFIioNVG9hLejq6ns=";
-          }
-        );
         # custom packages
         terraform-providers = prev.terraform-providers // {
           infra = final.callPackage ./pkgs/terraform-provider-infra { };
